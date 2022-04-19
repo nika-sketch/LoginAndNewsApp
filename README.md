@@ -1,3 +1,9 @@
+# Demo
+
+
+https://user-images.githubusercontent.com/55893091/164082134-593e7740-bd91-46c9-ace5-0e3c67a0ff0d.mp4
+
+
 # NewsApp
 
 News Application, showing all articles published by the Wall Street Journal in the last 6 months, sorted by recent first, with the detail screen.
