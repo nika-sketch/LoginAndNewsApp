@@ -17,19 +17,4 @@ class NewsRepositoryImpl @Inject constructor(
             repository.getMarketItems()
         }
     }
-
-//    private suspend fun <T> handleResponse(apiCall: suspend () -> Response<T>): Resource<T> {
-//        try {
-//            val response = apiCall()
-//            val body = response.body()
-//            if (response.isSuccessful && body != null) {
-//                return Resource.Success(body)
-//            }
-//            return Resource.Error(response.errorBody().toString())
-//
-//        } catch (e: Exception) {
-//            return Resource.Error("exception")
-//        }
-//    }
-
 }

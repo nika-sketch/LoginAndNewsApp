@@ -18,16 +18,15 @@ class NewsViewModel @Inject constructor(private val getNewsUseCase: GetNewsUseCa
     private val _news = MutableStateFlow<Resource<News>>(Resource.EmptyData())
     val news: MutableStateFlow<Resource<News>> get() = _news
 
-    fun getNews() {
+    init {
+        getNews()
+    }
+
+    private fun getNews() {
         viewModelScope.launch {
             getNewsUseCase.invoke().collectLatest {
                 _news.value = it
             }
         }
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        d("dsadas", "SPPEEEEDDD")
     }
 }
