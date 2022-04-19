@@ -3,6 +3,7 @@ package ge.nlatsabidze.newsapplication.presentation.ui.news.adapter
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
+import ge.nlatsabidze.newsapplication.common.dateFormatter
 import ge.nlatsabidze.newsapplication.common.setImage
 import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.NewsItemBinding
@@ -20,6 +21,8 @@ class NewsItemAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             notifyDataSetChanged()
         }
 
+    var onArticleClicked: ((Article) -> Unit)? = null
+
     inner class FirstNewsItemViewHolder(private val binding: FirstNewsItemBinding): RecyclerView.ViewHolder(binding.root) {
         private lateinit var article: Article
 
@@ -29,6 +32,10 @@ class NewsItemAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             binding.publishedDate.text = article.publishedAt.toString()
             binding.tvTitle.text = article.description.toString()
             binding.newsDescription.text = article.title.toString()
+
+            binding.root.setOnClickListener {
+                onArticleClicked?.invoke(article)
+            }
         }
     }
 
@@ -38,9 +45,13 @@ class NewsItemAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun onBind() {
             article = newsList[bindingAdapterPosition]
             binding.contentImage.setImage(article.urlToImage)
-            binding.publishedDate.text = article.publishedAt.toString()
+            binding.publishedDate.text = article.publishedAt.toString().dateFormatter()
             binding.desc.text = article.description.toString()
             binding.newsDescription.text = article.title.toString()
+
+            binding.root.setOnClickListener {
+                onArticleClicked?.invoke(article)
+            }
         }
 
     }

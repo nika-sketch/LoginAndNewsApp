@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">News</string>
+    <string name="internetConnectionError">Internet Connection Required</string>
+    <string name="exceptionError">Something Went Wrong</string>
 </resources>

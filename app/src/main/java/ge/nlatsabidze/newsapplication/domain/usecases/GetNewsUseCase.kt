@@ -11,7 +11,11 @@ class GetNewsUseCase @Inject constructor(
     private val newsRepository: NewsRepository
 ) {
     operator fun invoke(): Flow<Resource<News>> = flow {
-        emit(Resource.Loading())
-        emit(newsRepository.getNews())
+        try {
+            emit(Resource.Loading())
+            emit(newsRepository.getNews())
+        } catch (e: Exception) {
+            emit(Resource.EmptyData())
+        }
     }
 }

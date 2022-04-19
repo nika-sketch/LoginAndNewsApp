@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/newsFragment"
         android:name="ge.nlatsabidze.newsapplication.presentation.ui.news.NewsFragment"
-        android:label="news_fragment"
+        android:label="News"
         tools:layout="@layout/news_fragment" >
         <action
             android:id="@+id/action_newsFragment_to_detailsFragment"
@@ -17,7 +17,16 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="ge.nlatsabidze.newsapplication.presentation.ui.details.DetailsFragment"
-        android:label="details_fragment"
-        tools:layout="@layout/details_fragment" />
+        android:label="Details"
+        tools:layout="@layout/details_fragment" >
+        <argument
+            android:name="articleargs"
+            app:argType="ge.nlatsabidze.newsapplication.data.model.Article" />
+        <action
+            android:id="@+id/action_detailsFragment_to_newsFragment"
+            app:popUpTo="@id/newsFragment"
+            app:popUpToInclusive="true"
+            app:destination="@id/newsFragment" />
+    </fragment>
 
 </navigation>

@@ -6,6 +6,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.*
 import dagger.hilt.*
 import dagger.hilt.components.SingletonComponent
+import ge.nlatsabidze.newsapplication.common.Dispatchers
 import ge.nlatsabidze.newsapplication.data.remote.NewsApi
 import ge.nlatsabidze.newsapplication.data.repository.NewsRepository
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepositoryImpl
@@ -34,6 +35,11 @@ object AppModule {
     @Provides
     fun provideResponseHandler(): ResponseHandler {
         return ResponseHandler.Base()
+    }
+
+    @Provides
+    fun provideDispatchers(): Dispatchers {
+        return Dispatchers.Base()
     }
 
     @Provides
