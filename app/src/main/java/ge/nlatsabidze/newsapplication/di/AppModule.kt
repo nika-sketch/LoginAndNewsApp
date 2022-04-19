@@ -6,6 +6,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.*
 import dagger.hilt.*
 import dagger.hilt.components.SingletonComponent
+import ge.nlatsabidze.newsapplication.common.Constants.BASE_URL
 import ge.nlatsabidze.newsapplication.common.Dispatchers
 import ge.nlatsabidze.newsapplication.data.remote.NewsApi
 import ge.nlatsabidze.newsapplication.data.repository.NewsRepository
@@ -22,7 +23,7 @@ object AppModule {
     @Provides
     @Singleton
     fun provideRetrofitCurrency(): NewsApi =
-        Retrofit.Builder().baseUrl("https://newsapi.org/v2/")
+        Retrofit.Builder().baseUrl(BASE_URL)
             .addConverterFactory(
                 MoshiConverterFactory.create(
                     Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
