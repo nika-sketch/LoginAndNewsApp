@@ -8,7 +8,8 @@
         <entry key="..\:/Users/user/NewsApplication/app/src/main/res/drawable/ic_round_menu.xml" value="0.1" />
         <entry key="..\:/Users/user/NewsApplication/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/user/NewsApplication/app/src/main/res/layout/app_bar_main.xml" value="0.21" />
-        <entry key="..\:/Users/user/NewsApplication/app/src/main/res/layout/news_fragment.xml" value="0.12807881773399016" />
+        <entry key="..\:/Users/user/NewsApplication/app/src/main/res/layout/details_fragment.xml" value="0.3482789855072464" />
+        <entry key="..\:/Users/user/NewsApplication/app/src/main/res/layout/news_fragment.xml" value="0.25" />
       </map>
     </option>
   </component>

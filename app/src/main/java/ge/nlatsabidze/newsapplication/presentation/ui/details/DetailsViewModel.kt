@@ -1,4 +1,4 @@
-package ge.nlatsabidze.newsapplication
+package ge.nlatsabidze.newsapplication.presentation.ui.details
 
 import androidx.lifecycle.ViewModel
 
