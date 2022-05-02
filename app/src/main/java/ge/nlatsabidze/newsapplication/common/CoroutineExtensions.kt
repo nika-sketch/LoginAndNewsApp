@@ -15,6 +15,3 @@ fun <T> Fragment.collectFlow(flow: Flow<T>, onCollect: suspend (T) -> Unit) {
     }
 }
 
-suspend fun <T> collect(flow: Flow<T>, onCollect: suspend (T) -> Unit) {
-    flow.collectLatest(onCollect)
-}
