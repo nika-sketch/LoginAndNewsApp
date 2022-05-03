@@ -9,7 +9,7 @@ import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.NewsItemBinding
 import ge.nlatsabidze.newsapplication.databinding.FirstNewsItemBinding
 
-class NewsItemAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NewsItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var newsList: MutableList<Article> = mutableListOf()
         set(value) {
@@ -21,9 +21,21 @@ class NewsItemAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 1) {
-            FirstNewsItemViewHolder(FirstNewsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false), newsList, onArticleClicked)
+            FirstNewsItemViewHolder(
+                FirstNewsItemBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                ), newsList, onArticleClicked
+            )
         } else {
-            NewsItemViewHolder(NewsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false), newsList, onArticleClicked)
+            NewsItemViewHolder(
+                NewsItemBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                ), newsList, onArticleClicked
+            )
         }
     }
 

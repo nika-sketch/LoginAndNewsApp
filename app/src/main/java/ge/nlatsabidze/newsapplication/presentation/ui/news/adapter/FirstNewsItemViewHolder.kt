@@ -2,7 +2,7 @@ package ge.nlatsabidze.newsapplication.presentation.ui.news.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import ge.nlatsabidze.newsapplication.common.dateFormatter
-import ge.nlatsabidze.newsapplication.common.setImage
+import ge.nlatsabidze.newsapplication.common.koinLoad
 import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.FirstNewsItemBinding
 
@@ -15,7 +15,7 @@ class FirstNewsItemViewHolder(
 
     fun onBind() = with(binding) {
         article = newsList[bindingAdapterPosition]
-        contentImage.setImage(article.urlToImage)
+        article.urlToImage?.let { contentImage.koinLoad(it) }
         publishedDate.text = article.publishedAt.toString().dateFormatter()
         tvTitle.text = article.description.toString()
         newsDescription.text = article.title.toString()

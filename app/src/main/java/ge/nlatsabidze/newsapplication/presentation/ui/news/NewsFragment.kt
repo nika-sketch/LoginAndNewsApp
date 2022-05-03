@@ -5,6 +5,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import ge.nlatsabidze.newsapplication.common.Resource
+import ge.nlatsabidze.newsapplication.common.collectFlow
 import ge.nlatsabidze.newsapplication.common.gone
 import ge.nlatsabidze.newsapplication.common.visible
 import ge.nlatsabidze.newsapplication.databinding.NewsFragmentBinding
@@ -20,24 +21,44 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
     override fun start() {
         initRecyclerView()
         onArticleItemClicked()
+        observese()
     }
 
-    override fun observes() = with(binding) {
-        newsViewModel.observe(viewLifecycleOwner) { news ->
-            when (news) {
-                is Resource.Loading -> {
-                    Loading.visible()
-                }
+//    override fun observes() = with(binding) {
+//        newsViewModel.observe(viewLifecycleOwner) { news ->
+//            when (news) {
+//                is Resource.Loading -> {
+//                    Loading.visible()
+//                }
+//
+//                is Resource.Success -> {
+//                    Loading.gone()
+//                    newsAdapter.newsList = news.data?.articles!!
+//                }
+//
+//                is Resource.Error -> {
+//                    NoConnection.text = news.message
+//                    NoConnection.visible()
+//                    Loading.gone()
+//                }
+//            }
+//        }
+//    }
 
-                is Resource.Success -> {
-                    Loading.gone()
-                    newsAdapter.newsList = news.data?.articles!!
+    private fun observese() {
+        collectFlow(newsViewModel.uiState) {
+            when (it) {
+                is LatestNewsUiState.Loading -> {
+                    binding.Loading.visible()
                 }
-
-                is Resource.Error -> {
-                    NoConnection.text = news.message
-                    NoConnection.visible()
-                    Loading.gone()
+                is LatestNewsUiState.Success -> {
+                    binding.Loading.gone()
+                    newsAdapter.newsList = it.news
+                }
+                is LatestNewsUiState.Error -> {
+                    binding.NoConnection.text = it.exception
+                    binding.NoConnection.visible()
+                    binding.Loading.gone()
                 }
             }
         }
