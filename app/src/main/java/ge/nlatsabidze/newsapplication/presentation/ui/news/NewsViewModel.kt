@@ -23,7 +23,8 @@ class NewsViewModel @Inject constructor(
     private val dispatchers: Dispatchers
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<LatestNewsUiState>(LatestNewsUiState.Success(mutableListOf()))
+    private val _uiState =
+        MutableStateFlow<LatestNewsUiState>(LatestNewsUiState.Success(mutableListOf()))
     val uiState: StateFlow<LatestNewsUiState> = _uiState
 
     init {
@@ -34,27 +35,18 @@ class NewsViewModel @Inject constructor(
         dispatchers.launchBackground(viewModelScope) {
             getNewsUseCase.invoke().collect { news ->
                 when (news) {
-                    is Resource.Loading -> {
-                        _uiState.value = LatestNewsUiState.Loading
-                    }
-                    is Resource.Success -> {
-                        _uiState.value = LatestNewsUiState.Success(news.data?.articles!!)
-                    }
-                    is Resource.Error -> {
-                        _uiState.value = LatestNewsUiState.Error(news.message!!)
-                    }
+                    is Resource.Loading -> _uiState.value = LatestNewsUiState.Loading
+                    is Resource.Success -> _uiState.value =
+                        LatestNewsUiState.Success(news.data?.articles!!)
+                    is Resource.Error -> _uiState.value = LatestNewsUiState.Error(news.message!!)
                 }
             }
         }
-    }
-
-    fun observe(owner: LifecycleOwner, observer: Observer<Resource<News>>) {
-        communicationNews.observeNews(owner, observer)
     }
 }
 
 sealed class LatestNewsUiState {
     object Loading : LatestNewsUiState()
-    data class Success(val news: MutableList<Article>): LatestNewsUiState()
-    data class Error(val exception: String): LatestNewsUiState()
+    data class Success(val news: MutableList<Article>) : LatestNewsUiState()
+    data class Error(val exception: String) : LatestNewsUiState()
 }
