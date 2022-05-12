@@ -1,25 +1,24 @@
 package ge.nlatsabidze.newsapplication.common
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.MutableStateFlow
 import ge.nlatsabidze.newsapplication.data.model.News
 
 interface Communication {
 
     fun map(news: Resource<News>)
-    fun observeNews(owner: LifecycleOwner, observer: Observer<Resource<News>>)
+    suspend fun collect(collector: FlowCollector<Resource<News>>)
 
     class Base : Communication {
 
-        private val newsLiveData = MutableLiveData<Resource<News>>()
+        private val newsLiveData = MutableStateFlow<Resource<News>>(Resource.EmptyData())
 
         override fun map(news: Resource<News>) {
-            newsLiveData.postValue(news)
+            newsLiveData.value = news
         }
 
-        override fun observeNews(owner: LifecycleOwner, observer: Observer<Resource<News>>) {
-            newsLiveData.observe(owner, observer)
+        override suspend fun collect(collector: FlowCollector<Resource<News>>) {
+            newsLiveData.collect(collector)
         }
 
     }

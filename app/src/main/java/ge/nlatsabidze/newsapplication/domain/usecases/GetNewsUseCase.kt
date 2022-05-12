@@ -11,7 +11,7 @@ interface NewsUseCase {
 
     operator fun invoke(): Flow<Resource<News>>
 
-    class GetNewsUseCase @Inject constructor(
+    class GetNewsUseCase(
         private val newsRepository: NewsRepository
     ): NewsUseCase {
         override operator fun invoke(): Flow<Resource<News>> = flow {

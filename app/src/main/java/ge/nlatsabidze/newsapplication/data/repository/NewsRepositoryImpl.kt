@@ -7,13 +7,13 @@ import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
 import ge.nlatsabidze.newsapplication.domain.repository.ResponseHandler
 import javax.inject.Inject
 
-class NewsRepositoryImpl @Inject constructor(
+class NewsRepositoryImpl(
     private val repository: NewsApi,
     private val responseHandler: ResponseHandler
 ): NewsRepository {
 
     override suspend fun getNews(): Resource<News> {
-        return responseHandler.handlerResponse {
+        return responseHandler.handleResponse {
             repository.getMarketItems()
         }
     }

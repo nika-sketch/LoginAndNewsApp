@@ -6,10 +6,10 @@ import retrofit2.Response
 
 interface ResponseHandler {
 
-    suspend fun <T> handlerResponse(apicall: suspend() -> Response<T>): Resource<T>
+    suspend fun <T> handleResponse(apicall: suspend() -> Response<T>): Resource<T>
 
     class Base(private val provideInternetConnectionChecker: ProvideInternetConnectionChecker): ResponseHandler {
-        override suspend fun <T> handlerResponse(apicall: suspend () -> Response<T>): Resource<T> {
+        override suspend fun <T> handleResponse(apicall: suspend () -> Response<T>): Resource<T> {
             if (provideInternetConnectionChecker.isNetworkConnected()) {
                 try {
                     val response = apicall()

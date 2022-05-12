@@ -1,31 +1,20 @@
 package ge.nlatsabidze.newsapplication.common
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import dagger.Binds
-import dagger.Module
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import ge.nlatsabidze.newsapplication.data.model.News
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.withContext
-import retrofit2.Response
-import javax.inject.Inject
 
-interface Dispatchers {
+interface MyDispatchers {
 
     fun launchBackground(scope: CoroutineScope, block: suspend CoroutineScope.() -> Unit): Job
     suspend fun changeToUi(block: suspend CoroutineScope.() -> Unit)
 
-    class Base : Dispatchers {
+    class Base : MyDispatchers {
         override fun launchBackground(
             scope: CoroutineScope,
             block: suspend CoroutineScope.() -> Unit

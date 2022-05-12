@@ -15,3 +15,18 @@ fun <T> Fragment.collectFlow(flow: Flow<T>, onCollect: suspend (T) -> Unit) {
     }
 }
 
+fun ViewModel.coroutineIO(dispatchers: MyDispatchers, firstBlock: suspend () -> Unit) =
+    dispatchers.launchBackground(viewModelScope) {
+        firstBlock.invoke()
+    }
+
+fun ViewModel.vm(block: suspend () -> Unit) = viewModelScope.launch {
+    block.invoke()
+}
+
+fun Fragment.defaultScope(block: suspend () -> Unit) =
+    viewLifecycleOwner.lifecycleScope.launch {
+        block.invoke()
+    }
+
+
