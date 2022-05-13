@@ -3,6 +3,7 @@ package ge.nlatsabidze.newsapplication.presentation.ui.news.adapter
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewbinding.ViewBinding
 import ge.nlatsabidze.newsapplication.common.dateFormatter
 import ge.nlatsabidze.newsapplication.common.setImage
 import ge.nlatsabidze.newsapplication.data.model.Article
@@ -56,3 +57,18 @@ class NewsItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         return 2
     }
 }
+
+//abstract class BaseAdapter<VB: ViewBinding, E, T: BaseViewHolder<VB>> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+//
+//    private val list = mutableListOf<E>()
+//
+//    override fun getItemCount(): Int = list.size
+//
+//    override fun onBindViewHolder(holder: T, position: Int) {
+//        holder.bind(list[position])
+//    }
+//}
+//
+//abstract class BaseViewHolder<VB: ViewBinding>(binding: VB): RecyclerView.ViewHolder(binding.root) {
+//    open fun <T> bind(item: T) {}
+//}

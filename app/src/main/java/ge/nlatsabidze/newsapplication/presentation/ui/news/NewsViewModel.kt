@@ -1,13 +1,10 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.news
 
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.nlatsabidze.newsapplication.common.*
 import ge.nlatsabidze.newsapplication.data.model.News
 import ge.nlatsabidze.newsapplication.domain.usecases.NewsUseCase
 import kotlinx.coroutines.flow.FlowCollector
-import javax.inject.Inject
-
 
 class NewsViewModel(
     private val getNewsUseCase: NewsUseCase,

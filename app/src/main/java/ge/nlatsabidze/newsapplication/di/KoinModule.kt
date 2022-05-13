@@ -27,18 +27,18 @@ val viewModelModule = module {
 
 val provideRetrofit = module {
 
-    fun provideRetrofitClient(): Retrofit =
+    fun provideRetrofitCurrency(retrofitClient: Retrofit): NewsApi =
+        retrofitClient.create(NewsApi::class.java)
+
+    single { provideRetrofitCurrency(get()) }
+
+    single<Retrofit> {
         Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(
             MoshiConverterFactory.create(
                 Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
             )
         ).build()
-
-    fun provideRetrofitCurrency(retrofitClient: Retrofit): NewsApi =
-        retrofitClient.create(NewsApi::class.java)
-
-    single{provideRetrofitClient()}
-    single{provideRetrofitCurrency(get())}
+    }
 }
 
 
@@ -49,8 +49,8 @@ val provideResponse = module {
     fun provideInternetConnection(context: Context): ProvideInternetConnectionChecker =
         ProvideInternetConnectionChecker.NetworkHelper(context)
 
-    single{provideResponseHandler(get())}
-    single{provideInternetConnection(androidContext())}
+    single { provideResponseHandler(get()) }
+    single { provideInternetConnection(androidContext()) }
 }
 
 val provideOther = module {
@@ -66,10 +66,10 @@ val provideOther = module {
 
     fun provideCommunication(): Communication = Communication.Base()
 
-    single{provideDispatchers()}
-    single{provideCurrencyRepository(get(), get())}
-    single{provideUseCase(get())}
-    single{provideCommunication()}
+    single { provideDispatchers() }
+    single { provideCurrencyRepository(get(), get()) }
+    single { provideUseCase(get()) }
+    single { provideCommunication() }
 }
 
 
