@@ -9,13 +9,13 @@ import ge.nlatsabidze.newsapplication.databinding.FirstNewsItemBinding
 class FirstNewsItemViewHolder(
     private val binding: FirstNewsItemBinding,
     private val onArticleClicked: ((Article) -> Unit)?
-) : BaseViewHolder<Article, FirstNewsItemBinding>(binding) {
+) : RecyclerView.ViewHolder(binding.root), BaseRecyclerViewAdapter.Binder<Article>{
 
     override fun bind(item: Article) = with(binding) {
         item.urlToImage?.let { contentImage.koinLoad(it) }
-        publishedDate.text = item.publishedAt.toString().dateFormatter()
-        tvTitle.text = item.description.toString()
-        newsDescription.text = item.title.toString()
+        publishedDate.text = item.publishedAt?.dateFormatter()
+        tvTitle.text = item.description
+        newsDescription.text = item.title
 
         root.setOnClickListener {
             onArticleClicked?.invoke(item)

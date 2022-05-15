@@ -39,7 +39,7 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
 
     private fun displayNews(newsList: MutableList<Article>) {
         binding.Loading.gone()
-        newsAdapter.newsList = newsList
+        newsAdapter.data = newsList
     }
 
     private fun displayError(exception: String) {
