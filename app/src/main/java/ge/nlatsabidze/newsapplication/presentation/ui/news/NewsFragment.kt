@@ -14,7 +14,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::inflate) {
 
     private val newsViewModel: NewsViewModel by viewModel()
-    private lateinit var newsAdapter: NewsItemAdapter
+    private var newsAdapter = NewsItemAdapter()
 
     override fun start() {
         initRecyclerView()
@@ -28,6 +28,10 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
                 is Resource.Success -> displayNews(it.data?.articles!!)
                 is Resource.Error -> displayError(it.message!!)
             }
+        }
+
+        collectFlow(newsViewModel.channel) {
+            if (!it) showDialogError("no Connection", requireContext())
         }
     }
 
@@ -46,7 +50,6 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
 
 
     private fun initRecyclerView() = with(binding) {
-        newsAdapter = NewsItemAdapter()
         News.adapter = newsAdapter
         News.layoutManager = LinearLayoutManager(requireContext())
     }

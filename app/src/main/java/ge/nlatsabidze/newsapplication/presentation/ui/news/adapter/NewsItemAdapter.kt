@@ -2,13 +2,16 @@ package ge.nlatsabidze.newsapplication.presentation.ui.news.adapter
 
 import android.view.ViewGroup
 import android.view.LayoutInflater
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import ge.nlatsabidze.newsapplication.common.dateFormatter
-import ge.nlatsabidze.newsapplication.common.setImage
+import androidx.recyclerview.widget.RecyclerView
 import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.NewsItemBinding
 import ge.nlatsabidze.newsapplication.databinding.FirstNewsItemBinding
+
+abstract class BaseViewHolder<T, VB : ViewBinding>(binding: VB) :
+    RecyclerView.ViewHolder(binding.root) {
+    abstract fun bind(item: T)
+}
 
 class NewsItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -20,55 +23,30 @@ class NewsItemAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var onArticleClicked: ((Article) -> Unit)? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == 1) {
-            FirstNewsItemViewHolder(
-                FirstNewsItemBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                ), newsList, onArticleClicked
-            )
-        } else {
-            NewsItemViewHolder(
-                NewsItemBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                ), newsList, onArticleClicked
-            )
-        }
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        if (viewType == 1) FirstNewsItemViewHolder(
+            FirstNewsItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            ), onArticleClicked
+        )
+        else NewsItemViewHolder(
+            NewsItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            ), onArticleClicked
+        )
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (getItemViewType(position) == 1) {
-            (holder as FirstNewsItemViewHolder).onBind()
-        } else {
-            (holder as NewsItemViewHolder).onBind()
-        }
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) = when {
+        getItemViewType(position) == 1 -> (holder as FirstNewsItemViewHolder).bind(newsList[position])
+        else -> (holder as NewsItemViewHolder).bind(newsList[position])
     }
 
     override fun getItemCount() = newsList.size
 
-    override fun getItemViewType(position: Int): Int {
-        if (position == 0) {
-            return 1
-        }
-        return 2
-    }
+    override fun getItemViewType(position: Int): Int = if (position == 0) 1 else 2
 }
 
-//abstract class BaseAdapter<VB: ViewBinding, E, T: BaseViewHolder<VB>> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-//
-//    private val list = mutableListOf<E>()
-//
-//    override fun getItemCount(): Int = list.size
-//
-//    override fun onBindViewHolder(holder: T, position: Int) {
-//        holder.bind(list[position])
-//    }
-//}
-//
-//abstract class BaseViewHolder<VB: ViewBinding>(binding: VB): RecyclerView.ViewHolder(binding.root) {
-//    open fun <T> bind(item: T) {}
-//}
+

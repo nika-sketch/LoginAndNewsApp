@@ -17,18 +17,16 @@ class DetailsFragment : BaseFragment<DetailsFragmentBinding>(DetailsFragmentBind
     override fun start() {
         article = argsArticle.articleargs
 
-        binding.apply {
+        with(binding) {
             with(article) {
                 contentImage.setImage(urlToImage)
                 date.text = publishedAt
                 personName.text = author
                 journalName.text = source?.name
                 date.text = publishedAt!!.dateFormatter()
-                if (content?.containsBraces() == true) {
-                    newsContent.text = content.substring(0, content.removeBraces())
-                } else {
-                    newsContent.text = content
-                }
+                if (content?.containsBraces() == true) newsContent.text =
+                    content.substring(0, content.removeBraces())
+                else newsContent.text = content
                 binding.newsTitle.text = title
             }
         }

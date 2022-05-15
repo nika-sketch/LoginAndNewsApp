@@ -1,12 +1,11 @@
 package ge.nlatsabidze.newsapplication.di
 
 import android.content.Context
+import android.content.res.Resources
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import ge.nlatsabidze.newsapplication.common.Communication
-import ge.nlatsabidze.newsapplication.common.Constants
-import ge.nlatsabidze.newsapplication.common.MyDispatchers
-import ge.nlatsabidze.newsapplication.common.ProvideInternetConnectionChecker
+import ge.nlatsabidze.newsapplication.common.*
+import ge.nlatsabidze.newsapplication.data.model.News
 import ge.nlatsabidze.newsapplication.data.remote.NewsApi
 import ge.nlatsabidze.newsapplication.data.repository.NewsRepositoryImpl
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
@@ -21,7 +20,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 val viewModelModule = module {
     viewModel {
-        NewsViewModel(get(), get(), get())
+        NewsViewModel(get(), get(), get(), get())
     }
 }
 
@@ -64,7 +63,7 @@ val provideOther = module {
         NewsUseCase.GetNewsUseCase(newsRepository)
 
 
-    fun provideCommunication(): Communication = Communication.Base()
+    fun provideCommunication(): Communication<Resource<News>> = Communication.Base(Resource.EmptyData())
 
     single { provideDispatchers() }
     single { provideCurrencyRepository(get(), get()) }
