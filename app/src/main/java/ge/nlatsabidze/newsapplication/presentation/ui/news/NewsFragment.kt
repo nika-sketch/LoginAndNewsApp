@@ -56,7 +56,7 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
 
 
     private fun onArticleItemClicked() {
-        newsAdapter.onArticleClicked = { article ->
+        newsAdapter.onItemClicked = { article ->
             val actionToDetails =
                 NewsFragmentDirections.actionNewsFragmentToDetailsFragment(article)
             findNavController().navigate(actionToDetails)
