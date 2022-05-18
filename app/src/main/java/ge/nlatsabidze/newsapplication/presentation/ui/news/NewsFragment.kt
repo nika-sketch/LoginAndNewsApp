@@ -1,9 +1,7 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.news
 
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.hilt.android.AndroidEntryPoint
 import ge.nlatsabidze.newsapplication.common.*
 import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.NewsFragmentBinding
@@ -14,17 +12,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::inflate) {
 
     private val newsViewModel: NewsViewModel by viewModel()
-    private var newsAdapter = NewsItemAdapter()
+    private lateinit var newsAdapter: NewsItemAdapter
 
     override fun start() {
         initRecyclerView()
-        onArticleItemClicked()
     }
 
     override fun observes() {
         newsViewModel.collect {
             when (it) {
-                is Resource.Loading -> displayLoading()
+                is Resource.Loading -> binding.Loading.visible()
                 is Resource.Success -> displayNews(it.data?.articles!!)
                 is Resource.Error -> displayError(it.message!!)
             }
@@ -35,11 +32,9 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
         }
     }
 
-    private fun displayLoading() = binding.Loading.visible()
-
     private fun displayNews(newsList: MutableList<Article>) {
         binding.Loading.gone()
-        newsAdapter.data = newsList
+        newsAdapter.setList(newsList)
     }
 
     private fun displayError(exception: String) {
@@ -50,17 +45,15 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
 
 
     private fun initRecyclerView() = with(binding) {
+        newsAdapter = NewsItemAdapter { article ->
+            navigateToDetails(article)
+        }
         News.adapter = newsAdapter
         News.layoutManager = LinearLayoutManager(requireContext())
     }
 
-
-    private fun onArticleItemClicked() {
-        newsAdapter.onItemClicked = { article ->
-            val actionToDetails =
-                NewsFragmentDirections.actionNewsFragmentToDetailsFragment(article)
-            findNavController().navigate(actionToDetails)
-        }
+    private fun navigateToDetails(article: Article) {
+        val actionToDetails = NewsFragmentDirections.actionNewsFragmentToDetailsFragment(article)
+        findNavController().navigate(actionToDetails)
     }
-
 }

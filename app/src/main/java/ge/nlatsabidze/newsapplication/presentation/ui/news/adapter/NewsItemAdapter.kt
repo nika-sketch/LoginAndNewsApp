@@ -8,7 +8,7 @@ import ge.nlatsabidze.newsapplication.databinding.NewsItemBinding
 import ge.nlatsabidze.newsapplication.databinding.FirstNewsItemBinding
 
 
-class NewsItemAdapter : BaseRecyclerViewAdapter<Article>() {
+class NewsItemAdapter(onClick: (Article) -> Unit) : BaseRecyclerViewAdapter<Article>(onClick) {
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 1) FirstNewsItemViewHolder(
@@ -16,14 +16,14 @@ class NewsItemAdapter : BaseRecyclerViewAdapter<Article>() {
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ), onItemClicked
+            ), onClick
         )
         else NewsItemViewHolder(
             NewsItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ), onItemClicked
+            ), onClick
         )
     }
 
@@ -31,17 +31,17 @@ class NewsItemAdapter : BaseRecyclerViewAdapter<Article>() {
 }
 
 
-abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    var onItemClicked: ((T) -> Unit)? = null
-
-    var data: List<T> = emptyList()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+abstract class BaseRecyclerViewAdapter<T>(val onClick: ((T) -> Unit)) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     abstract fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
+
+    private var data: MutableList<T> = mutableListOf()
+
+    fun setList(list: List<T>) {
+        data.addAll(list)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         getViewHolder(parent, viewType)
@@ -50,7 +50,7 @@ abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.Vi
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
         (holder as Binder<T>).bind(data[position])
 
-    override fun getItemCount(): Int = data.size
+    override fun getItemCount() = data.size
 
     interface Binder<T> {
         fun bind(item: T)
