@@ -1,11 +1,16 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.news
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavDirections
 import ge.nlatsabidze.newsapplication.common.*
+import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.data.model.News
 import ge.nlatsabidze.newsapplication.domain.usecases.NewsUseCase
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 
 class NewsViewModel(
@@ -15,20 +20,8 @@ class NewsViewModel(
     private val provideInternetConnectionChecker: ProvideInternetConnectionChecker
 ) : ViewModel() {
 
-    private val _channel = Channel<Boolean>()
-    val channel = _channel.receiveAsFlow()
-
     init {
         getNews()
-        checkConnection()
-    }
-
-    private fun checkConnection() {
-        vm {
-            if (!provideInternetConnectionChecker.isNetworkConnected()) {
-                _channel.send(false)
-            }
-        }
     }
 
     private fun getNews() {
@@ -42,6 +35,24 @@ class NewsViewModel(
     fun collect(collector: FlowCollector<Resource<News>>) = vm {
         communicationNews.collect(collector)
     }
+
+    private val _navigation = MutableSharedFlow<NavigationCommand>()
+    val navigation: MutableSharedFlow<NavigationCommand> get() = _navigation
+
+    private fun navigate(navDirections: NavDirections) = vm {
+        _navigation.emit(NavigationCommand.ToDirection(navDirections))
+    }
+
+    fun navigateToDetailsPage(article: Article) {
+        navigate(NewsFragmentDirections.actionNewsFragmentToDetailsFragment(article))
+    }
+
+}
+
+
+sealed class NavigationCommand {
+    data class ToDirection(val directions: NavDirections) : NavigationCommand()
+    object Back : NavigationCommand()
 }
 
 

@@ -27,8 +27,16 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
             }
         }
 
-        collectFlow(newsViewModel.channel) {
-            if (!it) showDialogError("no Connection", requireContext())
+        collectFlow(newsViewModel.navigation) {
+            handleNavigation(it)
+        }
+
+    }
+
+    private fun handleNavigation(navCommand: NavigationCommand) {
+        when (navCommand) {
+            is NavigationCommand.ToDirection -> findNavController().navigate(navCommand.directions)
+            is NavigationCommand.Back -> findNavController().navigateUp()
         }
     }
 
@@ -43,17 +51,12 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
         binding.Loading.gone()
     }
 
-
     private fun initRecyclerView() = with(binding) {
         newsAdapter = NewsItemAdapter { article ->
-            navigateToDetails(article)
+            newsViewModel.navigateToDetailsPage(article)
         }
         News.adapter = newsAdapter
         News.layoutManager = LinearLayoutManager(requireContext())
     }
 
-    private fun navigateToDetails(article: Article) {
-        val actionToDetails = NewsFragmentDirections.actionNewsFragmentToDetailsFragment(article)
-        findNavController().navigate(actionToDetails)
-    }
 }
