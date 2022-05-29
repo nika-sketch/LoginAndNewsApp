@@ -10,14 +10,14 @@ interface Communication<T> {
 
     class Base<T>(data: T) : Communication<T> {
 
-        private val topRatedLiveData = MutableStateFlow(data)
+        private val stateFlow = MutableStateFlow(data)
 
         override fun map(news: T) {
-            topRatedLiveData.value = news
+            stateFlow.value = news
         }
 
         override suspend fun collect(collector: FlowCollector<T>) {
-            topRatedLiveData.collect(collector)
+            stateFlow.collect(collector)
         }
 
     }

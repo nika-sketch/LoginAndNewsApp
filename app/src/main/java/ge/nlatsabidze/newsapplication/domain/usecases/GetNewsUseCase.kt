@@ -3,8 +3,9 @@ package ge.nlatsabidze.newsapplication.domain.usecases
 import ge.nlatsabidze.newsapplication.common.Resource
 import ge.nlatsabidze.newsapplication.data.model.News
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 interface NewsUseCase {
@@ -12,15 +13,14 @@ interface NewsUseCase {
     operator fun invoke(): Flow<Resource<News>>
 
     class GetNewsUseCase(
-        private val newsRepository: NewsRepository
-    ): NewsUseCase {
+        private val newsRepository: NewsRepository,
+        private val IO: CoroutineDispatcher = Dispatchers.IO
+    ) : NewsUseCase {
         override operator fun invoke(): Flow<Resource<News>> = flow {
-            try {
-                emit(Resource.Loading())
-                emit(newsRepository.getNews())
-            } catch (e: Exception) {
-                emit(Resource.EmptyData())
+            emit(newsRepository.getNews())
+        }.onStart { emit(Resource.Loading()) }.flowOn(IO)
+            .catch {
+                emit(Resource.Error(it.message.toString()))
             }
-        }
     }
 }
