@@ -12,6 +12,8 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.children
+import coil.load
+import coil.transform.RoundedCornersTransformation
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import ge.nlatsabidze.newsapplication.R
@@ -22,39 +24,22 @@ fun ImageView.setImage(url:String?) {
     Glide.with(context).load(url).placeholder(R.drawable.ic_round_menu).into(this)
 }
 
-fun showDialogError(message: String, context: Context) {
-    val builder = AlertDialog.Builder(context)
-    builder.setMessage(message)
-    builder.setPositiveButton("yes") { _: DialogInterface, _: Int -> }
-    builder.show()
+fun ImageView.koinLoad(url: String) {
+    this.load(url) {
+        placeholder(R.drawable.ic_round_menu)
+        crossfade(true)
+        crossfade(500)
+        transformations(RoundedCornersTransformation(10f))
+    }
 }
-
-fun onSnack(view: View, text: String, color: Int) {
-    val snackbar = Snackbar.make(view, text, Snackbar.LENGTH_LONG)
-    snackbar.setActionTextColor(Color.BLUE)
-    snackbar.view.setBackgroundColor(color)
-    val view: View = snackbar.getView()
-    val textView =
-        snackbar.view.findViewById(com.google.android.material.R.id.snackbar_text) as TextView
-    val params = view.layoutParams as FrameLayout.LayoutParams
-    view.layoutParams = params
-    params.gravity = Gravity.TOP
-    textView.textSize = 13f
-    snackbar.show()
-}
-
 
 fun View.visible(): View {
-    if (visibility != View.VISIBLE) {
-        visibility = View.VISIBLE
-    }
+    visibility = View.VISIBLE
     return this
 }
 
 fun View.gone(): View {
-    if (visibility != View.GONE) {
-        visibility = View.GONE
-    }
+    visibility = View.GONE
     return this
 }
 

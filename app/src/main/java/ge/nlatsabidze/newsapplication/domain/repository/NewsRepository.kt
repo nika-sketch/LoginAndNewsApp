@@ -1,4 +1,4 @@
-package ge.nlatsabidze.newsapplication.data.repository
+package ge.nlatsabidze.newsapplication.domain.repository
 
 import ge.nlatsabidze.newsapplication.common.Resource
 import ge.nlatsabidze.newsapplication.data.model.News

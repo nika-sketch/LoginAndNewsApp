@@ -2,20 +2,25 @@ package ge.nlatsabidze.newsapplication.domain.usecases
 
 import ge.nlatsabidze.newsapplication.common.Resource
 import ge.nlatsabidze.newsapplication.data.model.News
-import ge.nlatsabidze.newsapplication.data.repository.NewsRepository
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
-class GetNewsUseCase @Inject constructor(
-    private val newsRepository: NewsRepository
-) {
-    operator fun invoke(): Flow<Resource<News>> = flow {
-        try {
-            emit(Resource.Loading())
+interface NewsUseCase {
+
+    operator fun invoke(): Flow<Resource<News>>
+
+    class GetNewsUseCase @Inject constructor(
+        private val newsRepository: NewsRepository,
+        private val IO: CoroutineDispatcher,
+    ) : NewsUseCase {
+        override operator fun invoke(): Flow<Resource<News>> = flow {
             emit(newsRepository.getNews())
-        } catch (e: Exception) {
-            emit(Resource.EmptyData())
-        }
+        }.onStart { emit(Resource.Loading()) }.flowOn(IO)
+            .catch {
+                emit(Resource.Error(it.message.toString()))
+            }
     }
 }

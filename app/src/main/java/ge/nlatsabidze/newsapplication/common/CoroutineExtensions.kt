@@ -6,15 +6,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-fun <T> Fragment.collectFlow(flow: Flow<T>, onCollect: suspend (T) -> Unit) {
+fun <T> Fragment.collectFlow(flow: Flow<T>, onCollect: suspend (T) -> Unit) =
     viewLifecycleOwner.lifecycleScope.launch {
         flow.flowWithLifecycle(
             viewLifecycleOwner.lifecycle,
             Lifecycle.State.STARTED
         ).collectLatest(onCollect)
     }
-}
 
-suspend fun <T> collect(flow: Flow<T>, onCollect: suspend (T) -> Unit) {
-    flow.collectLatest(onCollect)
-}
+
+

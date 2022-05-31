@@ -1,9 +1,10 @@
-package ge.nlatsabidze.newsapplication.domain.repository
+package ge.nlatsabidze.newsapplication.data.repository
 
 import ge.nlatsabidze.newsapplication.common.Resource
 import ge.nlatsabidze.newsapplication.data.model.News
 import ge.nlatsabidze.newsapplication.data.remote.NewsApi
-import ge.nlatsabidze.newsapplication.data.repository.NewsRepository
+import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
+import ge.nlatsabidze.newsapplication.domain.repository.ResponseHandler
 import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
@@ -12,7 +13,7 @@ class NewsRepositoryImpl @Inject constructor(
 ): NewsRepository {
 
     override suspend fun getNews(): Resource<News> {
-        return responseHandler.handlerResponse {
+        return responseHandler.handleResponse {
             repository.getMarketItems()
         }
     }
