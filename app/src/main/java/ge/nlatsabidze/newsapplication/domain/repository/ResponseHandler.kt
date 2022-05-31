@@ -1,6 +1,6 @@
 package ge.nlatsabidze.newsapplication.domain.repository
 
-import ge.nlatsabidze.newsapplication.common.ProvideInternetConnectionChecker
+import ge.nlatsabidze.newsapplication.common.InternetConnection
 import ge.nlatsabidze.newsapplication.common.Resource
 import retrofit2.Response
 
@@ -8,7 +8,7 @@ interface ResponseHandler {
 
     suspend fun <T> handleResponse(apicall: suspend() -> Response<T>): Resource<T>
 
-    class Base(private val provideInternetConnectionChecker: ProvideInternetConnectionChecker): ResponseHandler {
+    class Base(private val provideInternetConnectionChecker: InternetConnection): ResponseHandler {
         override suspend fun <T> handleResponse(apicall: suspend () -> Response<T>): Resource<T> {
             if (provideInternetConnectionChecker.isNetworkConnected()) {
                 try {

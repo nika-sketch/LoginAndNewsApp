@@ -7,10 +7,11 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
+import dagger.hilt.android.AndroidEntryPoint
 import ge.nlatsabidze.newsapplication.R
 import ge.nlatsabidze.newsapplication.databinding.ActivityMainBinding
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController

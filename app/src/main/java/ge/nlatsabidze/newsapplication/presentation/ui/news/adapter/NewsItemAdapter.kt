@@ -39,6 +39,7 @@ abstract class BaseRecyclerViewAdapter<T>(val onClick: ((T) -> Unit)) :
     private var data: MutableList<T> = mutableListOf()
 
     fun setList(list: List<T>) {
+        data.clear()
         data.addAll(list)
         notifyDataSetChanged()
     }

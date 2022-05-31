@@ -12,9 +12,9 @@ interface NewsUseCase {
 
     operator fun invoke(): Flow<Resource<News>>
 
-    class GetNewsUseCase(
+    class GetNewsUseCase @Inject constructor(
         private val newsRepository: NewsRepository,
-        private val IO: CoroutineDispatcher = Dispatchers.IO
+        private val IO: CoroutineDispatcher,
     ) : NewsUseCase {
         override operator fun invoke(): Flow<Resource<News>> = flow {
             emit(newsRepository.getNews())

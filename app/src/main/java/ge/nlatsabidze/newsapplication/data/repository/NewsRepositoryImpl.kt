@@ -7,7 +7,7 @@ import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
 import ge.nlatsabidze.newsapplication.domain.repository.ResponseHandler
 import javax.inject.Inject
 
-class NewsRepositoryImpl(
+class NewsRepositoryImpl @Inject constructor(
     private val repository: NewsApi,
     private val responseHandler: ResponseHandler
 ): NewsRepository {
