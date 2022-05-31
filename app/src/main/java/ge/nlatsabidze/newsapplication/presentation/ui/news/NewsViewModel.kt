@@ -33,14 +33,8 @@ class NewsViewModel @Inject constructor(
     fun collect(collector: FlowCollector<Resource<News>>) = viewModelScope.launch {
         communicationNews.collect(collector)
     }
-
-
 }
 
-sealed class NavigationCommand {
-    data class ToDirection(val directions: NavDirections) : NavigationCommand()
-    object Back : NavigationCommand()
-}
 
 
 
