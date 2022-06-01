@@ -22,36 +22,20 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
 
     override fun observes() {
         newsViewModel.collect {
-            when (it) {
-                is Resource.Loading -> binding.Loading.visible()
-                is Resource.Success -> displayNews(it.data?.articles!!)
-                is Resource.Error -> displayError(it.message!!)
-            }
+            it.apply(binding.Loading, newsAdapter, binding.NoConnection)
         }
-    }
-
-    private fun displayNews(newsList: MutableList<Article>) {
-        binding.Loading.gone()
-        newsAdapter.setList(newsList)
-    }
-
-    private fun displayError(exception: String) {
-        binding.NoConnection.text = exception
-        binding.NoConnection.visible()
-        binding.Loading.gone()
     }
 
     private fun initRecyclerView() = with(binding) {
         newsAdapter = NewsItemAdapter { article ->
-            navigateToDetails(article)
+            findNavController().navigate(
+                NewsFragmentDirections.actionNewsFragmentToDetailsFragment(
+                    article
+                )
+            )
         }
         News.adapter = newsAdapter
         News.layoutManager = LinearLayoutManager(requireContext())
-    }
-
-    private fun navigateToDetails(article: Article) {
-        val action = NewsFragmentDirections.actionNewsFragmentToDetailsFragment(article)
-        findNavController().navigate(action)
     }
 
 }
