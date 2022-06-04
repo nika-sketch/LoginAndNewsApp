@@ -21,6 +21,7 @@ import ge.nlatsabidze.newsapplication.data.repository.NewsRepositoryImpl
 import ge.nlatsabidze.newsapplication.domain.repository.ResponseHandler
 import ge.nlatsabidze.newsapplication.domain.usecases.NewsUseCase
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
+import ge.nlatsabidze.newsapplication.presentation.ui.news.UiBinding
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit
@@ -71,8 +72,8 @@ object AppModule {
     fun provideIo(): CoroutineDispatcher = Dispatchers.IO
 
     @Provides
-    fun provideCommunication(): Communication<NewsUi> =
-        Communication.Base(NewsUi.LoadingUi())
+    fun provideCommunication(): Communication<UiBinding> =
+        Communication.Second(UiBinding.Loading())
 
     @Provides
     fun provideInternetConnection(@ApplicationContext context: Context): InternetConnection =

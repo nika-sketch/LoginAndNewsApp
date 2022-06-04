@@ -4,8 +4,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import ge.nlatsabidze.newsapplication.common.*
-import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.NewsFragmentBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseFragment
 import ge.nlatsabidze.newsapplication.presentation.ui.news.adapter.NewsItemAdapter
@@ -16,17 +14,7 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
     private val newsViewModel: NewsViewModel by viewModels()
     private lateinit var newsAdapter: NewsItemAdapter
 
-    override fun start() {
-        initRecyclerView()
-    }
-
-    override fun observes() {
-        newsViewModel.collect {
-            it.apply(binding.Loading, newsAdapter, binding.NoConnection)
-        }
-    }
-
-    private fun initRecyclerView() = with(binding) {
+    override fun start() = with(binding) {
         newsAdapter = NewsItemAdapter { article ->
             findNavController().navigate(
                 NewsFragmentDirections.actionNewsFragmentToDetailsFragment(
@@ -37,5 +25,13 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
         News.adapter = newsAdapter
         News.layoutManager = LinearLayoutManager(requireContext())
     }
+
+
+    override fun observes() {
+        newsViewModel.collect {
+            it.apply(binding, newsAdapter)
+        }
+    }
+
 
 }

@@ -1,24 +1,23 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.news
 
 import android.view.View
-import android.widget.ProgressBar
+import javax.inject.Inject
 import android.widget.TextView
+import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.FlowCollector
 import ge.nlatsabidze.newsapplication.common.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.nlatsabidze.newsapplication.data.model.Article
-import ge.nlatsabidze.newsapplication.data.model.News
+import ge.nlatsabidze.newsapplication.databinding.NewsFragmentBinding
 import ge.nlatsabidze.newsapplication.domain.usecases.NewsUseCase
 import ge.nlatsabidze.newsapplication.presentation.ui.news.adapter.NewsItemAdapter
-import kotlinx.coroutines.flow.FlowCollector
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
     private val getNewsUseCase: NewsUseCase,
-    private val communicationNews: Communication<NewsUi>,
+    private val communicationNews: Communication<UiBinding>,
     dispatcher: MyDispatchers,
 ) : ViewModel() {
 
@@ -26,9 +25,9 @@ class NewsViewModel @Inject constructor(
         dispatcher.launchBackground(viewModelScope) {
             getNewsUseCase.invoke().collect { news ->
                 val result = when (news) {
-                    is Resource.Loading -> NewsUi.LoadingUi()
-                    is Resource.Success -> NewsUi.SuccessUi(news.data?.articles!!)
-                    is Resource.Error -> NewsUi.ErrorUi(news.message!!)
+                    is Resource.Loading -> UiBinding.Loading()
+                    is Resource.Success -> UiBinding.Success(news.data?.articles!!)
+                    is Resource.Error -> UiBinding.Error(news.message!!)
                     else -> throw IllegalStateException()
                 }
                 communicationNews.map(result)
@@ -36,7 +35,7 @@ class NewsViewModel @Inject constructor(
         }
     }
 
-    fun collect(collector: FlowCollector<NewsUi>) = viewModelScope.launch {
+    fun collect(collector: FlowCollector<UiBinding>) = viewModelScope.launch {
         communicationNews.collect(collector)
     }
 }
@@ -63,7 +62,7 @@ interface NewsUi {
             errorTextView: TextView
         ) {
             progressBar.gone()
-            adapter.setList(items)
+            adapter.map(items)
         }
     }
 
@@ -79,6 +78,33 @@ interface NewsUi {
         }
 
     }
+}
+
+interface UiBinding {
+
+    fun apply(binding: NewsFragmentBinding, adapter: NewsItemAdapter)
+
+    class Loading : UiBinding {
+        override fun apply(binding: NewsFragmentBinding, adapter: NewsItemAdapter) {
+            binding.Loading.visible()
+        }
+    }
+
+    class Success(private var items: MutableList<Article>): UiBinding {
+        override fun apply(binding: NewsFragmentBinding, adapter: NewsItemAdapter) {
+            binding.Loading.gone()
+            adapter.map(items)
+        }
+    }
+
+    class Error(private val message: String): UiBinding {
+        override fun apply(binding: NewsFragmentBinding, adapter: NewsItemAdapter) {
+            binding.Loading.gone()
+            binding.NoConnection.text = message
+            binding.NoConnection.visible()
+        }
+    }
+
 }
 
 

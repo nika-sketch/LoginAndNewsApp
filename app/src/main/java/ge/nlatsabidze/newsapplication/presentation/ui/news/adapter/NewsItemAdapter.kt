@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.NewsItemBinding
 import ge.nlatsabidze.newsapplication.databinding.FirstNewsItemBinding
+import ge.nlatsabidze.newsapplication.presentation.ui.news.Mapper
 
 
 class NewsItemAdapter(onClick: (Article) -> Unit) : BaseRecyclerViewAdapter<Article>(onClick) {
@@ -32,15 +33,15 @@ class NewsItemAdapter(onClick: (Article) -> Unit) : BaseRecyclerViewAdapter<Arti
 
 
 abstract class BaseRecyclerViewAdapter<T>(val onClick: ((T) -> Unit)) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>(), Mapper<List<T>, Unit> {
 
     abstract fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
 
     private var data: MutableList<T> = mutableListOf()
 
-    fun setList(list: List<T>) {
+    override fun map(source: List<T>) {
         data.clear()
-        data.addAll(list)
+        data.addAll(source)
         notifyDataSetChanged()
     }
 
