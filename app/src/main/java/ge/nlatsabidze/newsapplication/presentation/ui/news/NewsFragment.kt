@@ -1,5 +1,7 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.news
 
+import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,24 +16,21 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
     private val newsViewModel: NewsViewModel by viewModels()
     private lateinit var newsAdapter: NewsItemAdapter
 
-    override fun start() = with(binding) {
-        newsAdapter = NewsItemAdapter { article ->
-            findNavController().navigate(
-                NewsFragmentDirections.actionNewsFragmentToDetailsFragment(
-                    article
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        with(binding) {
+            newsAdapter = NewsItemAdapter { article ->
+                findNavController().navigate(
+                    NewsFragmentDirections.actionNewsFragmentToDetailsFragment(
+                        article
+                    )
                 )
-            )
+            }
+            News.adapter = newsAdapter
+            News.layoutManager = LinearLayoutManager(requireContext())
         }
-        News.adapter = newsAdapter
-        News.layoutManager = LinearLayoutManager(requireContext())
-    }
 
-
-    override fun observes() {
         newsViewModel.collect {
             it.apply(binding, newsAdapter)
         }
     }
-
-
 }

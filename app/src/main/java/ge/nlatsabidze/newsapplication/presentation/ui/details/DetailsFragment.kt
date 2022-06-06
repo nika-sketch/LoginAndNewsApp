@@ -1,5 +1,7 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.details
 
+import android.os.Bundle
+import android.view.View
 import androidx.navigation.fragment.navArgs
 import ge.nlatsabidze.newsapplication.common.containsBraces
 import ge.nlatsabidze.newsapplication.common.dateFormatter
@@ -14,7 +16,8 @@ class DetailsFragment : BaseFragment<DetailsFragmentBinding>(DetailsFragmentBind
     private val argsArticle: DetailsFragmentArgs by navArgs()
     private lateinit var article: Article
 
-    override fun start() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
         article = argsArticle.articleargs
 
         with(binding) {

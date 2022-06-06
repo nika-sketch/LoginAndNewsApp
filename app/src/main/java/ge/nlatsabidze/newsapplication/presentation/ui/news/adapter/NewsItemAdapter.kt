@@ -4,10 +4,9 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import ge.nlatsabidze.newsapplication.data.model.Article
-import ge.nlatsabidze.newsapplication.databinding.NewsItemBinding
 import ge.nlatsabidze.newsapplication.databinding.FirstNewsItemBinding
-import ge.nlatsabidze.newsapplication.presentation.ui.news.Mapper
-
+import ge.nlatsabidze.newsapplication.databinding.NewsItemBinding
+import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseRecyclerViewAdapter
 
 class NewsItemAdapter(onClick: (Article) -> Unit) : BaseRecyclerViewAdapter<Article>(onClick) {
 
@@ -31,32 +30,4 @@ class NewsItemAdapter(onClick: (Article) -> Unit) : BaseRecyclerViewAdapter<Arti
     override fun getItemViewType(position: Int): Int = if (position == 0) 1 else 2
 }
 
-
-abstract class BaseRecyclerViewAdapter<T>(val onClick: ((T) -> Unit)) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>(), Mapper<List<T>, Unit> {
-
-    abstract fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
-
-    private var data: MutableList<T> = mutableListOf()
-
-    override fun map(source: List<T>) {
-        data.clear()
-        data.addAll(source)
-        notifyDataSetChanged()
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        getViewHolder(parent, viewType)
-
-    @Suppress("UNCHECKED_CAST")
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
-        (holder as Binder<T>).bind(data[position])
-
-    override fun getItemCount() = data.size
-
-    interface Binder<T> {
-        fun bind(item: T)
-    }
-
-}
 

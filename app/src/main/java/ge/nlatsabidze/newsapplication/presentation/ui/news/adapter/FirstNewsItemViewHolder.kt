@@ -5,6 +5,7 @@ import ge.nlatsabidze.newsapplication.common.dateFormatter
 import ge.nlatsabidze.newsapplication.common.koinLoad
 import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.FirstNewsItemBinding
+import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseRecyclerViewAdapter
 
 class FirstNewsItemViewHolder(
     private val binding: FirstNewsItemBinding,

@@ -1,7 +1,6 @@
 package ge.nlatsabidze.newsapplication.common
 
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
-import ge.nlatsabidze.newsapplication.presentation.ui.news.UiBinding
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow
 
@@ -24,6 +23,5 @@ interface Communication<T> {
 
     }
 
-    class Base(newsUi: NewsUi) : Abstract<NewsUi>(newsUi)
-    class Second(uiBinding: UiBinding): Abstract<UiBinding>(uiBinding)
+    class Base(uiBinding: NewsUi): Abstract<NewsUi>(uiBinding)
 }
