@@ -15,14 +15,11 @@ class NewsRepositoryImpl @Inject constructor(
     private val repository: NewsApi,
     private val newsResponseMapper: NewsResponseMapper,
     private val internetConnection: InternetConnection,
-    private val baseRepo: BaseResponseHandler<NewsResponse, MyNews> = BaseResponseHandler(
-        internetConnection,
-        newsResponseMapper
-    )
+    private val baseRepo: BaseResponseHandler = BaseResponseHandler(internetConnection)
 ) : NewsRepository {
 
     override suspend fun getNews(): Resource<MyNews> {
-        return baseRepo.baseResponse {
+        return baseRepo.baseResponse(newsResponseMapper) {
             repository.getMarketItems()
         }
     }
@@ -34,11 +31,11 @@ class NewsResponseMapper : Mapper<NewsResponse, MyNews> {
     }
 }
 
-class BaseResponseHandler<T, S>(
-    private val internetConnection: InternetConnection,
-    private val mapper: Mapper<T, S>
-) {
-    suspend fun baseResponse(apiRequest: suspend () -> Response<T>): Resource<S> {
+class BaseResponseHandler(private val internetConnection: InternetConnection) {
+    suspend fun <T, S> baseResponse(
+        mapper: Mapper<T, S>,
+        apiRequest: suspend () -> Response<T>
+    ): Resource<S> {
         if (internetConnection.isNetworkConnected()) {
             try {
                 val request = apiRequest.invoke()
