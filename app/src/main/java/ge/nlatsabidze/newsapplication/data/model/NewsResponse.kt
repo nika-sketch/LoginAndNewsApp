@@ -4,8 +4,15 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class News(
+data class NewsResponse(
     val articles: MutableList<Article>?,
     val status: String?,
     val totalResults: Int?
+): Parcelable
+
+
+@Parcelize
+data class MyNews(
+    val articles: MutableList<Article>,
+    val status: String,
 ): Parcelable

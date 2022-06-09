@@ -3,10 +3,7 @@ package ge.nlatsabidze.newsapplication.presentation.ui.details
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.navArgs
-import ge.nlatsabidze.newsapplication.common.containsBraces
-import ge.nlatsabidze.newsapplication.common.dateFormatter
-import ge.nlatsabidze.newsapplication.common.removeBraces
-import ge.nlatsabidze.newsapplication.common.setImage
+import ge.nlatsabidze.newsapplication.common.*
 import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.DetailsFragmentBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseFragment
@@ -22,7 +19,7 @@ class DetailsFragment : BaseFragment<DetailsFragmentBinding>(DetailsFragmentBind
 
         with(binding) {
             with(article) {
-                contentImage.setImage(urlToImage)
+                contentImage.koinLoad(urlToImage!!)
                 date.text = publishedAt
                 personName.text = author
                 journalName.text = source?.name

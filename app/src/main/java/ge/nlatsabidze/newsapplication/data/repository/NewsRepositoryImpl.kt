@@ -1,20 +1,57 @@
 package ge.nlatsabidze.newsapplication.data.repository
 
+import ge.nlatsabidze.newsapplication.common.InternetConnection
+import ge.nlatsabidze.newsapplication.common.Mapper
 import ge.nlatsabidze.newsapplication.common.Resource
-import ge.nlatsabidze.newsapplication.data.model.News
+import ge.nlatsabidze.newsapplication.data.model.MyNews
+import ge.nlatsabidze.newsapplication.data.model.NewsResponse
 import ge.nlatsabidze.newsapplication.data.remote.NewsApi
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
-import ge.nlatsabidze.newsapplication.domain.repository.ResponseHandler
+import retrofit2.Response
+import java.lang.Exception
 import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
     private val repository: NewsApi,
-    private val responseHandler: ResponseHandler
-): NewsRepository {
+    private val newsResponseMapper: NewsResponseMapper,
+    private val internetConnection: InternetConnection,
+    private val baseRepo: BaseResponseHandler<NewsResponse, MyNews> = BaseResponseHandler(
+        internetConnection,
+        newsResponseMapper
+    )
+) : NewsRepository {
 
-    override suspend fun getNews(): Resource<News> {
-        return responseHandler.handleResponse {
+    override suspend fun getNews(): Resource<MyNews> {
+        return baseRepo.baseResponse {
             repository.getMarketItems()
+        }
+    }
+}
+
+class NewsResponseMapper : Mapper<NewsResponse, MyNews> {
+    override fun map(source: NewsResponse): MyNews {
+        return MyNews(source.articles!!, source.status!!)
+    }
+}
+
+class BaseResponseHandler<T, S>(
+    private val internetConnection: InternetConnection,
+    private val mapper: Mapper<T, S>
+) {
+    suspend fun baseResponse(apiRequest: suspend () -> Response<T>): Resource<S> {
+        if (internetConnection.isNetworkConnected()) {
+            try {
+                val request = apiRequest.invoke()
+                val body = request.body()
+                if (request.isSuccessful && body != null) {
+                    return Resource.Success(mapper.map(body))
+                }
+                return Resource.Error(request.errorBody().toString())
+            } catch (e: Exception) {
+                return Resource.Error(e.message.toString())
+            }
+        } else {
+            return Resource.Error("No Connection")
         }
     }
 }

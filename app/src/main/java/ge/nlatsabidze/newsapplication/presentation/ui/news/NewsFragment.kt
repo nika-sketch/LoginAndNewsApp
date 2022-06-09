@@ -25,8 +25,8 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
                     )
                 )
             }
-            News.adapter = newsAdapter
-            News.layoutManager = LinearLayoutManager(requireContext())
+            rvNews.adapter = newsAdapter
+            rvNews.layoutManager = LinearLayoutManager(requireContext())
         }
 
         newsViewModel.collect {
