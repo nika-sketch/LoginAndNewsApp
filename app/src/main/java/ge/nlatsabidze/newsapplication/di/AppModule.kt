@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ge.nlatsabidze.newsapplication.common.*
 import ge.nlatsabidze.newsapplication.data.remote.NewsApi
+import ge.nlatsabidze.newsapplication.data.repository.BaseResponseHandler
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
 import ge.nlatsabidze.newsapplication.data.repository.NewsRepositoryImpl
 import ge.nlatsabidze.newsapplication.data.repository.NewsResponseMapper
@@ -36,11 +37,20 @@ object AppModule {
     fun provideCurrencyRepository(
         api: NewsApi,
         repoMapper: NewsResponseMapper,
-        internetConnection: InternetConnection
+        internetConnection: InternetConnection,
+        baseResponseHandler: BaseResponseHandler
     ): NewsRepository =
-        NewsRepositoryImpl(api, repoMapper, internetConnection)
+        NewsRepositoryImpl(api, repoMapper, baseResponseHandler)
 
     @Provides
     fun provideRepoMapper(): NewsResponseMapper = NewsResponseMapper()
+
+    @Provides
+    fun provideResponseHandler(
+        internetConnection: InternetConnection,
+        resourceManager: ResourceManager
+    ): BaseResponseHandler {
+        return BaseResponseHandler(internetConnection, resourceManager)
+    }
 
 }

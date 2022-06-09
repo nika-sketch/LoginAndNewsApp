@@ -1,8 +1,10 @@
 package ge.nlatsabidze.newsapplication.data.repository
 
+import ge.nlatsabidze.newsapplication.R
 import ge.nlatsabidze.newsapplication.common.InternetConnection
 import ge.nlatsabidze.newsapplication.common.Mapper
 import ge.nlatsabidze.newsapplication.common.Resource
+import ge.nlatsabidze.newsapplication.common.ResourceManager
 import ge.nlatsabidze.newsapplication.data.model.MyNews
 import ge.nlatsabidze.newsapplication.data.model.NewsResponse
 import ge.nlatsabidze.newsapplication.data.remote.NewsApi
@@ -14,15 +16,13 @@ import javax.inject.Inject
 class NewsRepositoryImpl @Inject constructor(
     private val repository: NewsApi,
     private val newsResponseMapper: NewsResponseMapper,
-    private val internetConnection: InternetConnection,
-    private val baseRepo: BaseResponseHandler = BaseResponseHandler(internetConnection)
+    private val baseResponseHandler: BaseResponseHandler
 ) : NewsRepository {
 
-    override suspend fun getNews(): Resource<MyNews> {
-        return baseRepo.baseResponse(newsResponseMapper) {
+    override suspend fun getNews(): Resource<MyNews> =
+        baseResponseHandler.handleResponse(newsResponseMapper) {
             repository.getMarketItems()
         }
-    }
 }
 
 class NewsResponseMapper : Mapper<NewsResponse, MyNews> {
@@ -31,8 +31,11 @@ class NewsResponseMapper : Mapper<NewsResponse, MyNews> {
     }
 }
 
-class BaseResponseHandler(private val internetConnection: InternetConnection) {
-    suspend fun <T, S> baseResponse(
+class BaseResponseHandler(
+    private val internetConnection: InternetConnection,
+    private val resourceManager: ResourceManager
+) {
+    suspend fun <T, S> handleResponse(
         mapper: Mapper<T, S>,
         apiRequest: suspend () -> Response<T>
     ): Resource<S> {
@@ -48,7 +51,7 @@ class BaseResponseHandler(private val internetConnection: InternetConnection) {
                 return Resource.Error(e.message.toString())
             }
         } else {
-            return Resource.Error("No Connection")
+            return Resource.Error(resourceManager.provide(R.string.no_internet_connection))
         }
     }
 }
