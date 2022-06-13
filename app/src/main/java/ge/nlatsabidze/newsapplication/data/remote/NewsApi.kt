@@ -8,5 +8,5 @@ import retrofit2.http.GET
 interface NewsApi {
 
     @GET(GET_NEWS)
-    suspend fun getMarketItems(): Response<NewsResponse>
+    suspend fun fetchMarketItems(): Response<NewsResponse>
 }

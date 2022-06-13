@@ -18,7 +18,7 @@ interface NewsUseCase {
         private val backgroundCoroutine: CoroutineDispatcher
     ) : NewsUseCase {
         override fun execute(): Flow<Resource<MyNews>> = flow {
-            emit(newsRepository.getNews())
+            emit(newsRepository.fetchNews())
         }.onStart { emit(Resource.Loading()) }.flowOn(backgroundCoroutine)
             .catch {
                 emit(Resource.Error(it.message.toString()))

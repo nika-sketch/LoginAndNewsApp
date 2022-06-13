@@ -136,6 +136,4 @@ dependencies {
     implementation "io.insert-koin:koin-android:$koin_version"
     testImplementation "io.insert-koin:koin-test:$koin_version"
 
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
-
 }

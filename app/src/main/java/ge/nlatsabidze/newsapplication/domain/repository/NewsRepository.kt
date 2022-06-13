@@ -6,5 +6,5 @@ import ge.nlatsabidze.newsapplication.data.model.NewsResponse
 
 interface NewsRepository  {
 
-    suspend fun getNews(): Resource<MyNews>
+    suspend fun fetchNews(): Resource<MyNews>
 }

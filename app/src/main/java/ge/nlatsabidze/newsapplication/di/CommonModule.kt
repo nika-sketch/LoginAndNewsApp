@@ -6,10 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import ge.nlatsabidze.newsapplication.common.InternetConnection
-import ge.nlatsabidze.newsapplication.common.MyDispatchers
-import ge.nlatsabidze.newsapplication.common.ResourceManager
-import ge.nlatsabidze.newsapplication.common.StateCommunication
+import ge.nlatsabidze.newsapplication.common.*
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -36,4 +33,7 @@ object CommonModule {
 
     @Provides
     fun provideDispatchers(): MyDispatchers = MyDispatchers.Base()
+
+    @Provides
+    fun provideResourceHandler(): HandleResource = HandleResource.Base()
 }
