@@ -12,6 +12,8 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.children
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import coil.load
 import coil.transform.RoundedCornersTransformation
 import com.bumptech.glide.Glide
@@ -31,16 +33,6 @@ fun ImageView.koinLoad(url: String) {
         crossfade(500)
         transformations(RoundedCornersTransformation(10f))
     }
-}
-
-fun View.visible(): View {
-    visibility = View.VISIBLE
-    return this
-}
-
-fun View.gone(): View {
-    visibility = View.GONE
-    return this
 }
 
 @SuppressLint("SimpleDateFormat")
@@ -70,4 +62,29 @@ fun String.containsBraces(): Boolean {
         }
     }
     return false
+}
+
+fun View.showSnack(message: String, length: Int = Snackbar.LENGTH_SHORT) {
+    val snack = Snackbar.make(this, message, length)
+    snack.show()
+}
+
+fun Fragment.navigate(id: Int) {
+    findNavController().navigate(id)
+}
+
+fun View.onTap(block: () -> Unit) {
+    this.setOnClickListener {
+        block.invoke()
+    }
+}
+
+fun View.visible(): View {
+    visibility = View.VISIBLE
+    return this
+}
+
+fun View.gone(): View {
+    visibility = View.GONE
+    return this
 }
