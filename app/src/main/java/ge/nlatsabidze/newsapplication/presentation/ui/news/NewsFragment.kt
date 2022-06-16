@@ -33,21 +33,8 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
             rvNews.layoutManager = LinearLayoutManager(requireContext())
         }
 
-//        newsViewModel.collect { it.apply(binding, newsAdapter) }
-
         collectFlow(newsViewModel.newsUiState) {
-            if(it.loading) {
-                binding.loadingProgressBar.visible()
-            }
-            if(it.errorMessage?.isNotBlank() == true) {
-                binding.loadingProgressBar.gone()
-                binding.errorMessageTextView.showSnack(it.errorMessage)
-            }
-
-            if (it.newsList.isNotEmpty()) {
-                binding.loadingProgressBar.gone()
-                newsAdapter.map(it.newsList)
-            }
+            it.apply(binding, newsAdapter)
         }
     }
 
