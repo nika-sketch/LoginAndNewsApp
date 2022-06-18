@@ -7,12 +7,12 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 
-interface StateCommunication<T> {
+interface Communication<T> {
 
     suspend fun map(news: T)
     suspend fun collect(collector: FlowCollector<T>)
 
-    abstract class StateAbstract<T>(data: T) : StateCommunication<T> {
+    abstract class StateAbstract<T>(data: T) : Communication<T> {
 
         private val stateFlow = MutableStateFlow(data)
 
@@ -27,7 +27,7 @@ interface StateCommunication<T> {
 
     class Base(uiBinding: NewsUi) : StateAbstract<NewsUi>(uiBinding)
 
-    abstract class SharedAbstract<T> : StateCommunication<T> {
+    abstract class SharedAbstract<T> : Communication<T> {
 
         private val sharedFlow = MutableSharedFlow<T>()
 
@@ -40,7 +40,7 @@ interface StateCommunication<T> {
         }
     }
 
-    abstract class AbstractChannel<T>: StateCommunication<T> {
+    abstract class AbstractChannel<T>: Communication<T> {
 
         private val channel = Channel<T>()
         private val channelFlow = channel.receiveAsFlow()

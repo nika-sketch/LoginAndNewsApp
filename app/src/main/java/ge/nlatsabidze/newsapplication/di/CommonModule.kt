@@ -24,8 +24,8 @@ object CommonModule {
         InternetConnection.NetworkHelper(context)
 
     @Provides
-    fun provideCommunication(): StateCommunication<NewsUi> =
-        StateCommunication.Base(NewsUi.Loading())
+    fun provideCommunication(): Communication<NewsUi> =
+        Communication.Base(NewsUi.Loading())
 
 
     @Provides
@@ -33,9 +33,6 @@ object CommonModule {
 
     @Provides
     fun provideDispatchers(): MyDispatchers = MyDispatchers.Base()
-
-    @Provides
-    fun provideResourceHandler(): HandleResource = HandleResource.Base()
 
     @Provides
     fun provideResultHandler(): HandleResult = HandleResult.Base()

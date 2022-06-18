@@ -7,19 +7,18 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.FlowCollector
 import ge.nlatsabidze.newsapplication.common.*
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ge.nlatsabidze.newsapplication.data.model.MyNews
 import ge.nlatsabidze.newsapplication.domain.usecases.NewsUseCase
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
-    private val getNewsUseCase: NewsUseCase,
-    private val communicationNews: StateCommunication<NewsUi>,
+    private val newsUseCase: NewsUseCase,
+    private val communicationNews: Communication<NewsUi>,
     dispatcher: MyDispatchers,
 ) : ViewModel() {
 
     init {
         dispatcher.launchBackground(viewModelScope) {
-            getNewsUseCase.execute().collect { news ->
+            newsUseCase.execute().collect { news ->
                 val result = when (news) {
                     is Result.Loading -> NewsUi.Loading()
                     is Result.Success -> NewsUi.Success(news.data.articles)
