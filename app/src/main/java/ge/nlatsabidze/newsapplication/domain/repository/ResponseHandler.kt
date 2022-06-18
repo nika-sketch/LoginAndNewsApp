@@ -11,18 +11,18 @@ interface ResponseHandler {
     suspend fun <T, S> handleResponse(
         mapper: Mapper<T, S>,
         apiRequest: suspend () -> Response<T>
-    ): Resource<S>
+    ): Result<S>
 
     class Base @Inject constructor(
         private val internetConnection: InternetConnection,
         private val resourceManager: ResourceManager,
-        private val handleResource: HandleResource
+        private val handleResource: HandleResult
     ) : ResponseHandler {
 
         override suspend fun <T, S> handleResponse(
             mapper: Mapper<T, S>,
             apiRequest: suspend () -> Response<T>
-        ): Resource<S> {
+        ): Result<S> {
             return if (internetConnection.isNetworkConnected()) {
                 try {
                     val request = apiRequest.invoke()

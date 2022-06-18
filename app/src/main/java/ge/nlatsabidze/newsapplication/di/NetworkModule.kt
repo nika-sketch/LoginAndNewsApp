@@ -6,7 +6,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ge.nlatsabidze.newsapplication.common.Constants
 import ge.nlatsabidze.newsapplication.data.remote.NewsApi
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -19,7 +18,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofitClient(): Retrofit =
-        Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(
+        Retrofit.Builder().baseUrl("https://newsapi.org/v2/").addConverterFactory(
             MoshiConverterFactory.create(
                 Moshi.Builder().addLast(KotlinJsonAdapterFactory()).build()
             )

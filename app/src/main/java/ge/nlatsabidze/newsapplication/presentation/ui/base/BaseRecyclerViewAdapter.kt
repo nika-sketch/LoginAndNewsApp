@@ -30,5 +30,4 @@ abstract class BaseRecyclerViewAdapter<T>(val onClick: ((T) -> Unit)) :
     interface Binder<T> {
         fun bind(item: T)
     }
-
 }

@@ -36,4 +36,7 @@ object CommonModule {
 
     @Provides
     fun provideResourceHandler(): HandleResource = HandleResource.Base()
+
+    @Provides
+    fun provideResultHandler(): HandleResult = HandleResult.Base()
 }

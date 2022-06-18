@@ -20,7 +20,7 @@ import ge.nlatsabidze.newsapplication.R
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun ImageView.setImage(url:String?) {
+fun ImageView.setImage(url: String?) {
     Glide.with(context).load(url).placeholder(R.drawable.ic_round_menu).into(this)
 }
 
@@ -43,31 +43,19 @@ fun View.gone(): View {
     return this
 }
 
-@SuppressLint("SimpleDateFormat")
-fun String.dateFormatter(): String {
-    val dateInput = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
-    val dateOutput = SimpleDateFormat("dd-MM-yyyy")
-    val date: Date = dateInput.parse(this)
-    return dateOutput.format(date)
+class DateFormatter: Mapper<String, String> {
+    override fun map(source: String): String {
+        val dateInput = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+        val dateOutput = SimpleDateFormat("dd-MM-yyyy")
+        val date: Date = dateInput.parse(source)
+        return dateOutput.format(date)
+    }
 }
 
-fun String.removeBraces(): Int {
-    var item = this
-    var index = 0
-    for (i in item.indices) {
-        if (item[i] == '[') {
-            index = i
-        }
-    }
-    return index
+fun String.firstIndexOfOpenBrace(): Int {
+    return this.indexOf('[')
 }
 
 fun String.containsBraces(): Boolean {
-    var item = this
-    for (i in item.indices) {
-        if (item[i] == '[') {
-            return true
-        }
-    }
-    return false
+    return this.contains('[')
 }

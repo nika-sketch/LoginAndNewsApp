@@ -40,7 +40,7 @@ object AppModule {
     fun provideResponseHandler(
         internetConnection: InternetConnection,
         resourceManager: ResourceManager,
-        handleResponse: HandleResource,
-    ): ResponseHandler = ResponseHandler.Base(internetConnection, resourceManager, handleResponse)
+        handleResult: HandleResult,
+    ): ResponseHandler = ResponseHandler.Base(internetConnection, resourceManager, handleResult)
 
 }

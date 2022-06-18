@@ -1,45 +1,38 @@
 package ge.nlatsabidze.newsapplication.common
 
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 
 interface StateCommunication<T> {
 
-    fun map(news: T)
+    suspend fun map(news: T)
     suspend fun collect(collector: FlowCollector<T>)
 
-    abstract class Abstract<T>(data: T) : StateCommunication<T> {
+    abstract class StateAbstract<T>(data: T) : StateCommunication<T> {
 
         private val stateFlow = MutableStateFlow(data)
 
-        override fun map(news: T) {
+        override suspend fun map(news: T) {
             stateFlow.value = news
         }
 
         override suspend fun collect(collector: FlowCollector<T>) {
             stateFlow.collect(collector)
         }
-
     }
 
-    class Base(uiBinding: NewsUi): Abstract<NewsUi>(uiBinding)
-}
+    class Base(uiBinding: NewsUi) : StateAbstract<NewsUi>(uiBinding)
 
-
-
-interface SharedCommunication<T> {
-
-    suspend fun map(data: T)
-    suspend fun collect(collector: FlowCollector<T>)
-
-    abstract class Abstract<T> : SharedCommunication<T> {
+    abstract class SharedAbstract<T> : StateCommunication<T> {
 
         private val sharedFlow = MutableSharedFlow<T>()
 
-        override suspend fun map(data: T) {
-            sharedFlow.emit(data)
+        override suspend fun map(news: T) {
+            sharedFlow.emit(news)
         }
 
         override suspend fun collect(collector: FlowCollector<T>) {
@@ -47,6 +40,18 @@ interface SharedCommunication<T> {
         }
     }
 
-    class Base: SharedCommunication.Abstract<NewsUi>()
+    abstract class AbstractChannel<T>: StateCommunication<T> {
+
+        private val channel = Channel<T>()
+        private val channelFlow = channel.receiveAsFlow()
+
+        override suspend fun map(news: T) {
+            channel.trySend(news)
+        }
+
+        override suspend fun collect(collector: FlowCollector<T>) {
+            channelFlow.collect(collector)
+        }
+    }
 
 }

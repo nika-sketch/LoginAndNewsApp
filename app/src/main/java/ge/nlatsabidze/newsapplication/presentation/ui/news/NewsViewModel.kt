@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.FlowCollector
 import ge.nlatsabidze.newsapplication.common.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ge.nlatsabidze.newsapplication.data.model.MyNews
 import ge.nlatsabidze.newsapplication.domain.usecases.NewsUseCase
 
 @HiltViewModel
@@ -20,10 +21,9 @@ class NewsViewModel @Inject constructor(
         dispatcher.launchBackground(viewModelScope) {
             getNewsUseCase.execute().collect { news ->
                 val result = when (news) {
-                    is Resource.Loading -> NewsUi.Loading()
-                    is Resource.Success -> NewsUi.Success(news.data!!.articles)
-                    is Resource.Error -> NewsUi.Error(news.message!!)
-                    else -> throw IllegalStateException()
+                    is Result.Loading -> NewsUi.Loading()
+                    is Result.Success -> NewsUi.Success(news.data.articles)
+                    is Result.Error -> NewsUi.Error(news.message)
                 }
                 communicationNews.map(result)
             }
@@ -34,13 +34,3 @@ class NewsViewModel @Inject constructor(
         communicationNews.collect(collector)
     }
 }
-
-
-
-
-
-
-
-
-
-
