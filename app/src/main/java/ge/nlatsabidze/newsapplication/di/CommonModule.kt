@@ -1,6 +1,8 @@
 package ge.nlatsabidze.newsapplication.di
 
 import android.content.Context
+import coil.transform.RoundedCornersTransformation
+import coil.transform.Transformation
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,6 +12,7 @@ import ge.nlatsabidze.newsapplication.common.*
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Named
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -25,8 +28,7 @@ object CommonModule {
 
     @Provides
     fun provideCommunication(): Communication<NewsUi> =
-        Communication.Base(NewsUi.Loading())
-
+        Communication.BaseNews(NewsUi.Loading())
 
     @Provides
     fun provideIo(): CoroutineDispatcher = Dispatchers.IO
@@ -36,4 +38,12 @@ object CommonModule {
 
     @Provides
     fun provideResultHandler(): HandleResult = HandleResult.Base()
+
+    @Provides
+    @Named("firstItem")
+    fun provideImageLoader(): LoadImage = LoadImage.FirstItemBase()
+
+    @Provides
+    @Named("stringMapper")
+    fun provideDateFormat(): Mapper<String, String> = DateFormatter()
 }

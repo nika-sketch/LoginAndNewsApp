@@ -6,9 +6,9 @@ import androidx.annotation.StringRes
 interface ResourceManager {
     fun provide(@StringRes stringResId: Int): String
 
-    class Base(
-        private val context: Context
-    ) : ResourceManager {
+    abstract class Abstract(private val context: Context) : ResourceManager {
         override fun provide(@StringRes stringResId: Int): String = context.getString(stringResId)
     }
+
+    class Base(context: Context) : Abstract(context)
 }

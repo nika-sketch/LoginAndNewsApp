@@ -25,33 +25,5 @@ interface Communication<T> {
         }
     }
 
-    class Base(uiBinding: NewsUi) : StateAbstract<NewsUi>(uiBinding)
-
-    abstract class SharedAbstract<T> : Communication<T> {
-
-        private val sharedFlow = MutableSharedFlow<T>()
-
-        override suspend fun map(news: T) {
-            sharedFlow.emit(news)
-        }
-
-        override suspend fun collect(collector: FlowCollector<T>) {
-            sharedFlow.collect(collector)
-        }
-    }
-
-    abstract class AbstractChannel<T>: Communication<T> {
-
-        private val channel = Channel<T>()
-        private val channelFlow = channel.receiveAsFlow()
-
-        override suspend fun map(news: T) {
-            channel.trySend(news)
-        }
-
-        override suspend fun collect(collector: FlowCollector<T>) {
-            channelFlow.collect(collector)
-        }
-    }
-
+    class BaseNews(uiBinding: NewsUi) : StateAbstract<NewsUi>(uiBinding)
 }

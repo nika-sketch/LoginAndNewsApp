@@ -11,7 +11,7 @@ import ge.nlatsabidze.newsapplication.domain.repository.ResponseHandler
 
 class NewsRepositoryImpl @Inject constructor(
     private val repository: NewsApi,
-    private val newsResponseMapper: NewsResponseMapper,
+    private val newsResponseMapper: Mapper<NewsResponse, MyNews>,
     private val baseResponseHandler: ResponseHandler
 ) : NewsRepository {
 
@@ -23,6 +23,6 @@ class NewsRepositoryImpl @Inject constructor(
 
 class NewsResponseMapper : Mapper<NewsResponse, MyNews> {
     override fun map(source: NewsResponse): MyNews {
-        return MyNews(source.articles, source.status)
+        return MyNews(source.articles!!, source.status!!)
     }
 }
