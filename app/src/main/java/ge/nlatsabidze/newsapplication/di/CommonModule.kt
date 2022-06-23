@@ -45,5 +45,5 @@ object CommonModule {
 
     @Provides
     @Named("stringMapper")
-    fun provideDateFormat(): Mapper<String, String> = DateFormatter()
+    fun provideDateFormat(): Mapper<String, String> = AbstractDateFormat.DateFormatter()
 }

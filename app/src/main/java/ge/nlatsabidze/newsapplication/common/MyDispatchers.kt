@@ -1,23 +1,31 @@
 package ge.nlatsabidze.newsapplication.common
 
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 interface MyDispatchers {
 
+    fun launchUI(scope: CoroutineScope, block: suspend CoroutineScope.() -> Unit): Job
     fun launchBackground(scope: CoroutineScope, block: suspend CoroutineScope.() -> Unit): Job
-    suspend fun changeToUi(block: suspend CoroutineScope.() -> Unit)
+    suspend fun changeToUI(block: suspend CoroutineScope. () -> Unit)
 
-    class Base : MyDispatchers {
+    abstract class Abstract(
+        private val ui: CoroutineDispatcher,
+        private val background: CoroutineDispatcher,
+    ) : MyDispatchers {
+
+        override fun launchUI(
+            scope: CoroutineScope,
+            block: suspend CoroutineScope.() -> Unit
+        ): Job = scope.launch(ui, block = block)
+
         override fun launchBackground(
             scope: CoroutineScope,
             block: suspend CoroutineScope.() -> Unit
-        ) = scope.launch(kotlinx.coroutines.Dispatchers.IO, block = block)
+        ): Job = scope.launch(background, block = block)
 
-        override suspend fun changeToUi(block: suspend CoroutineScope.() -> Unit) {
-            withContext(kotlinx.coroutines.Dispatchers.Main, block)
-        }
+        override suspend fun changeToUI(block: suspend CoroutineScope. () -> Unit) =
+            withContext(ui, block)
     }
+
+    class Base : Abstract(ui = Dispatchers.Main, background = Dispatchers.IO)
 }

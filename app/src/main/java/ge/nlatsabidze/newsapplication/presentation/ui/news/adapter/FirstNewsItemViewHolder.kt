@@ -1,7 +1,7 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.news.adapter
 
 import androidx.recyclerview.widget.RecyclerView
-import ge.nlatsabidze.newsapplication.common.DateFormatter
+import ge.nlatsabidze.newsapplication.common.AbstractDateFormat
 import ge.nlatsabidze.newsapplication.common.LoadImage
 import ge.nlatsabidze.newsapplication.common.Mapper
 import ge.nlatsabidze.newsapplication.data.model.Article
@@ -10,9 +10,9 @@ import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseRecyclerViewAdapt
 
 class FirstNewsItemViewHolder(
     private val binding: FirstNewsItemBinding,
-    private val onArticleClicked: ((Article) -> Unit)?,
+    private val itemClickListener: OnItemClickListener<Article>,
     private val imageLoader: LoadImage = LoadImage.FirstItemBase(),
-    private val dateFormatter: Mapper<String, String> = DateFormatter()
+    private val dateFormatter: Mapper<String, String> = AbstractDateFormat.DateFormatter()
 ) : RecyclerView.ViewHolder(binding.root), BaseRecyclerViewAdapter.Binder<Article> {
     override fun bind(item: Article) = with(binding) {
         item.urlToImage.let { imageLoader.load(contentImage, it!!) }
@@ -21,7 +21,7 @@ class FirstNewsItemViewHolder(
         newsDescription.text = item.title
 
         root.setOnClickListener {
-            onArticleClicked?.invoke(item)
+            itemClickListener.onItemClick(item)
         }
     }
 }

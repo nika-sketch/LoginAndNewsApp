@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ge.nlatsabidze.newsapplication.common.Mapper
 
 
-abstract class BaseRecyclerViewAdapter<T>(val onClick: ((T) -> Unit)) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>(), Mapper<List<T>, Unit> {
+abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(),
+    Mapper<List<T>, Unit> {
 
     abstract fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
 

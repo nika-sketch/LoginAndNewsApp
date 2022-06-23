@@ -8,7 +8,10 @@ import ge.nlatsabidze.newsapplication.databinding.FirstNewsItemBinding
 import ge.nlatsabidze.newsapplication.databinding.NewsItemBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseRecyclerViewAdapter
 
-class NewsItemAdapter(onClick: (Article) -> Unit) : BaseRecyclerViewAdapter<Article>(onClick) {
+class NewsItemAdapter(
+    private val itemCLickListener: OnItemClickListener<Article>
+) :
+    BaseRecyclerViewAdapter<Article>() {
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 1) FirstNewsItemViewHolder(
@@ -16,19 +19,23 @@ class NewsItemAdapter(onClick: (Article) -> Unit) : BaseRecyclerViewAdapter<Arti
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ), onClick
+            ), itemCLickListener
         )
         else NewsItemViewHolder(
             NewsItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            ), onClick
+            ), itemCLickListener
         )
     }
 
     override fun getItemViewType(position: Int): Int = if (position == 0) 1 else 2
 }
 
+
+interface OnItemClickListener<T> {
+    fun onItemClick(item: T)
+}
 
 

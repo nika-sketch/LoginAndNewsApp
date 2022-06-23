@@ -30,6 +30,6 @@ interface LoadImage {
         }
     }
 
-    class FirstItemBase : Abstract(placeHolder = R.drawable.ic_github, crossFadeDuration = 1000)
+    class FirstItemBase : Abstract(placeHolder = R.drawable.ic_github, crossFadeDuration = 2000)
     class SecondItemBase : Abstract(crossFadeDuration = 200, transformations = CircleCropTransformation())
 }
