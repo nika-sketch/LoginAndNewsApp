@@ -1,8 +1,6 @@
 package ge.nlatsabidze.newsapplication.di
 
 import android.content.Context
-import coil.transform.RoundedCornersTransformation
-import coil.transform.Transformation
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,7 +39,7 @@ object CommonModule {
 
     @Provides
     @Named("firstItem")
-    fun provideImageLoader(): LoadImage = LoadImage.FirstItemBase()
+    fun provideImageLoader(): LoadImage = LoadImage.GithubImageBase()
 
     @Provides
     @Named("stringMapper")

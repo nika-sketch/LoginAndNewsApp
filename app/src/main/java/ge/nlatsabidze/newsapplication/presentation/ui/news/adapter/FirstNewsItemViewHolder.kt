@@ -11,7 +11,7 @@ import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseRecyclerViewAdapt
 class FirstNewsItemViewHolder(
     private val binding: FirstNewsItemBinding,
     private val itemClickListener: OnItemClickListener<Article>,
-    private val imageLoader: LoadImage = LoadImage.FirstItemBase(),
+    private val imageLoader: LoadImage = LoadImage.GithubImageBase(),
     private val dateFormatter: Mapper<String, String> = AbstractDateFormat.DateFormatter()
 ) : RecyclerView.ViewHolder(binding.root), BaseRecyclerViewAdapter.Binder<Article> {
     override fun bind(item: Article) = with(binding) {

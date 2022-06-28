@@ -24,7 +24,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setUpActionBar()
+        setSupportActionBar(binding.topAppBar)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main)
+        navController = navHostFragment?.let { NavHostFragment.findNavController(it) }!!
+        setupActionBarWithNavController(navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -32,10 +36,4 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    private fun setUpActionBar() {
-        setSupportActionBar(binding.topAppBar)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main)
-        navController = navHostFragment?.let { NavHostFragment.findNavController(it) }!!
-        setupActionBarWithNavController(navController)
-    }
 }

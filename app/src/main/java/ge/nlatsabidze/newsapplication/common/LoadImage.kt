@@ -1,12 +1,11 @@
 package ge.nlatsabidze.newsapplication.common
 
-import android.widget.ImageView
 import coil.load
-import coil.transform.CircleCropTransformation
-import coil.transform.RoundedCornersTransformation
+import android.widget.ImageView
 import coil.transform.Transformation
 import ge.nlatsabidze.newsapplication.R
-import javax.inject.Inject
+import coil.transform.CircleCropTransformation
+import coil.transform.RoundedCornersTransformation
 
 interface LoadImage {
 
@@ -17,8 +16,7 @@ interface LoadImage {
         private val allowCrossFade: Boolean = true,
         private val crossFadeDuration: Int = 500,
         private val transformations: Transformation = RoundedCornersTransformation(10f)
-    ) :
-        LoadImage {
+    ) : LoadImage {
 
         override fun load(imageView: ImageView, url: String) {
             imageView.load(url) {
@@ -30,6 +28,6 @@ interface LoadImage {
         }
     }
 
-    class FirstItemBase : Abstract(placeHolder = R.drawable.ic_github, crossFadeDuration = 2000)
-    class SecondItemBase : Abstract(crossFadeDuration = 200, transformations = CircleCropTransformation())
+    class GithubImageBase : Abstract(placeHolder = R.drawable.ic_github, crossFadeDuration = 2000)
+    class CircleImageBase : Abstract(crossFadeDuration = 200)
 }

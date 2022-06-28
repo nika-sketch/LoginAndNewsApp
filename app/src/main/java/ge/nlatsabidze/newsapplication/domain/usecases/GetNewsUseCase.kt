@@ -6,13 +6,14 @@ import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
+import javax.inject.Named
 
 interface NewsUseCase {
 
     fun execute(): Flow<Result<MyNews>>
 
     class GetNewsUseCase @Inject constructor(
-        private val newsRepository: NewsRepository,
+        @Named("currencyRepository") private val newsRepository: NewsRepository,
         private val backgroundCoroutine: CoroutineDispatcher
     ) : NewsUseCase {
         override fun execute(): Flow<Result<MyNews>> = flow {
