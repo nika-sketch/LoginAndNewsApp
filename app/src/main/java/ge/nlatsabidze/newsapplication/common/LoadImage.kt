@@ -2,10 +2,12 @@ package ge.nlatsabidze.newsapplication.common
 
 import coil.load
 import android.widget.ImageView
+import androidx.navigation.NavController
 import coil.transform.Transformation
 import ge.nlatsabidze.newsapplication.R
-import coil.transform.CircleCropTransformation
 import coil.transform.RoundedCornersTransformation
+import kotlinx.coroutines.flow.*
+import java.io.IOException
 
 interface LoadImage {
 
@@ -28,6 +30,6 @@ interface LoadImage {
         }
     }
 
-    class GithubImageBase : Abstract(placeHolder = R.drawable.ic_github, crossFadeDuration = 2000)
-    class CircleImageBase : Abstract(crossFadeDuration = 200)
+    class GithubImageBase : Abstract(placeHolder = R.drawable.ic_github, crossFadeDuration = 700)
+    class CircleImageBase : Abstract(crossFadeDuration = 500)
 }

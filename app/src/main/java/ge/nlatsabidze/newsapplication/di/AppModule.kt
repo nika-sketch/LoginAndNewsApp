@@ -1,7 +1,6 @@
 package ge.nlatsabidze.newsapplication.di
 
 
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +12,7 @@ import ge.nlatsabidze.newsapplication.data.remote.NewsApi
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
 import ge.nlatsabidze.newsapplication.data.repository.NewsRepositoryImpl
 import ge.nlatsabidze.newsapplication.data.repository.NewsResponseMapper
-import ge.nlatsabidze.newsapplication.domain.repository.ResponseHandler
+import ge.nlatsabidze.newsapplication.domain.repository.HandleResponse
 import ge.nlatsabidze.newsapplication.domain.usecases.NewsUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Named
@@ -34,7 +33,7 @@ object AppModule {
     fun provideCurrencyRepository(
         api: NewsApi,
         repoMapper: Mapper<NewsResponse, MyNews>,
-        responseHandler: ResponseHandler
+        responseHandler: HandleResponse
     ): NewsRepository =
         NewsRepositoryImpl(api, repoMapper, responseHandler)
 
@@ -44,7 +43,15 @@ object AppModule {
     @Provides
     fun provideResponseHandler(
         internetConnection: InternetConnection,
-        resourceManager: ResourceManager,
         handleResult: HandleResult,
-    ): ResponseHandler = ResponseHandler.Base(internetConnection, resourceManager, handleResult)
+        errorProvide: Error,
+        handleException: HandleException
+    ): HandleResponse = HandleResponse.Base(internetConnection, handleResult, errorProvide, handleException)
+
+    @Provides
+    fun provideError(resources: ProvideResources): Error = Error.NoConnection(resources)
+
+    @Provides
+    fun provideException(): HandleException = HandleException.Base()
+
 }

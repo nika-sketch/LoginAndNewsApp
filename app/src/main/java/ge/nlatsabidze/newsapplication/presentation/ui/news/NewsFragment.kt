@@ -6,6 +6,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import ge.nlatsabidze.newsapplication.common.collectFlow
 import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.NewsFragmentBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseFragment
@@ -24,14 +25,11 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
         binding.rvNews.adapter = newsAdapter
         binding.rvNews.layoutManager = LinearLayoutManager(requireContext())
 
-        newsViewModel.collect { it.apply(binding, newsAdapter) }
+        newsViewModel.collectNews { it.apply(binding, newsAdapter) }
+        collectFlow(newsViewModel.navigation) { it.navigate(findNavController()) }
     }
 
     override fun onItemClick(item: Article) {
-        findNavController().navigate(
-            NewsFragmentDirections.actionNewsFragmentToDetailsFragment(
-                item
-            )
-        )
+        newsViewModel.navigateToDetails(item)
     }
 }

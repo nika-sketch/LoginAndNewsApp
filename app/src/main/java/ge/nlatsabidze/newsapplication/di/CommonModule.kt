@@ -17,8 +17,8 @@ import javax.inject.Named
 object CommonModule {
 
     @Provides
-    fun provideResourceManager(@ApplicationContext context: Context): ResourceManager =
-        ResourceManager.Base(context)
+    fun provideResourceManager(@ApplicationContext context: Context): ProvideResources =
+        ProvideResources.Base(context)
 
     @Provides
     fun provideInternetConnection(@ApplicationContext context: Context): InternetConnection =

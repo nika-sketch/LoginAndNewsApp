@@ -12,7 +12,7 @@ abstract class AbstractDateFormat(
     override fun map(source: String): String {
         val dateInput = SimpleDateFormat(dateInput)
         val dateOutput = SimpleDateFormat(dateOutPut)
-        val date: Date = dateInput.parse(source)
+        val date: Date = dateInput.parse(source)!!
         return dateOutput.format(date)
     }
 

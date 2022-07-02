@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ge.nlatsabidze.newsapplication.common.AbstractDateFormat
 import ge.nlatsabidze.newsapplication.common.LoadImage
 import ge.nlatsabidze.newsapplication.common.Mapper
+import ge.nlatsabidze.newsapplication.common.onTap
 import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.NewsItemBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseRecyclerViewAdapter
@@ -21,7 +22,7 @@ class NewsItemViewHolder(
         desc.text = item.description
         newsDescription.text = item.title
 
-        root.setOnClickListener {
+        root.onTap {
             onItemClickListener.onItemClick(item)
         }
     }
