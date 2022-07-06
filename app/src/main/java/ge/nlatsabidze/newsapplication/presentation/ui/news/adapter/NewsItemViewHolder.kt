@@ -17,7 +17,7 @@ class NewsItemViewHolder(
 ) : RecyclerView.ViewHolder(binding.root), BaseRecyclerViewAdapter.Binder<Article> {
 
     override fun bind(item: Article) = with(binding) {
-        item.urlToImage.let { imageLoader.load(contentImage, it!!) }
+        item.urlToImage.let { imageLoader.load(contentImage, it) }
         publishedDate.text = item.publishedAt?.let { dateFormatter.map(it) }
         desc.text = item.description
         newsDescription.text = item.title

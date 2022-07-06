@@ -15,28 +15,10 @@ import javax.inject.Named
 class DetailsFragment : BaseFragment<DetailsFragmentBinding>(DetailsFragmentBinding::inflate) {
 
     private val argsArticle: DetailsFragmentArgs by navArgs()
-    private lateinit var article: Article
 
     @Inject
-    @Named("stringMapper")
-    lateinit var dateFormatter: Mapper<String, String>
+    lateinit var details: Details
 
-    @Inject
-    @Named("firstItem")
-    lateinit var imageLoader: LoadImage
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) = with(binding) {
-        article = argsArticle.articleargs
-        with(article) {
-            imageLoader.load(contentImage, urlToImage!!)
-            date.text = publishedAt
-            personName.text = author
-            journalName.text = source!!.name
-            date.text = publishedAt?.let { dateFormatter.map(it) }
-            if (content!!.containsBraces()) newsContent.text =
-                content.substring(0, content.firstIndexOfOpenBrace())
-            else newsContent.text = content
-            binding.newsTitle.text = title
-        }
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) =
+        details.setDetails(binding, argsArticle)
 }

@@ -2,7 +2,7 @@ package ge.nlatsabidze.newsapplication.common
 
 import kotlinx.coroutines.*
 
-interface MyDispatchers {
+interface Dispatchers {
 
     fun launchUI(scope: CoroutineScope, block: suspend CoroutineScope.() -> Unit): Job
     fun launchBackground(scope: CoroutineScope, block: suspend CoroutineScope.() -> Unit): Job
@@ -11,7 +11,7 @@ interface MyDispatchers {
     abstract class Abstract(
         private val ui: CoroutineDispatcher,
         private val background: CoroutineDispatcher,
-    ) : MyDispatchers {
+    ) : Dispatchers {
 
         override fun launchUI(
             scope: CoroutineScope,
@@ -27,5 +27,5 @@ interface MyDispatchers {
             withContext(ui, block)
     }
 
-    class Base : Abstract(ui = Dispatchers.Main, background = Dispatchers.IO)
+    class Base : Abstract(ui =  kotlinx.coroutines.Dispatchers.Main, background =  kotlinx.coroutines.Dispatchers.IO)
 }

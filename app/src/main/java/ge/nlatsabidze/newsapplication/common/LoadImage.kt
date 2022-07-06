@@ -11,7 +11,7 @@ import java.io.IOException
 
 interface LoadImage {
 
-    fun load(imageView: ImageView, url: String)
+    fun load(imageView: ImageView, url: String?)
 
     abstract class Abstract(
         private val placeHolder: Int = R.drawable.ic_round_menu,
@@ -20,7 +20,7 @@ interface LoadImage {
         private val transformations: Transformation = RoundedCornersTransformation(10f)
     ) : LoadImage {
 
-        override fun load(imageView: ImageView, url: String) {
+        override fun load(imageView: ImageView, url: String?) {
             imageView.load(url) {
                 placeholder(placeHolder)
                 crossfade(allowCrossFade)

@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 class NewsViewModel @Inject constructor(
     private val newsUseCase: NewsUseCase,
     private val communicationNews: Communication<NewsUi>,
-    dispatcher: MyDispatchers,
+    dispatcher: Dispatchers,
 ) : ViewModel() {
 
     private val _navigation = Channel<Navigation>()

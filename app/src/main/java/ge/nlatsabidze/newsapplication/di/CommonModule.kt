@@ -7,6 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ge.nlatsabidze.newsapplication.common.*
+import ge.nlatsabidze.newsapplication.presentation.ui.details.Details
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -32,7 +33,8 @@ object CommonModule {
     fun provideIo(): CoroutineDispatcher = Dispatchers.IO
 
     @Provides
-    fun provideDispatchers(): MyDispatchers = MyDispatchers.Base()
+    fun provideDispatchers(): ge.nlatsabidze.newsapplication.common.Dispatchers =
+        ge.nlatsabidze.newsapplication.common.Dispatchers.Base()
 
     @Provides
     fun provideResultHandler(): HandleResult = HandleResult.Base()
@@ -44,4 +46,10 @@ object CommonModule {
     @Provides
     @Named("stringMapper")
     fun provideDateFormat(): Mapper<String, String> = AbstractDateFormat.DateFormatter()
+
+    @Provides
+    fun provideDetails(
+        @Named("firstItem") imageLoader: LoadImage,
+        @Named("stringMapper") mapper: Mapper<String, String>
+    ): Details = Details.Base(imageLoader, mapper)
 }
