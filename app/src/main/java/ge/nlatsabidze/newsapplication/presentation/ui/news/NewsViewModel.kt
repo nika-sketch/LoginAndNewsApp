@@ -1,5 +1,6 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.news
 
+import androidx.lifecycle.LifecycleOwner
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModel
@@ -16,25 +17,30 @@ import kotlinx.coroutines.flow.receiveAsFlow
 class NewsViewModel @Inject constructor(
     private val newsUseCase: NewsUseCase,
     private val communicationNews: Communication<NewsUi>,
+    private val channelCommunication: Communication<Navigation>,
     private val resultFactory: ResultToNewsUiMapper,
     dispatcher: Dispatchers,
 ) : ViewModel() {
 
-    private val _navigation = Channel<Navigation>()
-    val navigation = _navigation.receiveAsFlow()
-
     init {
         dispatcher.launchBackground(viewModelScope) {
-
-            resultFactory.toNewsUi(newsUseCase.execute(),communicationNews)
+            resultFactory.toNewsUi(newsUseCase.execute(), communicationNews)
         }
     }
 
     fun navigateToDetails(item: Article) = viewModelScope.launch {
-        _navigation.send(Navigation.NavigateToDetails(item))
+        channelCommunication.map(Navigation.NavigateToDetails(item))
     }
 
-    fun collectNews(collector: FlowCollector<NewsUi>) = viewModelScope.launch {
-        communicationNews.collect(collector)
+    fun collectNavigation(
+        viewLifecycleOwner: LifecycleOwner,
+        collector: FlowCollector<Navigation>
+    ) = viewModelScope.launch {
+        channelCommunication.collect(viewLifecycleOwner, collector)
     }
+
+    fun collectNews(viewLifecycleOwner: LifecycleOwner, collector: FlowCollector<NewsUi>) =
+        viewModelScope.launch {
+            communicationNews.collect(viewLifecycleOwner, collector)
+        }
 }

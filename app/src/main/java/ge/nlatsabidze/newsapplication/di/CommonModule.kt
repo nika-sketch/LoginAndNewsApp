@@ -14,6 +14,7 @@ import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.data.model.MyNews
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
 import ge.nlatsabidze.newsapplication.presentation.ui.details.Details
+import ge.nlatsabidze.newsapplication.presentation.ui.news.Navigation
 import ge.nlatsabidze.newsapplication.presentation.ui.news.ResultToNewsUiMapper
 
 @Module
@@ -62,4 +63,7 @@ object CommonModule {
 
     @Provides
     fun providesResultMapper(): ResultMapper<NewsUi, MyNews> = ResultMapper.ToNewsUi()
+
+    @Provides
+    fun provideChannel(): Communication<Navigation> = Communication.BaseChannel()
 }
