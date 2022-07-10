@@ -1,17 +1,18 @@
 package ge.nlatsabidze.newsapplication.di
 
-import android.content.Context
 import dagger.Module
 import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
-import dagger.hilt.components.SingletonComponent
-import ge.nlatsabidze.newsapplication.common.*
-import ge.nlatsabidze.newsapplication.presentation.ui.details.Details
-import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Named
+import dagger.hilt.InstallIn
+import android.content.Context
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
+import ge.nlatsabidze.newsapplication.common.*
+import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
+import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
+import ge.nlatsabidze.newsapplication.presentation.ui.details.Details
+import ge.nlatsabidze.newsapplication.presentation.ui.news.ResultToNewsUiMapper
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -52,4 +53,7 @@ object CommonModule {
         @Named("firstItem") imageLoader: LoadImage,
         @Named("stringMapper") mapper: Mapper<String, String>
     ): Details = Details.Base(imageLoader, mapper)
+
+    @Provides
+    fun provideResultFactory(): ResultToNewsUiMapper = ResultToNewsUiMapper.Base()
 }

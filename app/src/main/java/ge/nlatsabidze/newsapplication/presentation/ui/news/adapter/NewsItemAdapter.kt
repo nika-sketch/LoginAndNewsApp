@@ -1,11 +1,11 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.news.adapter
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
 import ge.nlatsabidze.newsapplication.data.model.Article
-import ge.nlatsabidze.newsapplication.databinding.FirstNewsItemBinding
 import ge.nlatsabidze.newsapplication.databinding.NewsItemBinding
+import ge.nlatsabidze.newsapplication.databinding.FirstNewsItemBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseRecyclerViewAdapter
 
 class NewsItemAdapter(

@@ -3,9 +3,9 @@ package ge.nlatsabidze.newsapplication.presentation.ui.news
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.hilt.android.AndroidEntryPoint
 import ge.nlatsabidze.newsapplication.common.collectFlow
 import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.NewsFragmentBinding

@@ -24,12 +24,10 @@ interface NewsUi {
     }
 
     class Error(private val message: String) : NewsUi {
-        override fun apply(binding: NewsFragmentBinding, adapter: NewsItemAdapter) {
-            with(binding) {
-                loadingProgressBar.gone()
-                errorMessageTextView.text = message
-                errorMessageTextView.visible()
-            }
+        override fun apply(binding: NewsFragmentBinding, adapter: NewsItemAdapter) = with(binding) {
+            loadingProgressBar.gone()
+            errorMessageTextView.text = message
+            errorMessageTextView.visible()
         }
     }
 }

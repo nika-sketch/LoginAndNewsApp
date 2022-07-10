@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 class NewsViewModel @Inject constructor(
     private val newsUseCase: NewsUseCase,
     private val communicationNews: Communication<NewsUi>,
+    private val resultFactory: ResultToNewsUiMapper,
     dispatcher: Dispatchers,
 ) : ViewModel() {
 
@@ -24,14 +25,7 @@ class NewsViewModel @Inject constructor(
 
     init {
         dispatcher.launchBackground(viewModelScope) {
-            newsUseCase.execute().collect { news ->
-                val result = when (news) {
-                    is Result.Loading -> NewsUi.Loading()
-                    is Result.Success -> NewsUi.Success(news.data.articles)
-                    is Result.Error -> NewsUi.Error(news.message)
-                }
-                communicationNews.map(result)
-            }
+            resultFactory.toNewsUi(newsUseCase.execute(),communicationNews)
         }
     }
 
@@ -43,4 +37,3 @@ class NewsViewModel @Inject constructor(
         communicationNews.collect(collector)
     }
 }
-
