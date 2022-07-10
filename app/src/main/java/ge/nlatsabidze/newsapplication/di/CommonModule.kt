@@ -10,6 +10,8 @@ import kotlinx.coroutines.CoroutineDispatcher
 import ge.nlatsabidze.newsapplication.common.*
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import ge.nlatsabidze.newsapplication.data.model.Article
+import ge.nlatsabidze.newsapplication.data.model.MyNews
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
 import ge.nlatsabidze.newsapplication.presentation.ui.details.Details
 import ge.nlatsabidze.newsapplication.presentation.ui.news.ResultToNewsUiMapper
@@ -55,5 +57,9 @@ object CommonModule {
     ): Details = Details.Base(imageLoader, mapper)
 
     @Provides
-    fun provideResultFactory(): ResultToNewsUiMapper = ResultToNewsUiMapper.Base()
+    fun provideResultFactory(mapper: ResultMapper<NewsUi, MyNews>): ResultToNewsUiMapper =
+        ResultToNewsUiMapper.Base(mapper)
+
+    @Provides
+    fun providesResultMapper(): ResultMapper<NewsUi, MyNews> = ResultMapper.ToNewsUi()
 }

@@ -13,4 +13,24 @@ data class Article(
     val title: String?,
     val url: String?,
     val urlToImage: String?
-): Parcelable
+) : Parcelable {
+//    fun toUiArticle(): UiArticle {
+//        return UiArticle.Base()
+//    }
+}
+
+//interface UiArticle {
+//
+//    class Base(
+//        val author: String,
+//        val content: String,
+//        val description: String,
+//        val publishedAt: String,
+//        val source: Source,
+//        val title: String,
+//        val url: String,
+//        val urlToImage: String
+//    ) : UiArticle {
+//
+//    }
+//}

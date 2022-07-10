@@ -25,6 +25,7 @@ class NewsViewModel @Inject constructor(
 
     init {
         dispatcher.launchBackground(viewModelScope) {
+
             resultFactory.toNewsUi(newsUseCase.execute(),communicationNews)
         }
     }
