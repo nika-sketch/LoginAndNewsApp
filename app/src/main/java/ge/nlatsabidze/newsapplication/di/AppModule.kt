@@ -5,7 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ge.nlatsabidze.newsapplication.common.*
+import ge.nlatsabidze.newsapplication.core.*
 import ge.nlatsabidze.newsapplication.data.model.MyNews
 import ge.nlatsabidze.newsapplication.data.model.NewsResponse
 import ge.nlatsabidze.newsapplication.data.remote.NewsApi

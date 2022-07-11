@@ -1,6 +1,6 @@
 package ge.nlatsabidze.newsapplication.domain.usecases
 
-import ge.nlatsabidze.newsapplication.common.Result
+import ge.nlatsabidze.newsapplication.core.Result
 import ge.nlatsabidze.newsapplication.data.model.MyNews
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
 import kotlinx.coroutines.CoroutineDispatcher

@@ -7,10 +7,9 @@ import dagger.hilt.InstallIn
 import android.content.Context
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.CoroutineDispatcher
-import ge.nlatsabidze.newsapplication.common.*
+import ge.nlatsabidze.newsapplication.core.*
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.data.model.MyNews
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
 import ge.nlatsabidze.newsapplication.presentation.ui.details.Details
@@ -37,8 +36,8 @@ object CommonModule {
     fun provideIo(): CoroutineDispatcher = Dispatchers.IO
 
     @Provides
-    fun provideDispatchers(): ge.nlatsabidze.newsapplication.common.Dispatchers =
-        ge.nlatsabidze.newsapplication.common.Dispatchers.Base()
+    fun provideDispatchers(): ge.nlatsabidze.newsapplication.core.Dispatchers =
+        ge.nlatsabidze.newsapplication.core.Dispatchers.Base()
 
     @Provides
     fun provideResultHandler(): HandleResult = HandleResult.Base()

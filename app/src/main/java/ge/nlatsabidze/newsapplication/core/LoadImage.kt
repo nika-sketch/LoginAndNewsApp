@@ -1,13 +1,10 @@
-package ge.nlatsabidze.newsapplication.common
+package ge.nlatsabidze.newsapplication.core
 
 import coil.load
 import android.widget.ImageView
-import androidx.navigation.NavController
 import coil.transform.Transformation
 import ge.nlatsabidze.newsapplication.R
 import coil.transform.RoundedCornersTransformation
-import kotlinx.coroutines.flow.*
-import java.io.IOException
 
 interface LoadImage {
 

@@ -3,7 +3,7 @@ package ge.nlatsabidze.newsapplication.presentation.ui.base
 import android.view.ViewGroup
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
-import ge.nlatsabidze.newsapplication.common.Mapper
+import ge.nlatsabidze.newsapplication.core.Mapper
 
 @SuppressLint("NotifyDataSetChanged")
 abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>(),

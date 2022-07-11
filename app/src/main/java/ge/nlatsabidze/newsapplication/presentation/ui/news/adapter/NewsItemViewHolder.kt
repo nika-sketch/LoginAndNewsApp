@@ -1,11 +1,11 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.news.adapter
 
 import androidx.recyclerview.widget.RecyclerView
-import ge.nlatsabidze.newsapplication.common.onTap
-import ge.nlatsabidze.newsapplication.common.Mapper
-import ge.nlatsabidze.newsapplication.common.LoadImage
+import ge.nlatsabidze.newsapplication.core.onTap
+import ge.nlatsabidze.newsapplication.core.Mapper
+import ge.nlatsabidze.newsapplication.core.LoadImage
 import ge.nlatsabidze.newsapplication.data.model.Article
-import ge.nlatsabidze.newsapplication.common.AbstractDateFormat
+import ge.nlatsabidze.newsapplication.core.AbstractDateFormat
 import ge.nlatsabidze.newsapplication.databinding.NewsItemBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseRecyclerViewAdapter
 

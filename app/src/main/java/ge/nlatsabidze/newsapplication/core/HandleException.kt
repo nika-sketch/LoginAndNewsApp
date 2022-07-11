@@ -1,4 +1,4 @@
-package ge.nlatsabidze.newsapplication.common
+package ge.nlatsabidze.newsapplication.core
 
 interface HandleException {
 

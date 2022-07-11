@@ -1,4 +1,4 @@
-package ge.nlatsabidze.newsapplication.common
+package ge.nlatsabidze.newsapplication.core
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner

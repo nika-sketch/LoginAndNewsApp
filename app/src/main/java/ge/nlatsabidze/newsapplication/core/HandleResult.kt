@@ -1,4 +1,4 @@
-package ge.nlatsabidze.newsapplication.common
+package ge.nlatsabidze.newsapplication.core
 
 interface HandleResult {
     fun <T> successCase(data: T): Result<T>

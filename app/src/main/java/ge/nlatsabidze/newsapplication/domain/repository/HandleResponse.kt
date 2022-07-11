@@ -1,6 +1,6 @@
 package ge.nlatsabidze.newsapplication.domain.repository
 
-import ge.nlatsabidze.newsapplication.common.*
+import ge.nlatsabidze.newsapplication.core.*
 import retrofit2.Response
 import javax.inject.Inject
 

@@ -1,7 +1,7 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.news
 
-import ge.nlatsabidze.newsapplication.common.gone
-import ge.nlatsabidze.newsapplication.common.visible
+import ge.nlatsabidze.newsapplication.core.gone
+import ge.nlatsabidze.newsapplication.core.visible
 import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.NewsFragmentBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.news.adapter.NewsItemAdapter

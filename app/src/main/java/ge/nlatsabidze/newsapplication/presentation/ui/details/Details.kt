@@ -2,10 +2,10 @@ package ge.nlatsabidze.newsapplication.presentation.ui.details
 
 import javax.inject.Named
 import javax.inject.Inject
-import ge.nlatsabidze.newsapplication.common.Mapper
-import ge.nlatsabidze.newsapplication.common.LoadImage
-import ge.nlatsabidze.newsapplication.common.containsBraces
-import ge.nlatsabidze.newsapplication.common.firstIndexOfOpenBrace
+import ge.nlatsabidze.newsapplication.core.Mapper
+import ge.nlatsabidze.newsapplication.core.LoadImage
+import ge.nlatsabidze.newsapplication.core.containsBraces
+import ge.nlatsabidze.newsapplication.core.firstIndexOfOpenBrace
 import ge.nlatsabidze.newsapplication.databinding.DetailsFragmentBinding
 
 interface Details {
