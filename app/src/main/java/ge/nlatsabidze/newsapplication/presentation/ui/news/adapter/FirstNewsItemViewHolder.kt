@@ -14,7 +14,7 @@ class FirstNewsItemViewHolder(
     private val itemClickListener: OnItemClickListener<Article>,
     private val imageLoader: LoadImage = LoadImage.GithubImageBase(),
     private val dateFormatter: Mapper<String, String> = AbstractDateFormat.DateFormatter()
-) : RecyclerView.ViewHolder(binding.root), BaseRecyclerViewAdapter.Binder<Article> {
+) : RecyclerView.ViewHolder(binding.root), BaseRecyclerViewAdapter.Bind<Article> {
 
     override fun bind(item: Article) = with(binding) {
         item.urlToImage.let { imageLoader.load(contentImage, it) }

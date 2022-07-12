@@ -19,7 +19,7 @@ interface NewsUi {
     class Success(private var items: MutableList<Article>) : NewsUi {
         override fun apply(binding: NewsFragmentBinding, adapter: NewsItemAdapter) {
             binding.loadingProgressBar.gone()
-            adapter.map(items)
+            adapter.submitList(items)
         }
     }
 

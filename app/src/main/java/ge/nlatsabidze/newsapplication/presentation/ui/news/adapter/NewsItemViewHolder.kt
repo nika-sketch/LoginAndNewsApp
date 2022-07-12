@@ -14,7 +14,7 @@ class NewsItemViewHolder(
     private val onItemClickListener: OnItemClickListener<Article>,
     private val dateFormatter: Mapper<String, String> = AbstractDateFormat.DateFormatter(),
     private val imageLoader: LoadImage = LoadImage.CircleImageBase()
-) : RecyclerView.ViewHolder(binding.root), BaseRecyclerViewAdapter.Binder<Article> {
+) : RecyclerView.ViewHolder(binding.root), BaseRecyclerViewAdapter.Bind<Article> {
 
     override fun bind(item: Article) = with(binding) {
         item.urlToImage.let { imageLoader.load(contentImage, it) }
