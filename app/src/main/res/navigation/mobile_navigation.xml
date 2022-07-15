@@ -12,7 +12,9 @@
         tools:layout="@layout/news_fragment" >
         <action
             android:id="@+id/action_newsFragment_to_detailsFragment"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -24,9 +26,11 @@
             app:argType="ge.nlatsabidze.newsapplication.data.model.Article" />
         <action
             android:id="@+id/action_detailsFragment_to_newsFragment"
+            app:destination="@id/newsFragment"
+            app:exitAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_up"
             app:popUpTo="@id/newsFragment"
-            app:popUpToInclusive="true"
-            app:destination="@id/newsFragment" />
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>
