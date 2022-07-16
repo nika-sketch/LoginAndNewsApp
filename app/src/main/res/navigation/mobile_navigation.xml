@@ -21,9 +21,9 @@
         android:name="ge.nlatsabidze.newsapplication.presentation.ui.details.DetailsFragment"
         android:label="Details"
         tools:layout="@layout/details_fragment" >
-        <argument
-            android:name="articleargs"
-            app:argType="ge.nlatsabidze.newsapplication.data.model.Article" />
+<!--        <argument-->
+<!--            android:name="articleargs"-->
+<!--            app:argType="ge.nlatsabidze.newsapplication.data.model.Article" />-->
         <action
             android:id="@+id/action_detailsFragment_to_newsFragment"
             app:destination="@id/newsFragment"

@@ -3,6 +3,7 @@ package ge.nlatsabidze.newsapplication.core
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
+import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.presentation.ui.news.Navigation
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
 import kotlinx.coroutines.channels.Channel
@@ -35,6 +36,7 @@ interface Communication<T> {
     }
 
     class BaseNews(uiBinding: NewsUi) : StateAbstract<NewsUi>(uiBinding)
+    class BaseArticle : StateAbstract<Article?>(null)
 
     abstract class ChannelAbstract<T> : Communication<T> {
 

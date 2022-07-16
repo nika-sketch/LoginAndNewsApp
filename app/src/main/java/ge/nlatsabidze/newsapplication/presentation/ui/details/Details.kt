@@ -6,32 +6,31 @@ import ge.nlatsabidze.newsapplication.core.Mapper
 import ge.nlatsabidze.newsapplication.core.LoadImage
 import ge.nlatsabidze.newsapplication.core.containsBraces
 import ge.nlatsabidze.newsapplication.core.firstIndexOfOpenBrace
+import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.DetailsFragmentBinding
 
 interface Details {
 
-    fun showDetails(binding: DetailsFragmentBinding, argsArticle: DetailsFragmentArgs)
+    fun showDetails(binding: DetailsFragmentBinding, argsArticle: Article)
 
     class Base @Inject constructor(
         private val imageLoader: LoadImage,
         @Named("firstItem") val dateFormatter: Mapper<String, String>
     ) : Details {
-        override fun showDetails(binding: DetailsFragmentBinding, argsArticle: DetailsFragmentArgs) =
+        override fun showDetails(binding: DetailsFragmentBinding, argsArticle: Article) =
             with(binding) {
-                with(argsArticle) {
-                    imageLoader.load(binding.contentImage, articleargs.urlToImage)
-                    date.text = articleargs.publishedAt
-                    personName.text = articleargs.author
-                    journalName.text = articleargs.source!!.name
-                    date.text = articleargs.publishedAt?.let { dateFormatter.map(it) }
-                    if (articleargs.content!!.containsBraces()) binding.newsContent.text =
-                        articleargs.content!!.substring(
-                            0,
-                            articleargs.content!!.firstIndexOfOpenBrace()
-                        )
-                    else newsContent.text = articleargs.content
-                    newsTitle.text = articleargs.title
-                }
+                imageLoader.load(binding.contentImage, argsArticle.urlToImage)
+                date.text = argsArticle.publishedAt
+                personName.text = argsArticle.author
+                journalName.text = argsArticle.source!!.name
+                date.text = argsArticle.publishedAt?.let { dateFormatter.map(it) }
+                if (argsArticle.content!!.containsBraces()) binding.newsContent.text =
+                    argsArticle.content.substring(
+                        0,
+                        argsArticle.content.firstIndexOfOpenBrace()
+                    )
+                else newsContent.text = argsArticle.content
+                newsTitle.text = argsArticle.title
             }
     }
 }

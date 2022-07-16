@@ -10,6 +10,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import ge.nlatsabidze.newsapplication.core.*
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.data.model.MyNews
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
 import ge.nlatsabidze.newsapplication.presentation.ui.details.Details
@@ -31,6 +32,10 @@ object CommonModule {
     @Provides
     fun provideCommunication(): Communication<NewsUi> =
         Communication.BaseNews(NewsUi.Loading())
+
+    @Provides
+    fun provideArticleCommunication(): Communication<Article?> =
+        Communication.BaseArticle()
 
     @Provides
     fun provideIo(): CoroutineDispatcher = Dispatchers.IO
