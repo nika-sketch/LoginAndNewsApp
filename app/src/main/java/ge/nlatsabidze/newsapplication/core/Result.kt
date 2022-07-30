@@ -13,7 +13,7 @@ sealed class Result<T> {
         }
     }
 
-    data class Success< T>(val data: T) : Result<T>() {
+    data class Success<T>(val data: T) : Result<T>() {
         override fun <R> map(mapper: ResultMapper<R, T>): R {
             return mapper.mapSuccess(data)
         }
@@ -34,12 +34,8 @@ interface ResultMapper<T, D> {
     fun mapSuccess(data: D): T
 
     class ToNewsUi : ResultMapper<NewsUi, MyNews> {
-
         override fun mapProgress(): NewsUi = NewsUi.Loading()
-
         override fun mapError(message: String): NewsUi = NewsUi.Error(message)
-
         override fun mapSuccess(data: MyNews): NewsUi = NewsUi.Success(data.articles)
-
     }
 }

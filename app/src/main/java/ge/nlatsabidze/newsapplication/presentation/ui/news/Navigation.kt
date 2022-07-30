@@ -19,6 +19,21 @@ interface Navigation {
 
     class NavigateToDetails(
         private val item: Article,
-        navDirections: NavDirections = NewsFragmentDirections.actionNewsFragmentToDetailsFragment(item)
+        navDirections: NavDirections = NewsFragmentDirections.actionNewsFragmentToDetailsFragment(
+            item
+        )
     ) : AbstractDirection(navDirections)
+}
+
+interface Delay {
+
+    suspend fun delay()
+
+    abstract class Abstract(private val time: Long) : Delay {
+        override suspend fun delay() {
+            kotlinx.coroutines.delay(time)
+        }
+    }
+
+    class Base : Abstract(3000L)
 }

@@ -28,5 +28,5 @@ interface LoadImage {
     }
 
     class GithubImageBase : Abstract(placeHolder = R.drawable.ic_github, crossFadeDuration = 700)
-    class CircleImageBase : Abstract(crossFadeDuration = 500)
+    class CircleImageBase : Abstract(placeHolder = R.drawable.ic_github, crossFadeDuration = 500)
 }
