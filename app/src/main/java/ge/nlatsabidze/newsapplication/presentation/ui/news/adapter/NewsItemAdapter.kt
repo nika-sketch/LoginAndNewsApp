@@ -9,7 +9,7 @@ import ge.nlatsabidze.newsapplication.databinding.FirstNewsItemBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseRecyclerViewAdapter
 
 class NewsItemAdapter(
-    private val itemCLickListener: OnItemClickListener<Article>
+    private val itemCLickListener: OnItemClick<Article>
 ) :
     BaseRecyclerViewAdapter<Article>() {
 
@@ -34,7 +34,7 @@ class NewsItemAdapter(
 }
 
 
-interface OnItemClickListener<T> {
+interface OnItemClick<T> {
     fun onItemClick(item: T)
 }
 

@@ -5,7 +5,6 @@ import android.annotation.SuppressLint
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-@SuppressLint("NotifyDataSetChanged")
 abstract class BaseRecyclerViewAdapter<T : Any> :
     ListAdapter<T, RecyclerView.ViewHolder>(BaseItemCallback<T>()) {
 

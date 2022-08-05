@@ -4,7 +4,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import ge.nlatsabidze.newsapplication.data.model.Article
 
-
 interface Navigation {
 
     fun navigate(navController: NavController)
@@ -23,17 +22,4 @@ interface Navigation {
             item
         )
     ) : AbstractDirection(navDirections)
-}
-
-interface Delay {
-
-    suspend fun delay()
-
-    abstract class Abstract(private val time: Long) : Delay {
-        override suspend fun delay() {
-            kotlinx.coroutines.delay(time)
-        }
-    }
-
-    class Base : Abstract(3000L)
 }

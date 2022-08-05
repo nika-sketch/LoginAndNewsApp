@@ -11,7 +11,7 @@ import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseRecyclerViewAdapt
 
 class NewsItemViewHolder(
     private val binding: NewsItemBinding,
-    private val onItemClickListener: OnItemClickListener<Article>,
+    private val onItemClickListener: OnItemClick<Article>,
     private val dateFormatter: Mapper<String, String> = AbstractDateFormat.DateFormatter(),
     private val imageLoader: LoadImage = LoadImage.CircleImageBase()
 ) : RecyclerView.ViewHolder(binding.root), BaseRecyclerViewAdapter.Bind<Article> {

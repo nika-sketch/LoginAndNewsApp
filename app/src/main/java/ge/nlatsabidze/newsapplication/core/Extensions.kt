@@ -9,14 +9,6 @@ fun View.visible() {
     visibility = View.VISIBLE
 }
 
-fun View.gone() {
-    visibility = View.GONE
-}
-
-fun Fragment.navigateToDetails(id: Int) {
-    findNavController().navigate(id)
-}
-
 fun View.onTap(block: () -> Unit) {
     this.setOnClickListener {
         block.invoke()

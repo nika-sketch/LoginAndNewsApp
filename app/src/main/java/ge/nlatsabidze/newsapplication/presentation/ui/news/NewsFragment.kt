@@ -10,11 +10,11 @@ import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.NewsFragmentBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseFragment
 import ge.nlatsabidze.newsapplication.presentation.ui.news.adapter.NewsItemAdapter
-import ge.nlatsabidze.newsapplication.presentation.ui.news.adapter.OnItemClickListener
+import ge.nlatsabidze.newsapplication.presentation.ui.news.adapter.OnItemClick
 
 @AndroidEntryPoint
 class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::inflate),
-    OnItemClickListener<Article> {
+    OnItemClick<Article> {
 
     private val newsViewModel: NewsViewModel by viewModels()
     private lateinit var newsAdapter: NewsItemAdapter
