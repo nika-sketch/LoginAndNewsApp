@@ -1,6 +1,6 @@
 package ge.nlatsabidze.newsapplication.domain.signIn
 
-import ge.nlatsabidze.newsapplication.data.signIn.UserAuthResult
+import ge.nlatsabidze.newsapplication.presentation.ui.signIn.UserAuthResult
 
 interface SignInRepository {
 

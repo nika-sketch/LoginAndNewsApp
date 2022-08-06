@@ -36,6 +36,7 @@ interface Communication<T> {
     }
 
     class BaseNews(uiBinding: NewsUi) : StateAbstract<NewsUi>(uiBinding)
+    class BaseLoading(visibility: Visibility) : StateAbstract<Visibility>(visibility)
 
     abstract class ChannelAbstract<T> : Communication<T> {
 

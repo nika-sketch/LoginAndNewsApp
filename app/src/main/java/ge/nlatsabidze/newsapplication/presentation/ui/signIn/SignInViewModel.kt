@@ -3,26 +3,27 @@ package ge.nlatsabidze.newsapplication.presentation.ui.signIn
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.flow.FlowCollector
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ge.nlatsabidze.newsapplication.core.showSnack
 import ge.nlatsabidze.newsapplication.core.Dispatchers
 import ge.nlatsabidze.newsapplication.core.Communication
+import ge.nlatsabidze.newsapplication.core.Visibility
 import ge.nlatsabidze.newsapplication.domain.signIn.SignInRepository
-import ge.nlatsabidze.newsapplication.databinding.SignInFragmentBinding
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val signInRepository: SignInRepository,
     private val dispatcher: Dispatchers,
-    private val signInCommunication: Communication<EventSignIn>
+    private val signInCommunication: Communication<EventSignIn>,
+    private val loadingCommunication: Communication<Visibility>
 ) : ViewModel() {
 
     fun signIn(email: String, password: String) = dispatcher.launchBackground(viewModelScope) {
-        val signIn = signInRepository.signIn(email, password)
-        signIn.apply(signInCommunication)
+        loadingCommunication.map(Visibility.Visible())
+        signInRepository.signIn(email, password).apply(signInCommunication)
+        loadingCommunication.map(Visibility.Gone())
     }
 
     fun collect(
@@ -31,18 +32,11 @@ class SignInViewModel @Inject constructor(
     ) = viewModelScope.launch {
         signInCommunication.collect(viewLifecycleOwner, collector)
     }
-}
 
-interface EventSignIn {
-
-    fun apply(binding: SignInFragmentBinding)
-
-    abstract class Abstract(private val message: String) : EventSignIn {
-        override fun apply(binding: SignInFragmentBinding) {
-            binding.signInGlobal.showSnack(message)
-        }
+    fun collectVisibility(
+        viewLifecycleOwner: LifecycleOwner,
+        collector: FlowCollector<Visibility>
+    ) = viewModelScope.launch {
+        loadingCommunication.collect(viewLifecycleOwner, collector)
     }
-
-    class True : Abstract("Success")
-    class False : Abstract("Error")
 }

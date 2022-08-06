@@ -36,6 +36,10 @@
         android:id="@+id/signInFragment"
         android:name="ge.nlatsabidze.newsapplication.presentation.ui.signIn.SignInFragment"
         android:label="sign_in_fragment"
-        tools:layout="@layout/sign_in_fragment" />
+        tools:layout="@layout/sign_in_fragment" >
+        <action
+            android:id="@+id/action_signInFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+    </fragment>
 
 </navigation>

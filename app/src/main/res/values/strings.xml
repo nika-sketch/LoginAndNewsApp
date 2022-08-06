@@ -4,4 +4,5 @@
     <string name="exceptionError">Something Went Wrong</string>
     <string name="no_internet_connection">No Internet Connection</string>
     <string name="service_unavailable_error_text">Service unavailable</string>
+    <string name="input_error">Input is clear</string>
 </resources>

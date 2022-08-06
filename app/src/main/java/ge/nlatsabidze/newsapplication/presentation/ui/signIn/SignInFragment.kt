@@ -3,6 +3,7 @@ package ge.nlatsabidze.newsapplication.presentation.ui.signIn
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ge.nlatsabidze.newsapplication.core.onTap
 import ge.nlatsabidze.newsapplication.databinding.SignInFragmentBinding
@@ -17,6 +18,7 @@ class SignInFragment : BaseFragment<SignInFragmentBinding>(SignInFragmentBinding
         super.onViewCreated(view, savedInstanceState)
 
         button.onTap { viewModel.signIn(email.text.toString(), password.text.toString()) }
-        viewModel.collect(viewLifecycleOwner) { it.apply(binding) }
+        viewModel.collect(viewLifecycleOwner) { it.apply(binding, findNavController()) }
+        viewModel.collectVisibility(viewLifecycleOwner) { it.apply(progressBar) }
     }
 }
