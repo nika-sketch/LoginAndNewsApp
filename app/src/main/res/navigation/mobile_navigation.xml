@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/newsFragment">
+    app:startDestination="@id/signInFragment">
 
     <fragment
         android:id="@+id/newsFragment"
@@ -32,5 +32,10 @@
             app:popUpTo="@id/newsFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="ge.nlatsabidze.newsapplication.presentation.ui.signIn.SignInFragment"
+        android:label="sign_in_fragment"
+        tools:layout="@layout/sign_in_fragment" />
 
 </navigation>
