@@ -1,6 +1,6 @@
 package ge.nlatsabidze.newsapplication.core
 
-import ge.nlatsabidze.newsapplication.data.model.MyNews
+import ge.nlatsabidze.newsapplication.domain.interactor.MyNews
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
 
 sealed class Result<T> {

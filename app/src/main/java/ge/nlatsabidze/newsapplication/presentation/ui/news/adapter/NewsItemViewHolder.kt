@@ -8,6 +8,7 @@ import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.core.AbstractDateFormat
 import ge.nlatsabidze.newsapplication.databinding.NewsItemBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseRecyclerViewAdapter
+import ge.nlatsabidze.newsapplication.presentation.ui.core.OnItemClick
 
 class NewsItemViewHolder(
     private val binding: NewsItemBinding,

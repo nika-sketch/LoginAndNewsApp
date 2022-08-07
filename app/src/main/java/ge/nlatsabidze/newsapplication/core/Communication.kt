@@ -3,9 +3,9 @@ package ge.nlatsabidze.newsapplication.core
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
-import ge.nlatsabidze.newsapplication.presentation.ui.news.Navigation
+import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
-import ge.nlatsabidze.newsapplication.presentation.ui.signIn.EventSignIn
+import ge.nlatsabidze.newsapplication.presentation.ui.signIn.SignInEvent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -58,5 +58,5 @@ interface Communication<T> {
     }
 
     class BaseChannel : ChannelAbstract<Navigation>()
-    class BaseSignInEvent : ChannelAbstract<EventSignIn>()
+    class BaseSignInEvent : ChannelAbstract<SignInEvent>()
 }

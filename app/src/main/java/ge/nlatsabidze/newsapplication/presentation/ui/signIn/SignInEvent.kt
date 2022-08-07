@@ -3,19 +3,19 @@ package ge.nlatsabidze.newsapplication.presentation.ui.signIn
 import androidx.navigation.NavController
 import ge.nlatsabidze.newsapplication.core.showSnack
 import ge.nlatsabidze.newsapplication.databinding.SignInFragmentBinding
-import ge.nlatsabidze.newsapplication.presentation.ui.news.Navigation
+import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
 
-interface EventSignIn {
+interface SignInEvent {
 
     fun apply(binding: SignInFragmentBinding, navController: NavController)
 
-    class SuccessFullLogin(private val navigation: Navigation) : EventSignIn {
+    class SuccessFulLogin(private val navigation: Navigation) : SignInEvent {
         override fun apply(binding: SignInFragmentBinding, navController: NavController) {
             navigation.navigate(navController)
         }
     }
 
-    class ErrorLogin(private val message: String) : EventSignIn {
+    class ErrorLogin(private val message: String) : SignInEvent {
         override fun apply(binding: SignInFragmentBinding, navController: NavController) {
             binding.signInGlobal.showSnack(message)
         }

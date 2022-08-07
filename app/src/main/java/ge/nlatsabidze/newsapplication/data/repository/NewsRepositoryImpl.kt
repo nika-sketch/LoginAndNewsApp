@@ -3,9 +3,9 @@ package ge.nlatsabidze.newsapplication.data.repository
 import javax.inject.Inject
 import ge.nlatsabidze.newsapplication.core.Mapper
 import ge.nlatsabidze.newsapplication.core.Result
-import ge.nlatsabidze.newsapplication.data.model.MyNews
 import ge.nlatsabidze.newsapplication.data.model.NewsResponse
 import ge.nlatsabidze.newsapplication.data.remote.NewsApi
+import ge.nlatsabidze.newsapplication.domain.interactor.MyNews
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
 import ge.nlatsabidze.newsapplication.domain.repository.HandleResponse
 

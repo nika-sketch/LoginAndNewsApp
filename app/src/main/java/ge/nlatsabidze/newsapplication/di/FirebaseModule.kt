@@ -8,9 +8,12 @@ import dagger.hilt.components.SingletonComponent
 import ge.nlatsabidze.newsapplication.core.Communication
 import ge.nlatsabidze.newsapplication.core.ProvideResources
 import ge.nlatsabidze.newsapplication.core.Visibility
+import ge.nlatsabidze.newsapplication.data.signIn.SignInInteractorImpl
 import ge.nlatsabidze.newsapplication.data.signIn.SignInRepositoryImpl
+import ge.nlatsabidze.newsapplication.domain.interactor.SignInInteractor
 import ge.nlatsabidze.newsapplication.domain.signIn.SignInRepository
-import ge.nlatsabidze.newsapplication.presentation.ui.signIn.EventSignIn
+import ge.nlatsabidze.newsapplication.presentation.ui.core.Text
+import ge.nlatsabidze.newsapplication.presentation.ui.signIn.SignInEvent
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -24,12 +27,21 @@ object FirebaseModule {
         firebaseAuth: FirebaseAuth,
         provideResources: ProvideResources
     ): SignInRepository =
-        SignInRepositoryImpl(firebaseAuth, provideResources)
+        SignInRepositoryImpl(firebaseAuth)
 
     @Provides
-    fun provideSignInChannel(): Communication<EventSignIn> = Communication.BaseSignInEvent()
+    fun provideSignInChannel(): Communication<SignInEvent> = Communication.BaseSignInEvent()
 
     @Provides
     fun provideLoadingCommunication(): Communication<Visibility> =
         Communication.BaseLoading(Visibility.Gone())
+
+    @Provides
+    fun provideText(): Text = Text.Base()
+
+    @Provides
+    fun provideSignInInteractor(
+        signInRepository: SignInRepository,
+        provideResources: ProvideResources
+    ): SignInInteractor = SignInInteractorImpl(signInRepository, provideResources)
 }

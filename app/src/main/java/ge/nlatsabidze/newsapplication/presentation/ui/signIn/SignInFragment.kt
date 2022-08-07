@@ -2,22 +2,24 @@ package ge.nlatsabidze.newsapplication.presentation.ui.signIn
 
 import android.os.Bundle
 import android.view.View
+import javax.inject.Inject
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ge.nlatsabidze.newsapplication.core.onTap
-import ge.nlatsabidze.newsapplication.databinding.SignInFragmentBinding
+import androidx.navigation.fragment.findNavController
+import ge.nlatsabidze.newsapplication.presentation.ui.core.Text
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseFragment
+import ge.nlatsabidze.newsapplication.databinding.SignInFragmentBinding
 
 @AndroidEntryPoint
 class SignInFragment : BaseFragment<SignInFragmentBinding>(SignInFragmentBinding::inflate) {
 
     private val viewModel by viewModels<SignInViewModel>()
+    @Inject lateinit var text: Text
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-
-        button.onTap { viewModel.signIn(email.text.toString(), password.text.toString()) }
+        button.onTap { viewModel.signIn(text.text(email), text.text(password)) }
         viewModel.collect(viewLifecycleOwner) { it.apply(binding, findNavController()) }
         viewModel.collectVisibility(viewLifecycleOwner) { it.apply(progressBar) }
     }

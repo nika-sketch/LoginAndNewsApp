@@ -9,8 +9,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.NewsFragmentBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseFragment
+import ge.nlatsabidze.newsapplication.presentation.ui.core.OnItemClick
 import ge.nlatsabidze.newsapplication.presentation.ui.news.adapter.NewsItemAdapter
-import ge.nlatsabidze.newsapplication.presentation.ui.news.adapter.OnItemClick
 
 @AndroidEntryPoint
 class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::inflate),

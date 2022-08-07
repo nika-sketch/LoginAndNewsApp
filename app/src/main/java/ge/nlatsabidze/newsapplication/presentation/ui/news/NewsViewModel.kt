@@ -9,11 +9,12 @@ import kotlinx.coroutines.flow.FlowCollector
 import ge.nlatsabidze.newsapplication.core.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.nlatsabidze.newsapplication.data.model.Article
-import ge.nlatsabidze.newsapplication.domain.usecases.NewsUseCase
+import ge.nlatsabidze.newsapplication.domain.interactor.NewsInteractor
+import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
-    private val newsUseCase: NewsUseCase,
+    private val newsInteractor: NewsInteractor,
     private val communicationNews: Communication<NewsUi>,
     private val channelCommunication: Communication<Navigation>,
     private val resultToNewsUiMapper: ResultToNewsUiMapper,
@@ -22,7 +23,7 @@ class NewsViewModel @Inject constructor(
 
     init {
         dispatcher.launchBackground(viewModelScope) {
-            resultToNewsUiMapper.toNewsUi(newsUseCase.execute(), communicationNews)
+            resultToNewsUiMapper.toNewsUi(newsInteractor.execute(), communicationNews)
         }
     }
 

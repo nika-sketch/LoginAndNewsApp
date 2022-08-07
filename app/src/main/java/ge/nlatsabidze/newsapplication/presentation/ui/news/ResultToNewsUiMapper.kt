@@ -1,12 +1,11 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.news
 
-import ge.nlatsabidze.newsapplication.core.Communication
+import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 import ge.nlatsabidze.newsapplication.core.Result
 import ge.nlatsabidze.newsapplication.core.ResultMapper
-import ge.nlatsabidze.newsapplication.data.model.MyNews
-import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
-
+import ge.nlatsabidze.newsapplication.core.Communication
+import ge.nlatsabidze.newsapplication.domain.interactor.MyNews
 
 interface ResultToNewsUiMapper {
 

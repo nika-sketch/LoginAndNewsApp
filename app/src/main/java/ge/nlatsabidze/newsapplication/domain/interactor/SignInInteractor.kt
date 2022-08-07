@@ -1,9 +1,8 @@
-package ge.nlatsabidze.newsapplication.domain.signIn
+package ge.nlatsabidze.newsapplication.domain.interactor
 
 import ge.nlatsabidze.newsapplication.presentation.ui.signIn.UserAuthResult
 
-interface SignInRepository {
+interface SignInInteractor {
 
     suspend fun signIn(email: String, password: String): UserAuthResult
 }
-

@@ -1,8 +1,9 @@
-package ge.nlatsabidze.newsapplication.presentation.ui.news
+package ge.nlatsabidze.newsapplication.presentation.ui.core
 
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import ge.nlatsabidze.newsapplication.data.model.Article
+import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsFragmentDirections
 import ge.nlatsabidze.newsapplication.presentation.ui.signIn.SignInFragmentDirections
 
 interface Navigation {
@@ -19,9 +20,7 @@ interface Navigation {
 
     class NavigateToDetails(
         private val item: Article,
-        navDirections: NavDirections = NewsFragmentDirections.actionNewsFragmentToDetailsFragment(
-            item
-        )
+        navDirections: NavDirections = NewsFragmentDirections.actionNewsFragmentToDetailsFragment(item)
     ) : AbstractDirection(navDirections)
 
     class NavigateToNews(

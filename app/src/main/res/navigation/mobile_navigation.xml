@@ -39,7 +39,9 @@
         tools:layout="@layout/sign_in_fragment" >
         <action
             android:id="@+id/action_signInFragment_to_newsFragment"
-            app:destination="@id/newsFragment" />
+            app:destination="@id/newsFragment"
+            app:popUpTo="@id/mobile_navigation"
+            app:popUpToInclusive="true" />
     </fragment>
 
 </navigation>
