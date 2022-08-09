@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
-import ge.nlatsabidze.newsapplication.presentation.ui.signIn.SignInEvent
+import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.SignInEvent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow

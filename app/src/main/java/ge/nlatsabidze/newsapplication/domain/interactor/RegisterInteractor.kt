@@ -2,7 +2,7 @@ package ge.nlatsabidze.newsapplication.domain.interactor
 
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.UserAuthResult
 
-interface SignInInteractor {
+interface RegisterInteractor {
 
-    suspend fun signIn(email: String, password: String): UserAuthResult
+    suspend fun register(name: String, email: String, password: String): UserAuthResult
 }

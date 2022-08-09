@@ -34,11 +34,27 @@
     </fragment>
     <fragment
         android:id="@+id/signInFragment"
-        android:name="ge.nlatsabidze.newsapplication.presentation.ui.signIn.SignInFragment"
+        android:name="ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.signIn.SignInFragment"
         android:label="sign_in_fragment"
         tools:layout="@layout/sign_in_fragment" >
         <action
             android:id="@+id/action_signInFragment_to_newsFragment"
+            app:destination="@id/newsFragment"
+            app:popUpTo="@id/mobile_navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_signInFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:popUpTo="@id/mobile_navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.register.RegisterFragment"
+        android:label="register_fragment"
+        tools:layout="@layout/register_fragment" >
+        <action
+            android:id="@+id/action_registerFragment_to_newsFragment"
             app:destination="@id/newsFragment"
             app:popUpTo="@id/mobile_navigation"
             app:popUpToInclusive="true" />

@@ -1,4 +1,4 @@
-package ge.nlatsabidze.newsapplication.presentation.ui.signIn
+package ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication
 
 import ge.nlatsabidze.newsapplication.core.Communication
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
@@ -14,6 +14,7 @@ sealed class UserAuthResult {
     }
 
     class ExceptionAuth(message: String) : Abstract(SignInEvent.ErrorLogin(message))
-    class SuccessAuth : Abstract(SignInEvent.SuccessFulLogin(Navigation.NavigateToNews()))
+    class SuccessLoginAuth : Abstract(SignInEvent.SuccessFulLogin(Navigation.NavigateFromSignInToNews()))
+    class SuccessRegisterAuth : Abstract(SignInEvent.SuccessFulLogin(Navigation.NavigateFromRegisterToNews()))
     class ErrorAuth(message: String) : Abstract(SignInEvent.ErrorLogin(message))
 }

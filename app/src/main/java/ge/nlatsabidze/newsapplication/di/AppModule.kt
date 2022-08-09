@@ -7,7 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ge.nlatsabidze.newsapplication.core.*
 import ge.nlatsabidze.newsapplication.data.model.NewsResponse
-import ge.nlatsabidze.newsapplication.data.remote.NewsApi
+import ge.nlatsabidze.newsapplication.data.remote.NewsService
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
 import ge.nlatsabidze.newsapplication.data.repository.NewsRepositoryImpl
 import ge.nlatsabidze.newsapplication.data.repository.NewsResponseMapper
@@ -31,7 +31,7 @@ object AppModule {
     @Provides
     @Named("currencyRepository")
     fun provideCurrencyRepository(
-        api: NewsApi,
+        api: NewsService,
         repoMapper: Mapper<NewsResponse, MyNews>,
         responseHandler: HandleResponse
     ): NewsRepository =
@@ -54,5 +54,4 @@ object AppModule {
 
     @Provides
     fun provideException(): HandleException = HandleException.Base()
-
 }
