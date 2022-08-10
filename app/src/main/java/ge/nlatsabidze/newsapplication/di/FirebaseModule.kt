@@ -8,16 +8,14 @@ import dagger.hilt.components.SingletonComponent
 import ge.nlatsabidze.newsapplication.core.Communication
 import ge.nlatsabidze.newsapplication.core.ProvideResources
 import ge.nlatsabidze.newsapplication.core.Visibility
-import ge.nlatsabidze.newsapplication.data.firebaseAuthService.RegisterInteractorImpl
-import ge.nlatsabidze.newsapplication.data.firebaseAuthService.RegisterRepositoryImpl
-import ge.nlatsabidze.newsapplication.data.firebaseAuthService.SignInInteractorImpl
-import ge.nlatsabidze.newsapplication.data.firebaseAuthService.SignInRepositoryImpl
+import ge.nlatsabidze.newsapplication.data.firebaseAuthService.*
 import ge.nlatsabidze.newsapplication.domain.firebaseAuthService.RegisterRepository
 import ge.nlatsabidze.newsapplication.domain.interactor.SignInInteractor
 import ge.nlatsabidze.newsapplication.domain.firebaseAuthService.SignInRepository
 import ge.nlatsabidze.newsapplication.domain.interactor.RegisterInteractor
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Text
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.SignInEvent
+import javax.inject.Named
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -28,14 +26,14 @@ object FirebaseModule {
 
     @Provides
     fun provideSingInRepository(
-        firebaseAuth: FirebaseAuth
+        @Named("logIn")registerAuthentication: FirebaseAuthentication
     ): SignInRepository =
-        SignInRepositoryImpl(firebaseAuth)
+        SignInRepositoryImpl(registerAuthentication)
 
     @Provides
     fun provideRegisterRepository(
-        firebaseAuth: FirebaseAuth
-    ): RegisterRepository = RegisterRepositoryImpl(firebaseAuth)
+        @Named("register") registerAuthentication: FirebaseAuthentication
+    ): RegisterRepository = RegisterRepositoryImpl(registerAuthentication)
 
     @Provides
     fun provideSignInInteractor(
@@ -58,4 +56,15 @@ object FirebaseModule {
 
     @Provides
     fun provideText(): Text = Text.Base()
+
+    @Provides
+    fun provideAuth(firebaseAuth: FirebaseAuth): Auth = Auth.Firebase(firebaseAuth)
+
+    @Provides
+    @Named("register")
+    fun provideRegisterAuthentication(auth: Auth): FirebaseAuthentication = FirebaseAuthentication.Register(auth)
+
+    @Provides
+    @Named("logIn")
+    fun provideSignInAuthentication(auth: Auth): FirebaseAuthentication = FirebaseAuthentication.Login(auth)
 }

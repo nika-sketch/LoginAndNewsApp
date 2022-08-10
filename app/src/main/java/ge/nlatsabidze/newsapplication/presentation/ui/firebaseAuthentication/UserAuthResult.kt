@@ -13,8 +13,8 @@ sealed class UserAuthResult {
         }
     }
 
-    class ExceptionAuth(message: String) : Abstract(SignInEvent.ErrorLogin(message))
-    class SuccessLoginAuth : Abstract(SignInEvent.SuccessFulLogin(Navigation.NavigateFromSignInToNews()))
-    class SuccessRegisterAuth : Abstract(SignInEvent.SuccessFulLogin(Navigation.NavigateFromRegisterToNews()))
-    class ErrorAuth(message: String) : Abstract(SignInEvent.ErrorLogin(message))
+    class ExceptionAuth(message: String) : Abstract(SignInEvent.Failure(message))
+    class SuccessSignInAuth : Abstract(SignInEvent.Success(Navigation.NavigateFromSignInToNews()))
+    class SuccessRegisterAuth : Abstract(SignInEvent.Success(Navigation.NavigateFromRegisterToNews()))
+    class ErrorAuth(message: String) : Abstract(SignInEvent.Failure(message))
 }

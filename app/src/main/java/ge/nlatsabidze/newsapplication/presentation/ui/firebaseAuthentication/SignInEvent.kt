@@ -10,13 +10,13 @@ interface SignInEvent {
 
     fun apply(view: View, navController: NavController)
 
-    class SuccessFulLogin(private val navigation: Navigation) : SignInEvent {
+    class Success(private val navigation: Navigation) : SignInEvent {
         override fun apply(view: View, navController: NavController) {
             navigation.navigate(navController)
         }
     }
 
-    class ErrorLogin(private val message: String) : SignInEvent {
+    class Failure(private val message: String) : SignInEvent {
         override fun apply(view: View, navController: NavController) {
             view.showSnack(message)
         }
