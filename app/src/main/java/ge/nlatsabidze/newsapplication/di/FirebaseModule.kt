@@ -14,7 +14,7 @@ import ge.nlatsabidze.newsapplication.domain.interactor.SignInInteractor
 import ge.nlatsabidze.newsapplication.domain.firebaseAuthService.SignInRepository
 import ge.nlatsabidze.newsapplication.domain.interactor.RegisterInteractor
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Text
-import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.SignInEvent
+import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.FirebaseEvent
 import javax.inject.Named
 
 @Module
@@ -48,7 +48,7 @@ object FirebaseModule {
     ): RegisterInteractor = RegisterInteractorImpl(registerRepository, provideResources)
 
     @Provides
-    fun provideSignInChannel(): Communication<SignInEvent> = Communication.BaseSignInEvent()
+    fun provideSignInChannel(): Communication<FirebaseEvent> = Communication.BaseSignInEvent()
 
     @Provides
     fun provideLoadingCommunication(): Communication<Visibility> =

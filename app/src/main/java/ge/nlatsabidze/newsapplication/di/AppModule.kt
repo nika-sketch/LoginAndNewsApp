@@ -3,19 +3,21 @@ package ge.nlatsabidze.newsapplication.di
 
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
+import android.content.Context
 import ge.nlatsabidze.newsapplication.core.*
+import kotlinx.coroutines.CoroutineDispatcher
+import dagger.hilt.components.SingletonComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import ge.nlatsabidze.newsapplication.data.model.NewsResponse
 import ge.nlatsabidze.newsapplication.data.remote.NewsService
-import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
-import ge.nlatsabidze.newsapplication.data.repository.NewsRepositoryImpl
-import ge.nlatsabidze.newsapplication.data.repository.NewsResponseMapper
 import ge.nlatsabidze.newsapplication.domain.interactor.MyNews
+import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
 import ge.nlatsabidze.newsapplication.domain.repository.HandleResponse
 import ge.nlatsabidze.newsapplication.domain.interactor.NewsInteractor
-import kotlinx.coroutines.CoroutineDispatcher
-import javax.inject.Named
+import ge.nlatsabidze.newsapplication.data.repository.NewsRepositoryImpl
+import ge.nlatsabidze.newsapplication.data.repository.NewsResponseMapper
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -54,4 +56,11 @@ object AppModule {
 
     @Provides
     fun provideException(): HandleException = HandleException.Base()
+
+    @Provides
+    fun provideObserveConnectivity(@ApplicationContext context: Context): ObserveConnectivity =
+        ObserveConnectivity.Base(context)
+
+    @Provides
+    fun provideObserveConnectivityChannel(): Communication<ObserveConnectivity.Status> = Communication.BaseObserveConnectivity()
 }

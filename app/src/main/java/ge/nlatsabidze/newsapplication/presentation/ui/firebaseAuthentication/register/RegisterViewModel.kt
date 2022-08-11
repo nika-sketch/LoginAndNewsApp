@@ -7,13 +7,13 @@ import ge.nlatsabidze.newsapplication.core.Dispatchers
 import ge.nlatsabidze.newsapplication.core.Visibility
 import ge.nlatsabidze.newsapplication.domain.interactor.RegisterInteractor
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.FirebaseBaseViewModel
-import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.SignInEvent
+import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.FirebaseEvent
 import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     private val dispatchers: Dispatchers,
-    private val registerCommunication: Communication<SignInEvent>,
+    private val registerCommunication: Communication<FirebaseEvent>,
     private val loadingCommunication: Communication<Visibility>,
     private val registerInteractor: RegisterInteractor
 ) : FirebaseBaseViewModel(registerCommunication, loadingCommunication) {

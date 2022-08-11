@@ -11,11 +11,10 @@ import ge.nlatsabidze.newsapplication.presentation.ui.core.OnItemClick
 
 class NewsItemAdapter(
     private val itemCLickListener: OnItemClick<Article>
-) :
-    BaseRecyclerViewAdapter<Article>() {
+) : BaseRecyclerViewAdapter<Article>() {
 
-    override fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == 1) FirstNewsItemViewHolder(
+    override fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        if (viewType == 1) FirstNewsItemViewHolder(
             FirstNewsItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -29,7 +28,6 @@ class NewsItemAdapter(
                 false
             ), itemCLickListener
         )
-    }
 
     override fun getItemViewType(position: Int): Int = if (position == 0) 1 else 2
 }

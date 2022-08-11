@@ -6,17 +6,21 @@ import ge.nlatsabidze.newsapplication.core.showSnack
 import ge.nlatsabidze.newsapplication.databinding.SignInFragmentBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
 
-interface SignInEvent {
+interface FirebaseEvent {
 
     fun apply(view: View, navController: NavController)
 
-    class Success(private val navigation: Navigation) : SignInEvent {
+    abstract class Abstract(private val navigation: Navigation): FirebaseEvent {
         override fun apply(view: View, navController: NavController) {
             navigation.navigate(navController)
         }
     }
 
-    class Failure(private val message: String) : SignInEvent {
+    class Success : Abstract(Navigation.NavigateFromSignInToNews())
+    class Register : Abstract(Navigation.NavigateFromRegisterToNews())
+    class NavigateFromSignInToRegisterScreen : Abstract(Navigation.NavigateFromSignInToRegisterScreen())
+
+    class Failure(private val message: String) : FirebaseEvent {
         override fun apply(view: View, navController: NavController) {
             view.showSnack(message)
         }

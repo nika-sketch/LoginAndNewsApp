@@ -30,5 +30,9 @@ interface Navigation {
 
     class NavigateFromRegisterToNews(
         navDirections: NavDirections = RegisterFragmentDirections.actionRegisterFragmentToNewsFragment()
-    ): AbstractDirection(navDirections)
+    ) : AbstractDirection(navDirections)
+
+    class NavigateFromSignInToRegisterScreen(
+        navDirections: NavDirections = SignInFragmentDirections.actionSignInFragmentToRegisterFragment()
+    ) : AbstractDirection(navDirections)
 }

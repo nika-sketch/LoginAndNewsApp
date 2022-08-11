@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
-import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.SignInEvent
+import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.FirebaseEvent
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -58,5 +58,6 @@ interface Communication<T> {
     }
 
     class BaseChannel : ChannelAbstract<Navigation>()
-    class BaseSignInEvent : ChannelAbstract<SignInEvent>()
+    class BaseSignInEvent : ChannelAbstract<FirebaseEvent>()
+    class BaseObserveConnectivity : ChannelAbstract<ObserveConnectivity.Status>()
 }

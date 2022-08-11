@@ -2,13 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
     android:id="@+id/signInGlobal"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/emailLayout"
-        style="@style/LoginTextInputOuterFieldStyle"
+        style="@style/LoginTextInputInnerFieldStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -32,7 +33,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordLayout"
-        style="@style/LoginTextInputOuterFieldStyle"
+        style="@style/LoginTextInputInnerFieldStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"

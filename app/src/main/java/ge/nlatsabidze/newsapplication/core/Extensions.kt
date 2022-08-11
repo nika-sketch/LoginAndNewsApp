@@ -20,7 +20,6 @@ fun View.showSnack(message: String, length: Int = Snackbar.LENGTH_SHORT) {
     snack.show()
 }
 
-
 fun String.firstIndexOfOpenBrace(): Int = this.indexOf('[')
 
 fun String.containsBraces(): Boolean = this.contains('[')

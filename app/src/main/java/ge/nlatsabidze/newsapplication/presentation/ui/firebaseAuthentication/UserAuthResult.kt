@@ -1,20 +1,19 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication
 
 import ge.nlatsabidze.newsapplication.core.Communication
-import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
 
 sealed class UserAuthResult {
 
-    abstract suspend fun apply(signInEvent: Communication<SignInEvent>)
+    abstract suspend fun apply(signInEvent: Communication<FirebaseEvent>)
 
-    abstract class Abstract(private val eventSignIn: SignInEvent) : UserAuthResult() {
-        override suspend fun apply(signInEvent: Communication<SignInEvent>) {
+    abstract class Abstract(private val eventSignIn: FirebaseEvent) : UserAuthResult() {
+        override suspend fun apply(signInEvent: Communication<FirebaseEvent>) {
             signInEvent.map(eventSignIn)
         }
     }
 
-    class ExceptionAuth(message: String) : Abstract(SignInEvent.Failure(message))
-    class SuccessSignInAuth : Abstract(SignInEvent.Success(Navigation.NavigateFromSignInToNews()))
-    class SuccessRegisterAuth : Abstract(SignInEvent.Success(Navigation.NavigateFromRegisterToNews()))
-    class ErrorAuth(message: String) : Abstract(SignInEvent.Failure(message))
+    class ExceptionAuth(message: String) : Abstract(FirebaseEvent.Failure(message))
+    class SuccessLoginAuth : Abstract(FirebaseEvent.Success())
+    class SuccessRegisterAuth : Abstract(FirebaseEvent.Register())
+    class ErrorAuth(message: String) : Abstract(FirebaseEvent.Failure(message))
 }

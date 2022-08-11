@@ -4,7 +4,6 @@ import com.google.firebase.auth.AuthResult
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.UserAuthResult
 import javax.inject.Inject
 
-
 interface FirebaseAuthentication {
 
     suspend fun authenticateUser(email: String, password: String): UserAuthResult
@@ -34,6 +33,6 @@ interface FirebaseAuthentication {
         override suspend fun authResult(email: String, password: String): AuthResult =
             auth.signIn(email, password)
 
-        override fun userAuthResult() = UserAuthResult.SuccessSignInAuth()
+        override fun userAuthResult() = UserAuthResult.SuccessLoginAuth()
     }
 }
