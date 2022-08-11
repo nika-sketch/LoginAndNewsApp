@@ -10,9 +10,3 @@ data class NewsResponse(
     val totalResults: Int?
 ): Parcelable
 
-
-@Parcelize
-data class MyNews(
-    val articles: MutableList<Article>,
-    val status: String,
-): Parcelable

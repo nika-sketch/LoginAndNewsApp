@@ -11,4 +11,21 @@
     <color name="grey">#C8C8C8</color>
     <color name="darkerGray">#616161</color>
     <color name="blue">#555686</color>
+
+    <color name="yellow">#FFC801</color>
+
+
+    <color name="transparent">#00000000</color>
+
+    <color name="primary_gray">#28282C</color>
+    <color name="background_gray">#CBCDD2</color>
+    <color name="gray">#9697A0</color>
+    <color name="light_gray">#DDDEE7</color>
+    <color name="bg_gray">#ECEEF3</color>
+    <color name="Caption_gray">#C4C4C4</color>
+    <color name="error_red">#E83F3F</color>
+    <color name="green_mark">#71B082</color>
+
+    <color name="primary">#173348</color>
+
 </resources>

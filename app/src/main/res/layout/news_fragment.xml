@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/constraintRoot"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,6 +22,9 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminateTint="@color/black"
+        android:indeterminateTintMode="src_in"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/rv_news"
         app:layout_constraintEnd_toEndOf="@+id/rv_news"
         app:layout_constraintStart_toStartOf="parent"

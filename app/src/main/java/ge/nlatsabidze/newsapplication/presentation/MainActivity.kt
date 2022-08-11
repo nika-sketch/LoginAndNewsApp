@@ -1,39 +1,29 @@
 package ge.nlatsabidze.newsapplication.presentation
 
+import android.os.Build
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import dagger.hilt.android.AndroidEntryPoint
-import ge.nlatsabidze.newsapplication.R
+import androidx.appcompat.app.AppCompatActivity
 import ge.nlatsabidze.newsapplication.databinding.ActivityMainBinding
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var navController: NavController
     private lateinit var binding: ActivityMainBinding
+    private val mainViewModel by viewModels<MainViewModel>()
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         installSplashScreen()
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.topAppBar)
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_main)
-        navController = navHostFragment?.let { NavHostFragment.findNavController(it) }!!
-        setupActionBarWithNavController(navController)
+        mainViewModel.collectConnection(this) {
+            it.apply(binding.mainContainer)
+        }
     }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp() || super.onSupportNavigateUp()
-    }
-
 }

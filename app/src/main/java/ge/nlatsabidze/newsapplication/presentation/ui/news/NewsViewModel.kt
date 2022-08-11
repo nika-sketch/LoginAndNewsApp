@@ -1,39 +1,45 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.news
 
+import androidx.lifecycle.LifecycleOwner
 import javax.inject.Inject
 import kotlinx.coroutines.launch
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.FlowCollector
-import ge.nlatsabidze.newsapplication.common.*
+import ge.nlatsabidze.newsapplication.core.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.nlatsabidze.newsapplication.data.model.Article
-import ge.nlatsabidze.newsapplication.domain.usecases.NewsUseCase
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
+import ge.nlatsabidze.newsapplication.domain.interactor.NewsInteractor
+import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
-    private val newsUseCase: NewsUseCase,
+    private val newsInteractor: NewsInteractor,
     private val communicationNews: Communication<NewsUi>,
-    private val resultFactory: ResultToNewsUiMapper,
+    private val channelCommunication: Communication<Navigation>,
+    private val resultToNewsUiMapper: ResultToNewsUiMapper,
     dispatcher: Dispatchers,
 ) : ViewModel() {
 
-    private val _navigation = Channel<Navigation>()
-    val navigation = _navigation.receiveAsFlow()
-
     init {
         dispatcher.launchBackground(viewModelScope) {
-            resultFactory.toNewsUi(newsUseCase.execute(),communicationNews)
+            resultToNewsUiMapper.toNewsUi(newsInteractor.execute(), communicationNews)
         }
     }
 
     fun navigateToDetails(item: Article) = viewModelScope.launch {
-        _navigation.send(Navigation.NavigateToDetails(item))
+        channelCommunication.map(Navigation.NavigateToDetails(item))
     }
 
-    fun collectNews(collector: FlowCollector<NewsUi>) = viewModelScope.launch {
-        communicationNews.collect(collector)
+    fun collectNavigation(
+        viewLifecycleOwner: LifecycleOwner,
+        collector: FlowCollector<Navigation>
+    ) = viewModelScope.launch {
+        channelCommunication.collect(viewLifecycleOwner, collector)
     }
+
+    fun collectNews(viewLifecycleOwner: LifecycleOwner, collector: FlowCollector<NewsUi>) =
+        viewModelScope.launch {
+            communicationNews.collect(viewLifecycleOwner, collector)
+        }
 }

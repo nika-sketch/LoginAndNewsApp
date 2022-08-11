@@ -10,10 +10,13 @@
         <entry key="..\:/Users/user/NewsApplication/app/src/main/res/drawable/ic_round_menu.xml" value="0.1" />
         <entry key="..\:/Users/user/NewsApplication/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/user/NewsApplication/app/src/main/res/layout/app_bar_main.xml" value="0.21" />
+        <entry key="..\:/Users/user/NewsApplication/app/src/main/res/layout/auto_complete_example.xml" value="0.3233695652173913" />
         <entry key="..\:/Users/user/NewsApplication/app/src/main/res/layout/details_fragment.xml" value="0.25" />
         <entry key="..\:/Users/user/NewsApplication/app/src/main/res/layout/first_news_item.xml" value="0.33" />
         <entry key="..\:/Users/user/NewsApplication/app/src/main/res/layout/news_fragment.xml" value="0.25" />
         <entry key="..\:/Users/user/NewsApplication/app/src/main/res/layout/news_item.xml" value="0.33" />
+        <entry key="..\:/Users/user/NewsApplication/app/src/main/res/layout/register_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/user/NewsApplication/app/src/main/res/layout/sign_in_fragment.xml" value="0.33" />
         <entry key="..\:/Users/user/NewsApplication/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.257" />
       </map>
     </option>

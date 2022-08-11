@@ -8,6 +8,3 @@ import org.koin.core.context.startKoin
 
 @HiltAndroidApp
 class App: Application()
-
-
-

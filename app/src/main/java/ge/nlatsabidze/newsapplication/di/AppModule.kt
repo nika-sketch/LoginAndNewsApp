@@ -3,19 +3,21 @@ package ge.nlatsabidze.newsapplication.di
 
 import dagger.Module
 import dagger.Provides
+import javax.inject.Named
 import dagger.hilt.InstallIn
+import android.content.Context
+import ge.nlatsabidze.newsapplication.core.*
+import kotlinx.coroutines.CoroutineDispatcher
 import dagger.hilt.components.SingletonComponent
-import ge.nlatsabidze.newsapplication.common.*
-import ge.nlatsabidze.newsapplication.data.model.MyNews
+import dagger.hilt.android.qualifiers.ApplicationContext
 import ge.nlatsabidze.newsapplication.data.model.NewsResponse
-import ge.nlatsabidze.newsapplication.data.remote.NewsApi
+import ge.nlatsabidze.newsapplication.data.remote.NewsService
+import ge.nlatsabidze.newsapplication.domain.interactor.MyNews
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
+import ge.nlatsabidze.newsapplication.domain.repository.HandleResponse
+import ge.nlatsabidze.newsapplication.domain.interactor.NewsInteractor
 import ge.nlatsabidze.newsapplication.data.repository.NewsRepositoryImpl
 import ge.nlatsabidze.newsapplication.data.repository.NewsResponseMapper
-import ge.nlatsabidze.newsapplication.domain.repository.HandleResponse
-import ge.nlatsabidze.newsapplication.domain.usecases.NewsUseCase
-import kotlinx.coroutines.CoroutineDispatcher
-import javax.inject.Named
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -25,13 +27,13 @@ object AppModule {
     fun provideUseCase(
         @Named("currencyRepository") newsRepository: NewsRepository,
         coroutineDispatcher: CoroutineDispatcher,
-    ): NewsUseCase =
-        NewsUseCase.GetNewsUseCase(newsRepository, coroutineDispatcher)
+    ): NewsInteractor =
+        NewsInteractor.GetNewsUseCase(newsRepository, coroutineDispatcher)
 
     @Provides
     @Named("currencyRepository")
     fun provideCurrencyRepository(
-        api: NewsApi,
+        api: NewsService,
         repoMapper: Mapper<NewsResponse, MyNews>,
         responseHandler: HandleResponse
     ): NewsRepository =
@@ -46,7 +48,8 @@ object AppModule {
         handleResult: HandleResult,
         errorProvide: Error,
         handleException: HandleException
-    ): HandleResponse = HandleResponse.Base(internetConnection, handleResult, errorProvide, handleException)
+    ): HandleResponse =
+        HandleResponse.Base(internetConnection, handleResult, errorProvide, handleException)
 
     @Provides
     fun provideError(resources: ProvideResources): Error = Error.NoConnection(resources)
@@ -54,4 +57,10 @@ object AppModule {
     @Provides
     fun provideException(): HandleException = HandleException.Base()
 
+    @Provides
+    fun provideObserveConnectivity(@ApplicationContext context: Context): ObserveConnectivity =
+        ObserveConnectivity.Base(context)
+
+    @Provides
+    fun provideObserveConnectivityChannel(): Communication<ObserveConnectivity.Status> = Communication.BaseObserveConnectivity()
 }
