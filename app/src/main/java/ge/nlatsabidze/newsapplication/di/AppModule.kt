@@ -12,7 +12,7 @@ import dagger.hilt.components.SingletonComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import ge.nlatsabidze.newsapplication.data.model.NewsResponse
 import ge.nlatsabidze.newsapplication.data.remote.NewsService
-import ge.nlatsabidze.newsapplication.domain.interactor.MyNews
+import ge.nlatsabidze.newsapplication.domain.interactor.NewsDomain
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
 import ge.nlatsabidze.newsapplication.domain.repository.HandleResponse
 import ge.nlatsabidze.newsapplication.domain.interactor.NewsInteractor
@@ -34,13 +34,13 @@ object AppModule {
     @Named("currencyRepository")
     fun provideCurrencyRepository(
         api: NewsService,
-        repoMapper: Mapper<NewsResponse, MyNews>,
+        repoMapper: Mapper<NewsResponse, NewsDomain>,
         responseHandler: HandleResponse
     ): NewsRepository =
         NewsRepositoryImpl(api, repoMapper, responseHandler)
 
     @Provides
-    fun provideRepoMapper(): Mapper<NewsResponse, MyNews> = NewsResponseMapper()
+    fun provideRepoMapper(): Mapper<NewsResponse, NewsDomain> = NewsResponseMapper()
 
     @Provides
     fun provideResponseHandler(

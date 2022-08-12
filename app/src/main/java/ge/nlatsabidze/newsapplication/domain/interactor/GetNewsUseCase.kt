@@ -12,13 +12,13 @@ import javax.inject.Named
 
 interface NewsInteractor {
 
-    fun execute(): Flow<Result<MyNews>>
+    fun execute(): Flow<Result<NewsDomain>>
 
     class GetNewsUseCase @Inject constructor(
         @Named("currencyRepository") private val newsRepository: NewsRepository,
         private val backgroundCoroutine: CoroutineDispatcher
     ) : NewsInteractor {
-        override fun execute(): Flow<Result<MyNews>> = flow {
+        override fun execute(): Flow<Result<NewsDomain>> = flow {
             emit(newsRepository.fetchNews())
         }.onStart { emit(Result.Loading()) }.flowOn(backgroundCoroutine).catch {
             emit(Result.Error(it.message.toString()))
@@ -27,7 +27,7 @@ interface NewsInteractor {
 }
 
 @Parcelize
-data class MyNews(
+data class NewsDomain(
     val articles: MutableList<Article>,
     val status: String,
 ): Parcelable

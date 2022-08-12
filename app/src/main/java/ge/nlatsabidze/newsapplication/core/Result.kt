@@ -1,6 +1,6 @@
 package ge.nlatsabidze.newsapplication.core
 
-import ge.nlatsabidze.newsapplication.domain.interactor.MyNews
+import ge.nlatsabidze.newsapplication.domain.interactor.NewsDomain
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
 
 sealed class Result<T> {
@@ -33,9 +33,9 @@ interface ResultMapper<T, D> {
     fun mapError(message: String): T
     fun mapSuccess(data: D): T
 
-    class ToNewsUi : ResultMapper<NewsUi, MyNews> {
+    class ToNewsUi : ResultMapper<NewsUi, NewsDomain> {
         override fun mapProgress(): NewsUi = NewsUi.Loading()
         override fun mapError(message: String): NewsUi = NewsUi.Error(message)
-        override fun mapSuccess(data: MyNews): NewsUi = NewsUi.Success(data.articles)
+        override fun mapSuccess(data: NewsDomain): NewsUi = NewsUi.Success(data.articles)
     }
 }
