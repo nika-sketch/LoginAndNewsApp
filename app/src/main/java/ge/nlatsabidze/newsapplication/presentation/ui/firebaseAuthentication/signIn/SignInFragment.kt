@@ -1,15 +1,12 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.signIn
 
 import android.os.Bundle
-import android.util.Log.d
 import android.view.View
 import javax.inject.Inject
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ge.nlatsabidze.newsapplication.core.onTap
 import androidx.navigation.fragment.findNavController
-import ge.nlatsabidze.newsapplication.R
-import ge.nlatsabidze.newsapplication.core.ObserveConnectivity
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Text
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseFragment
 import ge.nlatsabidze.newsapplication.databinding.SignInFragmentBinding
@@ -26,8 +23,7 @@ class SignInFragment : BaseFragment<SignInFragmentBinding>(SignInFragmentBinding
         button.onTap { viewModel.signIn(text.text(email), text.text(password)) }
         tvSignUp.onTap { viewModel.navigateToRegister() }
 
-        viewModel.collectFirebaseAuth(viewLifecycleOwner) { it.apply(signInGlobal, findNavController()) }
+        viewModel.collectFirebaseAuth(viewLifecycleOwner) { it.apply(signInGlobal, findNavController(), this@SignInFragment) }
         viewModel.collectVisibility(viewLifecycleOwner) { it.apply(progressBar) }
-
     }
 }

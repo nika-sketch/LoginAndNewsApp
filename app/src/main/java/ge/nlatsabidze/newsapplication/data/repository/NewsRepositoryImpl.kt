@@ -5,7 +5,7 @@ import ge.nlatsabidze.newsapplication.core.Mapper
 import ge.nlatsabidze.newsapplication.core.Result
 import ge.nlatsabidze.newsapplication.data.model.NewsResponse
 import ge.nlatsabidze.newsapplication.data.remote.NewsService
-import ge.nlatsabidze.newsapplication.domain.interactor.NewsDomain
+import ge.nlatsabidze.newsapplication.domain.model.NewsDomain
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
 import ge.nlatsabidze.newsapplication.domain.repository.HandleResponse
 

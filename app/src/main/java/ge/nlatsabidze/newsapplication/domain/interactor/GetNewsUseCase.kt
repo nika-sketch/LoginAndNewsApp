@@ -1,10 +1,8 @@
 package ge.nlatsabidze.newsapplication.domain.interactor
 
-import android.os.Parcelable
 import ge.nlatsabidze.newsapplication.core.Result
-import ge.nlatsabidze.newsapplication.data.model.Article
+import ge.nlatsabidze.newsapplication.domain.model.NewsDomain
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
-import kotlinx.android.parcel.Parcelize
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
@@ -25,9 +23,3 @@ interface NewsInteractor {
         }
     }
 }
-
-@Parcelize
-data class NewsDomain(
-    val articles: MutableList<Article>,
-    val status: String,
-): Parcelable

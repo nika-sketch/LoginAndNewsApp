@@ -31,6 +31,3 @@ class NewsItemAdapter(
 
     override fun getItemViewType(position: Int): Int = if (position == 0) 1 else 2
 }
-
-
-

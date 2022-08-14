@@ -9,14 +9,14 @@ interface Auth {
 
     suspend fun register(email: String, password: String): AuthResult
 
-    suspend fun signIn(email: String, password: String): AuthResult
+    suspend fun logIn(email: String, password: String): AuthResult
 
     class Firebase @Inject constructor(private val firebaseAuth: FirebaseAuth) : Auth {
 
         override suspend fun register(email: String, password: String): AuthResult =
             firebaseAuth.createUserWithEmailAndPassword(email, password).await()
 
-        override suspend fun signIn(email: String, password: String): AuthResult =
+        override suspend fun logIn(email: String, password: String): AuthResult =
             firebaseAuth.signInWithEmailAndPassword(email, password).await()
     }
 }

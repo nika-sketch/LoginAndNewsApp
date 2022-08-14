@@ -22,8 +22,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mainViewModel.collectConnection(this) {
-            it.apply(binding.mainContainer)
-        }
+        mainViewModel.collectConnection(this) { it.apply(binding.mainContainer) }
     }
 }

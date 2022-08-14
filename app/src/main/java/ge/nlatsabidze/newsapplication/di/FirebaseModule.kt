@@ -48,7 +48,7 @@ object FirebaseModule {
     ): RegisterInteractor = RegisterInteractorImpl(registerRepository, provideResources)
 
     @Provides
-    fun provideSignInChannel(): Communication<FirebaseEvent> = Communication.BaseSignInEvent()
+    fun provideSignInChannel(): Communication<FirebaseEvent> = Communication.FirebaseAuthEvent()
 
     @Provides
     fun provideLoadingCommunication(): Communication<Visibility> =

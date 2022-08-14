@@ -2,8 +2,11 @@ package ge.nlatsabidze.newsapplication.core
 
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 fun View.visible() {
     visibility = View.VISIBLE
@@ -12,6 +15,13 @@ fun View.visible() {
 fun View.onTap(block: () -> Unit) {
     this.setOnClickListener {
         block.invoke()
+    }
+}
+
+fun View.onLongTap(block: () -> Unit) {
+    this.setOnLongClickListener {
+        block.invoke()
+        true
     }
 }
 
@@ -24,3 +34,4 @@ fun String.firstIndexOfOpenBrace(): Int = this.indexOf('[')
 
 fun String.containsBraces(): Boolean = this.contains('[')
 
+fun ViewModel.launchMain(block: suspend () -> Unit) = viewModelScope.launch { block.invoke() }

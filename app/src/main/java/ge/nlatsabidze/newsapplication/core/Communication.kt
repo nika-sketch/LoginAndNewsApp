@@ -57,7 +57,7 @@ interface Communication<T> {
         }
     }
 
-    class BaseChannel : ChannelAbstract<Navigation>()
-    class BaseSignInEvent : ChannelAbstract<FirebaseEvent>()
-    class BaseObserveConnectivity : ChannelAbstract<ObserveConnectivity.Status>()
+    class Channel : ChannelAbstract<Navigation>()
+    class FirebaseAuthEvent : ChannelAbstract<FirebaseEvent>()
+    class ObserveConnection : ChannelAbstract<ObserveConnectivity.Status>()
 }

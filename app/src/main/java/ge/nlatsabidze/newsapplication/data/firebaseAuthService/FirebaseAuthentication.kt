@@ -31,7 +31,7 @@ interface FirebaseAuthentication {
 
     class Login @Inject constructor(private val auth: Auth) : Abstract() {
         override suspend fun authResult(email: String, password: String): AuthResult =
-            auth.signIn(email, password)
+            auth.logIn(email, password)
 
         override fun userAuthResult() = UserAuthResult.SuccessLoginAuth()
     }

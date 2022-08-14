@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.nlatsabidze.newsapplication.core.Visibility
 import ge.nlatsabidze.newsapplication.core.Dispatchers
 import ge.nlatsabidze.newsapplication.core.Communication
+import ge.nlatsabidze.newsapplication.core.launchMain
 import ge.nlatsabidze.newsapplication.domain.interactor.SignInInteractor
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.FirebaseEvent
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.FirebaseBaseViewModel
@@ -25,10 +26,9 @@ class SignInViewModel @Inject constructor(
         loadingCommunication.map(Visibility.Gone())
     }
 
-    fun navigateToRegister() = viewModelScope.launch {
+    fun navigateToRegister() = launchMain {
         signInCommunication.map(
             FirebaseEvent.NavigateFromSignInToRegisterScreen()
         )
     }
-
 }

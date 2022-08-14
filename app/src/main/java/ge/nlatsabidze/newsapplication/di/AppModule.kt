@@ -12,12 +12,12 @@ import dagger.hilt.components.SingletonComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import ge.nlatsabidze.newsapplication.data.model.NewsResponse
 import ge.nlatsabidze.newsapplication.data.remote.NewsService
-import ge.nlatsabidze.newsapplication.domain.interactor.NewsDomain
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
 import ge.nlatsabidze.newsapplication.domain.repository.HandleResponse
 import ge.nlatsabidze.newsapplication.domain.interactor.NewsInteractor
 import ge.nlatsabidze.newsapplication.data.repository.NewsRepositoryImpl
 import ge.nlatsabidze.newsapplication.data.repository.NewsResponseMapper
+import ge.nlatsabidze.newsapplication.domain.model.NewsDomain
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -62,5 +62,5 @@ object AppModule {
         ObserveConnectivity.Base(context)
 
     @Provides
-    fun provideObserveConnectivityChannel(): Communication<ObserveConnectivity.Status> = Communication.BaseObserveConnectivity()
+    fun provideObserveConnectivityChannel(): Communication<ObserveConnectivity.Status> = Communication.ObserveConnection()
 }

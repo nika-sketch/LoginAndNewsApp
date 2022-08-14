@@ -36,17 +36,15 @@ interface ObserveConnectivity {
         private val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-        override fun observe(): Flow<Status> {
-            return callbackFlow {
-                val callback = object : ConnectivityManager.NetworkCallback() {
-                    override fun onLost(network: Network) {
-                        super.onLost(network)
-                        launch { send(Status.Lost) }
-                    }
+        override fun observe(): Flow<Status> = callbackFlow {
+            val callback = object : ConnectivityManager.NetworkCallback() {
+                override fun onLost(network: Network) {
+                    super.onLost(network)
+                    launch { send(Status.Lost) }
                 }
-                connectivityManager.registerDefaultNetworkCallback(callback)
-                awaitClose { connectivityManager.unregisterNetworkCallback(callback) }
-            }.distinctUntilChanged()
-        }
+            }
+            connectivityManager.registerDefaultNetworkCallback(callback)
+            awaitClose { connectivityManager.unregisterNetworkCallback(callback) }
+        }.distinctUntilChanged()
     }
 }

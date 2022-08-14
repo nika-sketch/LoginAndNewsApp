@@ -4,11 +4,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewbinding.ViewBinding
 import androidx.recyclerview.widget.RecyclerView
-import ge.nlatsabidze.newsapplication.core.Mapper
-import ge.nlatsabidze.newsapplication.core.onTap
-import ge.nlatsabidze.newsapplication.core.LoadImage
+import ge.nlatsabidze.newsapplication.core.*
 import ge.nlatsabidze.newsapplication.data.model.Article
-import ge.nlatsabidze.newsapplication.core.AbstractDateFormat
 import ge.nlatsabidze.newsapplication.presentation.ui.core.OnItemClick
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseRecyclerViewAdapter
 
@@ -23,10 +20,8 @@ abstract class BaseNewsItemViewHolder(
         item.urlToImage.let { imageLoader.load(contentImage(), it) }
         publishedDate().text = item.publishedAt?.let { dateFormatter.map(it) }
         newsDescription().text = item.title
-
-        itemView.onTap {
-            itemClickListener.onItemClick(item)
-        }
+        itemView.onTap { itemClickListener.onItemClick(item) }
+        itemView.onLongTap { itemClickListener.onLongItemClick(item)  }
     }
 
     abstract fun contentImage(): ImageView

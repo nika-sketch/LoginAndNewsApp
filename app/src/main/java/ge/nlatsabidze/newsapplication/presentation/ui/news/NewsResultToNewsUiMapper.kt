@@ -5,16 +5,16 @@ import kotlinx.coroutines.flow.Flow
 import ge.nlatsabidze.newsapplication.core.Result
 import ge.nlatsabidze.newsapplication.core.ResultMapper
 import ge.nlatsabidze.newsapplication.core.Communication
-import ge.nlatsabidze.newsapplication.domain.interactor.NewsDomain
+import ge.nlatsabidze.newsapplication.domain.model.NewsDomain
 
-interface ResultToNewsUiMapper {
+interface NewsResultToNewsUiMapper {
 
     suspend fun toNewsUi(flow: Flow<Result<NewsDomain>>, communication: Communication<NewsUi>)
 
     class Base @Inject constructor(
         private val mapper: ResultMapper<NewsUi, NewsDomain>
     ) :
-        ResultToNewsUiMapper {
+        NewsResultToNewsUiMapper {
         override suspend fun toNewsUi(
             flow: Flow<Result<NewsDomain>>,
             communication: Communication<NewsUi>

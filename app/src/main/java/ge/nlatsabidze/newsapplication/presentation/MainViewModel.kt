@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.FlowCollector
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.nlatsabidze.newsapplication.core.Communication
 import ge.nlatsabidze.newsapplication.core.ObserveConnectivity
+import ge.nlatsabidze.newsapplication.core.launchMain
 
 @RequiresApi(Build.VERSION_CODES.N)
 @HiltViewModel
@@ -21,7 +22,7 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
 
     init {
-        viewModelScope.launch {
+        launchMain {
             observeConnectivity.observe().collectLatest {
                 observeCommunicationChannel.map(it)
             }
