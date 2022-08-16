@@ -62,6 +62,6 @@ object AppModule {
         ObserveConnectivity.Base(context)
 
     @Provides
-    fun provideObserveConnectivityChannel(): Communication<ObserveConnectivity.Status> =
+    fun provideObserveConnectivityChannel(): Communication<Status> =
         Communication.ObserveConnection()
 }
