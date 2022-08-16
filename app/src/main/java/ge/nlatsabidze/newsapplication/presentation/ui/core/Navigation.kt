@@ -23,9 +23,9 @@ interface Navigation {
     }
 
     class NavigateToDetails(
-        private val item: Article,
+        private val article: Article,
         navDirections: NavDirections = NewsFragmentDirections.actionNewsFragmentToDetailsFragment(
-            item
+            article
         )
     ) : AbstractDirection(navDirections)
 

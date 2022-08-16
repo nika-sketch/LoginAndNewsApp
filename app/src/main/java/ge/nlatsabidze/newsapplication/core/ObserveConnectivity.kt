@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.Flow
 import androidx.annotation.RequiresApi
 import android.net.ConnectivityManager
+import ge.nlatsabidze.newsapplication.R
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -17,18 +18,15 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 @RequiresApi(Build.VERSION_CODES.N)
 interface ObserveConnectivity {
 
-    fun observe(): Flow<Status>
+    fun observe(provideResources: ProvideResources): Flow<Status>
 
     sealed class Status {
 
-        companion object {
-            private const val NO_INTERNET_CONNECTION = "No Internet Connection"
-        }
-
         abstract fun apply(view: View)
 
-        object Lost : Status() {
-            override fun apply(view: View) = view.showSnack(NO_INTERNET_CONNECTION)
+        class Lost(private val provideResources: ProvideResources) : Status() {
+            override fun apply(view: View) =
+                view.showSnack(provideResources.string(R.string.no_internet_connection))
         }
     }
 
@@ -36,11 +34,11 @@ interface ObserveConnectivity {
         private val connectivityManager =
             context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-        override fun observe(): Flow<Status> = callbackFlow {
+        override fun observe(provideResources: ProvideResources): Flow<Status> = callbackFlow {
             val callback = object : ConnectivityManager.NetworkCallback() {
                 override fun onLost(network: Network) {
                     super.onLost(network)
-                    launch { send(Status.Lost) }
+                    launch { send(Status.Lost(provideResources)) }
                 }
             }
             connectivityManager.registerDefaultNetworkCallback(callback)
