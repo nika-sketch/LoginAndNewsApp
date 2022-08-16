@@ -1,4 +1,4 @@
-package ge.nlatsabidze.newsapplication.data.firebaseAuthService
+package ge.nlatsabidze.newsapplication.data.interactor
 
 import ge.nlatsabidze.newsapplication.R
 import ge.nlatsabidze.newsapplication.core.ProvideResources

@@ -3,9 +3,9 @@ package ge.nlatsabidze.newsapplication.presentation.ui.news
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import dagger.hilt.android.AndroidEntryPoint
 import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.databinding.NewsFragmentBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseFragment
@@ -13,8 +13,7 @@ import ge.nlatsabidze.newsapplication.presentation.ui.core.OnItemClick
 import ge.nlatsabidze.newsapplication.presentation.ui.news.adapter.NewsItemAdapter
 
 @AndroidEntryPoint
-class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::inflate),
-    OnItemClick<Article> {
+class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::inflate), OnItemClick<Article> {
 
     private val viewModel: NewsViewModel by viewModels()
     private lateinit var newsAdapter: NewsItemAdapter
@@ -28,11 +27,7 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
         viewModel.collectNavigation(viewLifecycleOwner) { it.navigate(findNavController(), this@NewsFragment) }
     }
 
-    override fun onItemClick(item: Article) {
-        viewModel.navigateToDetails(item)
-    }
+    override fun onItemClick(item: Article) { viewModel.navigateToDetails(item) }
 
-    override fun onLongItemClick(url: Article) {
-        viewModel.openNews(url)
-    }
+    override fun onLongItemClick(url: Article) { viewModel.openNews(url) }
 }

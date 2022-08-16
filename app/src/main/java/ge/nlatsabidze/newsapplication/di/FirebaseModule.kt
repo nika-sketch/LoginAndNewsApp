@@ -9,6 +9,10 @@ import ge.nlatsabidze.newsapplication.core.Communication
 import ge.nlatsabidze.newsapplication.core.ProvideResources
 import ge.nlatsabidze.newsapplication.core.Visibility
 import ge.nlatsabidze.newsapplication.data.firebaseAuthService.*
+import ge.nlatsabidze.newsapplication.data.interactor.RegisterInteractorImpl
+import ge.nlatsabidze.newsapplication.data.interactor.SignInInteractorImpl
+import ge.nlatsabidze.newsapplication.data.repository.RegisterRepositoryImpl
+import ge.nlatsabidze.newsapplication.data.repository.SignInRepositoryImpl
 import ge.nlatsabidze.newsapplication.domain.firebaseAuthService.RegisterRepository
 import ge.nlatsabidze.newsapplication.domain.interactor.SignInInteractor
 import ge.nlatsabidze.newsapplication.domain.firebaseAuthService.SignInRepository

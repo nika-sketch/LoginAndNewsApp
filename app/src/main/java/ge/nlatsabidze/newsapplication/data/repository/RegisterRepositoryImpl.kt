@@ -1,5 +1,6 @@
-package ge.nlatsabidze.newsapplication.data.firebaseAuthService
+package ge.nlatsabidze.newsapplication.data.repository
 
+import ge.nlatsabidze.newsapplication.data.firebaseAuthService.FirebaseAuthentication
 import javax.inject.Inject
 import javax.inject.Named
 import ge.nlatsabidze.newsapplication.domain.firebaseAuthService.RegisterRepository

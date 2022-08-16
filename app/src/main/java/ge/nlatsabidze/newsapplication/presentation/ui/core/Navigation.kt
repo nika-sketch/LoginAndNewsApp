@@ -1,19 +1,14 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.core
 
-import android.content.Intent
 import android.net.Uri
+import android.content.Intent
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
-import ge.nlatsabidze.newsapplication.core.Visibility
 import ge.nlatsabidze.newsapplication.data.model.Article
-import ge.nlatsabidze.newsapplication.databinding.NewsFragmentBinding
-import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.register.RegisterFragmentDirections
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsFragmentDirections
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.signIn.SignInFragmentDirections
-import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsFragment
-import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
-import ge.nlatsabidze.newsapplication.presentation.ui.news.adapter.NewsItemAdapter
+import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.register.RegisterFragmentDirections
 
 interface Navigation {
 

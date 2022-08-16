@@ -1,8 +1,7 @@
-package ge.nlatsabidze.newsapplication.data.firebaseAuthService
+package ge.nlatsabidze.newsapplication.data.repository
 
 import javax.inject.Inject
-import kotlinx.coroutines.tasks.await
-import com.google.firebase.auth.FirebaseAuth
+import ge.nlatsabidze.newsapplication.data.firebaseAuthService.FirebaseAuthentication
 import ge.nlatsabidze.newsapplication.domain.firebaseAuthService.SignInRepository
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.UserAuthResult
 import javax.inject.Named

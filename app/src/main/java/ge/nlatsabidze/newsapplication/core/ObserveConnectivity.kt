@@ -1,17 +1,17 @@
 package ge.nlatsabidze.newsapplication.core
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.Network
 import android.os.Build
 import android.view.View
-import androidx.annotation.RequiresApi
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
+import android.net.Network
+import android.content.Context
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
+import androidx.annotation.RequiresApi
+import android.net.ConnectivityManager
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.distinctUntilChanged
 
 @OptIn(ExperimentalCoroutinesApi::class)
 @RequiresApi(Build.VERSION_CODES.N)

@@ -12,12 +12,13 @@ import dagger.hilt.components.SingletonComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import ge.nlatsabidze.newsapplication.data.model.NewsResponse
 import ge.nlatsabidze.newsapplication.data.remote.NewsService
+import ge.nlatsabidze.newsapplication.domain.model.NewsDomain
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
 import ge.nlatsabidze.newsapplication.domain.repository.HandleResponse
 import ge.nlatsabidze.newsapplication.domain.interactor.NewsInteractor
 import ge.nlatsabidze.newsapplication.data.repository.NewsRepositoryImpl
 import ge.nlatsabidze.newsapplication.data.repository.NewsResponseMapper
-import ge.nlatsabidze.newsapplication.domain.model.NewsDomain
+import ge.nlatsabidze.newsapplication.data.interactor.NewsInteractorImpl
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -27,8 +28,7 @@ object AppModule {
     fun provideUseCase(
         @Named("currencyRepository") newsRepository: NewsRepository,
         coroutineDispatcher: CoroutineDispatcher,
-    ): NewsInteractor =
-        NewsInteractor.GetNewsUseCase(newsRepository, coroutineDispatcher)
+    ): NewsInteractor = NewsInteractorImpl(newsRepository, coroutineDispatcher)
 
     @Provides
     @Named("currencyRepository")
@@ -62,5 +62,6 @@ object AppModule {
         ObserveConnectivity.Base(context)
 
     @Provides
-    fun provideObserveConnectivityChannel(): Communication<ObserveConnectivity.Status> = Communication.ObserveConnection()
+    fun provideObserveConnectivityChannel(): Communication<ObserveConnectivity.Status> =
+        Communication.ObserveConnection()
 }
