@@ -31,7 +31,7 @@ class MainViewModel @Inject constructor(
     fun collectConnection(
         viewLifecycleOwner: LifecycleOwner,
         collector: FlowCollector<Status>
-    ) = viewModelScope.launch {
+    ) = launchMain {
         observeCommunicationChannel.collect(viewLifecycleOwner, collector)
     }
 }

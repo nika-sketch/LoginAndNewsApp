@@ -1,20 +1,18 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.base
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.view.LayoutInflater
-import androidx.annotation.StringRes
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.viewbinding.ViewBinding
-import ge.nlatsabidze.newsapplication.R
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
+import android.app.AlertDialog
 import kotlinx.coroutines.launch
+import android.view.LayoutInflater
+import androidx.lifecycle.Lifecycle
+import kotlinx.coroutines.flow.Flow
+import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.flowWithLifecycle
+import kotlinx.coroutines.flow.collectLatest
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 

@@ -1,8 +1,7 @@
 package ge.nlatsabidze.newsapplication.data.firebaseAuthService
 
-import com.google.firebase.auth.AuthResult
-import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.UserAuthResult
 import javax.inject.Inject
+import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.UserAuthResult
 
 interface FirebaseAuthentication {
 
@@ -11,7 +10,7 @@ interface FirebaseAuthentication {
     abstract class Abstract : FirebaseAuthentication {
 
         abstract fun userAuthResult(): UserAuthResult
-        abstract suspend fun authResult(email: String, password: String): AuthResult
+        abstract suspend fun authResult(email: String, password: String)
 
         override suspend fun authenticateUser(email: String, password: String): UserAuthResult =
             try {
@@ -22,17 +21,19 @@ interface FirebaseAuthentication {
             }
     }
 
-    class Register @Inject constructor(private val auth: Auth) : Abstract() {
-        override suspend fun authResult(email: String, password: String): AuthResult =
-            auth.register(email, password)
-
-        override fun userAuthResult() = UserAuthResult.SuccessRegisterAuth()
+    abstract class AuthAbstract(private val userAuthResult: UserAuthResult) : Abstract() {
+        override fun userAuthResult(): UserAuthResult = userAuthResult
     }
 
-    class Login @Inject constructor(private val auth: Auth) : Abstract() {
-        override suspend fun authResult(email: String, password: String): AuthResult =
-            auth.logIn(email, password)
+    class Register @Inject constructor(
+        private val auth: Auth
+    ) : AuthAbstract(UserAuthResult.SuccessRegisterAuth()) {
+        override suspend fun authResult(email: String, password: String) = auth.register(email, password)
+    }
 
-        override fun userAuthResult() = UserAuthResult.SuccessLoginAuth()
+    class Login @Inject constructor(
+        private val auth: Auth
+    ) : AuthAbstract(UserAuthResult.SuccessLoginAuth()) {
+        override suspend fun authResult(email: String, password: String) = auth.logIn(email, password)
     }
 }

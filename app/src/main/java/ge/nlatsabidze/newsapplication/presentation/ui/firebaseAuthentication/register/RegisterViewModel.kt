@@ -12,16 +12,15 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val dispatchers: Dispatchers,
+    dispatchers: Dispatchers,
     private val registerCommunication: Communication<FirebaseEvent>,
     private val loadingCommunication: Communication<Visibility>,
     private val registerInteractor: RegisterInteractor
-) : FirebaseBaseViewModel(registerCommunication, loadingCommunication) {
+) : FirebaseBaseViewModel(registerCommunication, loadingCommunication, dispatchers) {
 
-    fun register(name: String, email: String, password: String) =
-        dispatchers.launchBackground(viewModelScope) {
-            loadingCommunication.map(Visibility.Visible())
-            registerInteractor.register(name, email, password).apply(registerCommunication)
-            loadingCommunication.map(Visibility.Gone())
-        }
+    fun register(name: String, email: String, password: String) = handle {
+        loadingCommunication.map(Visibility.Visible())
+        registerInteractor.register(name, email, password).apply(registerCommunication)
+        loadingCommunication.map(Visibility.Gone())
+    }
 }
