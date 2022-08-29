@@ -10,25 +10,27 @@ import ge.nlatsabidze.newsapplication.core.launchMain
 import ge.nlatsabidze.newsapplication.core.Dispatchers
 import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.core.Communication
+import ge.nlatsabidze.newsapplication.domain.interactor.InteractorNews
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
-import ge.nlatsabidze.newsapplication.domain.interactor.NewsInteractor
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
-    private val newsInteractor: NewsInteractor,
     private val communicationNews: Communication<NewsUi>,
     private val channelCommunication: Communication<Navigation>,
-    private val newsResultToNewsUiMapper: NewsResultToNewsUiMapper,
+    private val interactorNews: InteractorNews,
     dispatcher: Dispatchers,
 ) : ViewModel() {
 
     init {
         dispatcher.launchBackground(viewModelScope) {
-            newsResultToNewsUiMapper.toNewsUi(newsInteractor.execute(), communicationNews)
+            interactorNews.execute().collect {
+                communicationNews.map(it.handle())
+            }
         }
     }
 
-    fun navigateToDetails(item: Article) = launchMain { channelCommunication.map(Navigation.NavigateToDetails(item)) }
+    fun navigateToDetails(item: Article) =
+        launchMain { channelCommunication.map(Navigation.NavigateToDetails(item)) }
 
     fun openNews(url: Article) = launchMain { channelCommunication.map(Navigation.NewsUrl(url)) }
 

@@ -9,6 +9,10 @@ import ge.nlatsabidze.newsapplication.domain.model.NewsDomain
 import ge.nlatsabidze.newsapplication.domain.interactor.NewsInteractor
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
 
+/**
+ * old version
+ */
+
 class NewsInteractorImpl @Inject constructor(
     @Named("currencyRepository") private val newsRepository: NewsRepository,
     private val backgroundCoroutine: CoroutineDispatcher

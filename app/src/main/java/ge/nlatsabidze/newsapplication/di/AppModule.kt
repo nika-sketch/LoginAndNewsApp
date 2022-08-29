@@ -14,7 +14,7 @@ import ge.nlatsabidze.newsapplication.data.model.NewsResponse
 import ge.nlatsabidze.newsapplication.data.remote.NewsService
 import ge.nlatsabidze.newsapplication.domain.model.NewsDomain
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
-import ge.nlatsabidze.newsapplication.domain.repository.HandleResponse
+import ge.nlatsabidze.newsapplication.core.HandleResponse
 import ge.nlatsabidze.newsapplication.domain.interactor.NewsInteractor
 import ge.nlatsabidze.newsapplication.data.repository.NewsRepositoryImpl
 import ge.nlatsabidze.newsapplication.data.repository.NewsResponseMapper
@@ -44,12 +44,11 @@ object AppModule {
 
     @Provides
     fun provideResponseHandler(
-        internetConnection: InternetConnection,
         handleResult: HandleResult,
         errorProvide: Error,
         handleException: HandleException
     ): HandleResponse =
-        HandleResponse.Base(internetConnection, handleResult, errorProvide, handleException)
+        HandleResponse.Base(handleResult, errorProvide, handleException)
 
     @Provides
     fun provideError(resources: ProvideResources): Error = Error.NoConnection(resources)
