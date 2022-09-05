@@ -6,16 +6,7 @@ import ge.nlatsabidze.newsapplication.domain.cache.ArticleRepository
 
 class ArticleRepositoryImpl(private val articleDao: ArticleDao) : ArticleRepository {
 
-    override fun deleteArticle() {
-        articleDao.deleteArticle()
-    }
-
-    override suspend fun insertArticle(listOfNews: List<Article>) {
-        articleDao.insertArticle(listOfNews)
-    }
-
-    override fun fetchArticle(): MutableList<Article> {
-        return articleDao.fetchArticle()
-    }
-
+    override fun deleteArticle() = articleDao.deleteArticle()
+    override suspend fun insertArticle(listOfNews: List<Article>) = articleDao.insertArticle(listOfNews)
+    override fun fetchArticle(): MutableList<Article> = articleDao.fetchArticle()
 }

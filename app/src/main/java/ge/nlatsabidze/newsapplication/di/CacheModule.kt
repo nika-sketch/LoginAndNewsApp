@@ -12,6 +12,7 @@ import ge.nlatsabidze.newsapplication.core.HandleException
 import ge.nlatsabidze.newsapplication.core.Mapper
 import ge.nlatsabidze.newsapplication.data.cache.ArticleDataBase
 import ge.nlatsabidze.newsapplication.data.cache.ArticleRepositoryImpl
+import ge.nlatsabidze.newsapplication.data.cache.HandleArticles
 import ge.nlatsabidze.newsapplication.data.cache.HandleService
 import ge.nlatsabidze.newsapplication.data.model.NewsResponse
 import ge.nlatsabidze.newsapplication.data.remote.NewsService
@@ -49,9 +50,8 @@ object CacheModule {
 
     @Provides
     fun provideRepo(
-        articleRepository: ArticleRepository,
         handleService: HandleService
-    ): NewsServiceRepository = NewsServiceRepositoryImpl(articleRepository, handleService)
+    ): NewsServiceRepository = NewsServiceRepositoryImpl(handleService)
 
     @Provides
     fun provideInteractorNews(
@@ -60,12 +60,24 @@ object CacheModule {
     ): InteractorNews = InteractorNews.Base(repository, backgroundCoroutine)
 
     @Provides
+    fun provideHandleArticlesModule(articleRepository: ArticleRepository): HandleArticles =
+        HandleArticles.Base(articleRepository)
+
+    @Provides
     fun provideService(
         newsService: NewsService,
         mapper: Mapper<NewsResponse, NewsDomain>,
         error: Error,
         handleException: HandleException,
-        ArticleRepository: ArticleRepository
+        ArticleRepository: ArticleRepository,
+        handleArticles: HandleArticles
     ): HandleService =
-        HandleService.Base(newsService, mapper, error, ArticleRepository, handleException)
+        HandleService.Base(
+            newsService,
+            mapper,
+            error,
+            ArticleRepository,
+            handleException,
+            handleArticles
+        )
 }

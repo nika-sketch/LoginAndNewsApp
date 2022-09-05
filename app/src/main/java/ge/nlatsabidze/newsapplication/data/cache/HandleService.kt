@@ -21,6 +21,7 @@ interface HandleService {
         private val error: Error,
         private val articleRepository: ArticleRepository,
         private val handleException: HandleException,
+        private val handleArticles: HandleArticles
     ) : HandleService {
         override suspend fun handleService(): NewsResult = try {
             val request = newsService.fetchMarketItems()
@@ -29,9 +30,9 @@ interface HandleService {
             articleRepository.insertArticle(newsDomain.articles)
             NewsResult.SuccessResult(newsDomain.articles)
         } catch (e: UnknownHostException) {
-            NewsResult.ErrorResult(error.message())
+            handleArticles.handleArticleCache(error.message())
         } catch (e: Exception) {
-            NewsResult.ErrorResult(handleException.handle(e))
+            handleArticles.handleArticleCache(handleException.handle(e))
         }
     }
 }

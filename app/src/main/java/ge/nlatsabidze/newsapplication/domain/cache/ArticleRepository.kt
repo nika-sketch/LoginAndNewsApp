@@ -9,4 +9,6 @@ interface ArticleRepository {
     suspend fun insertArticle(listOfNews: List<Article>)
 
     fun fetchArticle(): MutableList<Article>
+
+    fun checkIfArticlesExists() = fetchArticle().size > 0
 }

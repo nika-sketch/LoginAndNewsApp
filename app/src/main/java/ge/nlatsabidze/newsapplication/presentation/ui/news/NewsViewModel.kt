@@ -29,10 +29,13 @@ class NewsViewModel @Inject constructor(
         }
     }
 
-    fun navigateToDetails(item: Article) =
-        launchMain { channelCommunication.map(Navigation.NavigateToDetails(item)) }
+    fun navigateToDetails(item: Article) = launchMain {
+        channelCommunication.map(Navigation.NavigateToDetails(item))
+    }
 
-    fun openNews(url: Article) = launchMain { channelCommunication.map(Navigation.NewsUrl(url)) }
+    fun openNews(url: Article) = launchMain {
+        channelCommunication.map(Navigation.NewsUrl(url))
+    }
 
     fun collectNavigation(
         viewLifecycleOwner: LifecycleOwner,
@@ -41,8 +44,7 @@ class NewsViewModel @Inject constructor(
         channelCommunication.collect(viewLifecycleOwner, collector)
     }
 
-    fun collectNews(viewLifecycleOwner: LifecycleOwner, collector: FlowCollector<NewsUi>) =
-        launchMain {
-            communicationNews.collect(viewLifecycleOwner, collector)
-        }
+    fun collectNews(viewLifecycleOwner: LifecycleOwner, collector: FlowCollector<NewsUi>) = launchMain {
+        communicationNews.collect(viewLifecycleOwner, collector)
+    }
 }

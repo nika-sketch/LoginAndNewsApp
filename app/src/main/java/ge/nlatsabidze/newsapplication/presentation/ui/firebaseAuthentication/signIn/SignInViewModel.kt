@@ -15,8 +15,13 @@ class SignInViewModel @Inject constructor(
     dispatcher: Dispatchers,
     private val signInCommunication: Communication<FirebaseEvent>,
     private val loadingCommunication: Communication<Visibility>,
-    private val signInInteractor: SignInInteractor
+    private val signInInteractor: SignInInteractor,
+    private val firebaseEvent: FirebaseEvent
 ) : FirebaseBaseViewModel(signInCommunication, loadingCommunication, dispatcher) {
+
+    init {
+        launchMain { signInCommunication.map(firebaseEvent) }
+    }
 
     fun signIn(email: String, password: String) = handle {
         loadingCommunication.map(Visibility.Visible())
@@ -29,4 +34,5 @@ class SignInViewModel @Inject constructor(
             FirebaseEvent.NavigateFromSignInToRegisterScreen()
         )
     }
+
 }

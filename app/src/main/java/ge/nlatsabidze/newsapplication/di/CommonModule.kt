@@ -14,7 +14,6 @@ import ge.nlatsabidze.newsapplication.domain.model.NewsDomain
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
 import ge.nlatsabidze.newsapplication.presentation.ui.details.Details
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
-import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsResultToNewsUiMapper
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -55,10 +54,6 @@ object CommonModule {
         @Named("firstItem") imageLoader: LoadImage,
         @Named("stringMapper") mapper: Mapper<String, String>
     ): Details = Details.Base(imageLoader, mapper)
-
-    @Provides
-    fun provideResultFactory(mapper: ResultMapper<NewsUi, NewsDomain>): NewsResultToNewsUiMapper =
-        NewsResultToNewsUiMapper.Base(mapper)
 
     @Provides
     fun providesResultMapper(): ResultMapper<NewsUi, NewsDomain> = ResultMapper.ToNewsUi()
