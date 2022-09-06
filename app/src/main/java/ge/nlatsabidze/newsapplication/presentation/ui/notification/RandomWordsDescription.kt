@@ -11,7 +11,6 @@ interface RandomWordsDescription {
         private val shuffleList: ShuffleList<GenerateContent>,
     ) : RandomWordsDescription {
 
-        // todo list will be added from server(testing version)
         private val listOfWords = mutableListOf<GenerateContent>(
             GenerateContent.Words("dog", "Dog"),
             GenerateContent.Words("cat", "Cat"),
