@@ -9,22 +9,13 @@ interface RandomWordsDescription {
     class Base @Inject constructor(
         private val generateRandomNumber: GenerateRandomNumber<Int>,
         private val shuffleList: ShuffleList<GenerateContent>,
+        private val provideContent: ProvideContent = ProvideContent.Base()
     ) : RandomWordsDescription {
 
-        private val listOfWords = mutableListOf<GenerateContent>(
-            GenerateContent.Words("dog", "Dog"),
-            GenerateContent.Words("cat", "Cat"),
-            GenerateContent.Words("lion", "Lion"),
-            GenerateContent.Words("Android", "Android"),
-            GenerateContent.Words("IOS", "IOS"),
-            GenerateContent.Words("Flutter", "Flutter"),
-            GenerateContent.Words("React", "React"),
-            GenerateContent.Words("Java", "Java")
-        )
-
         override fun content(): GenerateContent {
-            shuffleList.shuffle(listOfWords)
-            return listOfWords[generateRandomNumber.randomNumber(listOfWords.size)]
+            shuffleList.shuffle(provideContent.content())
+            return provideContent.content()[generateRandomNumber.randomNumber(provideContent.content().size)]
         }
     }
 }
+

@@ -12,6 +12,8 @@ interface GenerateContent {
     ) : GenerateContent {
 
         override fun wordDescription(notificationBuilder: NotificationCompat.Builder): NotificationCompat.Builder =
-            notificationBuilder.setContentTitle(word).setContentText(description)
+            notificationBuilder
+                .setContentTitle(word)
+                .setContentText(description)
     }
 }
