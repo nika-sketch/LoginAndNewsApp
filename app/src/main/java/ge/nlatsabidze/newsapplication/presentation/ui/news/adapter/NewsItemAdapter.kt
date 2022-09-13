@@ -2,19 +2,18 @@ package ge.nlatsabidze.newsapplication.presentation.ui.news.adapter
 
 import android.view.ViewGroup
 import android.view.LayoutInflater
-import androidx.recyclerview.widget.RecyclerView
 import ge.nlatsabidze.newsapplication.data.model.ArticleUi
 import ge.nlatsabidze.newsapplication.databinding.NewsItemBinding
+import ge.nlatsabidze.newsapplication.presentation.ui.core.OnItemClick
 import ge.nlatsabidze.newsapplication.databinding.FirstNewsItemBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseRecyclerViewAdapter
-import ge.nlatsabidze.newsapplication.presentation.ui.core.OnItemClick
 
 class NewsItemAdapter(
     private val itemCLickListener: OnItemClick<ArticleUi>
 ) : BaseRecyclerViewAdapter<ArticleUi>() {
 
-    override fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        if (viewType == 1) FirstNewsItemViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ArticleUi> {
+        return if (viewType == 1) FirstNewsItemViewHolder(
             FirstNewsItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -28,6 +27,7 @@ class NewsItemAdapter(
                 false
             ), itemCLickListener
         )
+    }
 
     override fun getItemViewType(position: Int): Int = if (position == 0) 1 else 2
 }

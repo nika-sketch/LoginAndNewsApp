@@ -61,10 +61,7 @@ data class ArticleUi(
             journalName.text = articleargs.source.name
             date.text = articleargs.publishedAt.let { dateFormatter.map(it) }
             if (articleargs.content.containsBraces()) binding.newsContent.text =
-                articleargs.content.substring(
-                    0,
-                    articleargs.content.firstIndexOfOpenBrace()
-                )
+                articleargs.content.substring(0, articleargs.content.firstIndexOfOpenBrace())
             else newsContent.text = articleargs.content
             newsTitle.text = articleargs.title
         }

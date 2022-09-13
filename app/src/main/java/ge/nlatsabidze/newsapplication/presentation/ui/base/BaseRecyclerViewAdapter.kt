@@ -1,23 +1,16 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.base
 
-import android.view.ViewGroup
-import android.annotation.SuppressLint
+import android.view.View
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseRecyclerViewAdapter<T : Any> :
-    ListAdapter<T, RecyclerView.ViewHolder>(BaseItemCallback<T>()) {
+    ListAdapter<T, BaseRecyclerViewAdapter.BaseViewHolder<T>>(BaseItemCallback<T>()) {
+    override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) =
+        holder.bind(getItem(position))
 
-    abstract fun getViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        getViewHolder(parent, viewType)
-
-    @Suppress("UNCHECKED_CAST")
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) =
-        (holder as Bind<T>).bind(getItem(position))
-
-    interface Bind<T> {
-        fun bind(item: T)
+    abstract class BaseViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        abstract fun bind(item: T)
     }
 }
+
