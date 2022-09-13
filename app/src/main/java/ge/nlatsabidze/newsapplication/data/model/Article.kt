@@ -4,6 +4,7 @@ import androidx.room.Entity
 import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.PrimaryKey
+import ge.nlatsabidze.newsapplication.core.Mapper
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.IgnoredOnParcel
 
@@ -23,3 +24,4 @@ data class Article(
     @PrimaryKey(autoGenerate = true)
     var id1: Int = 0
 }
+

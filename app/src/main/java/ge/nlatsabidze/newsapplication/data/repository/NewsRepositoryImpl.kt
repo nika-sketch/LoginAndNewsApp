@@ -7,6 +7,8 @@ import ge.nlatsabidze.newsapplication.data.model.NewsResponse
 import ge.nlatsabidze.newsapplication.data.remote.NewsService
 import ge.nlatsabidze.newsapplication.domain.model.NewsDomain
 import ge.nlatsabidze.newsapplication.data.cache.HandleService
+import ge.nlatsabidze.newsapplication.data.model.ArticleMapper
+import ge.nlatsabidze.newsapplication.data.model.ArticleUi
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
 import ge.nlatsabidze.newsapplication.domain.repository.NewsRepository
 import ge.nlatsabidze.newsapplication.domain.repository.NewsServiceRepository
@@ -40,8 +42,11 @@ sealed class NewsResult {
         override fun handle(): NewsUi = NewsUi.Loading()
     }
 
-    class SuccessResult(private val items: MutableList<Article>) : NewsResult() {
-        override fun handle(): NewsUi = NewsUi.Success(items)
+    class SuccessResult(
+        private val items: MutableList<Article>,
+        private val mapper: Mapper<MutableList<Article>, MutableList<ArticleUi>> = ArticleMapper()
+    ) : NewsResult() {
+        override fun handle(): NewsUi = NewsUi.Success(mapper.map(items))
     }
 
     class ErrorResult(private val errorMessage: String) : NewsResult() {

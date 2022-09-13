@@ -22,12 +22,12 @@ interface Details {
                     imageLoader.load(binding.contentImage, articleargs.urlToImage)
                     date.text = articleargs.publishedAt
                     personName.text = articleargs.author
-                    journalName.text = articleargs.source!!.name
-                    date.text = articleargs.publishedAt?.let { dateFormatter.map(it) }
-                    if (articleargs.content!!.containsBraces()) binding.newsContent.text =
-                        articleargs.content!!.substring(
+                    journalName.text = articleargs.source.name
+                    date.text = articleargs.publishedAt.let { dateFormatter.map(it) }
+                    if (articleargs.content.containsBraces()) binding.newsContent.text =
+                        articleargs.content.substring(
                             0,
-                            articleargs.content!!.firstIndexOfOpenBrace()
+                            articleargs.content.firstIndexOfOpenBrace()
                         )
                     else newsContent.text = articleargs.content
                     newsTitle.text = articleargs.title

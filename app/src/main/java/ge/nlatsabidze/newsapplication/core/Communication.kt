@@ -13,14 +13,14 @@ import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.Fir
 
 interface Communication<T> {
 
-    suspend fun map(data: T)
+    fun map(data: T)
     suspend fun collect(viewLifecycleOwner: LifecycleOwner, collector: FlowCollector<T>)
 
     abstract class StateAbstract<T>(data: T) : Communication<T> {
 
         private val stateFlow = MutableStateFlow(data)
 
-        override suspend fun map(data: T) {
+        override fun map(data: T) {
             stateFlow.value = data
         }
 
@@ -42,8 +42,8 @@ interface Communication<T> {
 
         private val channel = Channel<T>()
 
-        override suspend fun map(data: T) {
-            channel.send(data)
+        override fun map(data: T) {
+            channel.trySend(data)
         }
 
         override suspend fun collect(

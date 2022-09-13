@@ -3,6 +3,7 @@ package ge.nlatsabidze.newsapplication.presentation.ui.news
 import ge.nlatsabidze.newsapplication.core.Visibility
 import ge.nlatsabidze.newsapplication.core.visible
 import ge.nlatsabidze.newsapplication.data.model.Article
+import ge.nlatsabidze.newsapplication.data.model.ArticleUi
 import ge.nlatsabidze.newsapplication.databinding.NewsFragmentBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.news.adapter.NewsItemAdapter
 
@@ -17,7 +18,7 @@ interface NewsUi {
 
     class Loading : Abstract(Visibility.Visible())
 
-    class Success(private var items: MutableList<Article>) : Abstract(Visibility.Gone()) {
+    class Success(private var items: MutableList<ArticleUi>) : Abstract(Visibility.Gone()) {
         override fun apply(binding: NewsFragmentBinding, adapter: NewsItemAdapter) {
             super.apply(binding, adapter)
             adapter.submitList(items)

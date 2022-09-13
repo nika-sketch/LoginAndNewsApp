@@ -10,6 +10,7 @@ import ge.nlatsabidze.newsapplication.core.launchMain
 import ge.nlatsabidze.newsapplication.core.Dispatchers
 import ge.nlatsabidze.newsapplication.data.model.Article
 import ge.nlatsabidze.newsapplication.core.Communication
+import ge.nlatsabidze.newsapplication.data.model.ArticleUi
 import ge.nlatsabidze.newsapplication.domain.interactor.InteractorNews
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
 
@@ -29,11 +30,11 @@ class NewsViewModel @Inject constructor(
         }
     }
 
-    fun navigateToDetails(item: Article) = launchMain {
+    fun navigateToDetails(item: ArticleUi) = launchMain {
         channelCommunication.map(Navigation.NavigateToDetails(item))
     }
 
-    fun openNews(url: Article) = launchMain {
+    fun openNews(url: ArticleUi) = launchMain {
         channelCommunication.map(Navigation.NewsUrl(url))
     }
 
@@ -44,7 +45,10 @@ class NewsViewModel @Inject constructor(
         channelCommunication.collect(viewLifecycleOwner, collector)
     }
 
-    fun collectNews(viewLifecycleOwner: LifecycleOwner, collector: FlowCollector<NewsUi>) = launchMain {
+    fun collectNews(
+        viewLifecycleOwner: LifecycleOwner,
+        collector: FlowCollector<NewsUi>
+    ) = launchMain {
         communicationNews.collect(viewLifecycleOwner, collector)
     }
 }

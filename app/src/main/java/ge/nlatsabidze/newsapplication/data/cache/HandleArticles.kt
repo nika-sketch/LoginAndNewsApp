@@ -8,8 +8,10 @@ interface HandleArticles {
 
     fun handleArticleCache(errorType: String): NewsResult
 
-    class Base @Inject constructor(private val articleRepository: ArticleRepository) :
-        HandleArticles {
+    class Base @Inject constructor(
+        private val articleRepository: ArticleRepository
+    ) : HandleArticles {
+
         override fun handleArticleCache(errorType: String): NewsResult =
             if (articleRepository.checkIfArticlesExists()) {
                 NewsResult.SuccessResult(articleRepository.fetchArticle())

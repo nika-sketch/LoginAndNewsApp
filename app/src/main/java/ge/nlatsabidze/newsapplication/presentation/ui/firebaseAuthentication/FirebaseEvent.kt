@@ -14,7 +14,7 @@ interface FirebaseEvent {
 
     abstract class Abstract(private val navigation: Navigation) : FirebaseEvent {
         override fun apply(view: View, navController: NavController, fragment: Fragment) {
-            navigation.navigate(navController, fragment)
+            navigation.apply(navController, fragment)
         }
     }
 
