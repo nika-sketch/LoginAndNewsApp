@@ -16,22 +16,9 @@ interface Details {
         private val imageLoader: LoadImage,
         @Named("firstItem") val dateFormatter: Mapper<String, String>
     ) : Details {
-        override fun showDetails(binding: DetailsFragmentBinding, argsArticle: DetailsFragmentArgs) =
-            with(binding) {
-                with(argsArticle) {
-                    imageLoader.load(binding.contentImage, articleargs.urlToImage)
-                    date.text = articleargs.publishedAt
-                    personName.text = articleargs.author
-                    journalName.text = articleargs.source.name
-                    date.text = articleargs.publishedAt.let { dateFormatter.map(it) }
-                    if (articleargs.content.containsBraces()) binding.newsContent.text =
-                        articleargs.content.substring(
-                            0,
-                            articleargs.content.firstIndexOfOpenBrace()
-                        )
-                    else newsContent.text = articleargs.content
-                    newsTitle.text = articleargs.title
-                }
-            }
+        override fun showDetails(
+            binding: DetailsFragmentBinding,
+            argsArticle: DetailsFragmentArgs
+        ) = argsArticle.articleargs.bindDetails(binding, argsArticle, imageLoader, dateFormatter)
     }
 }

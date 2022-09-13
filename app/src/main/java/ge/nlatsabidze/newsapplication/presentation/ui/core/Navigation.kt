@@ -48,8 +48,7 @@ interface Navigation {
     ) : Navigation {
 
         override fun apply(navController: NavController, fragment: Fragment) {
-            val uri = Uri.parse(article.url)
-            val intent = Intent(intent, uri)
+            val intent = Intent(intent, article.parseUri())
             fragment.startActivity(intent)
         }
     }
