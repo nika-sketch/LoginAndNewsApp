@@ -6,7 +6,7 @@ https://user-images.githubusercontent.com/55893091/164082134-593e7740-bd91-46c9-
 
 # NewsApp
 
-News Application, showing all articles published by the Wall Street Journal in the last 6 months, sorted by recent first, with the detail screen.
+News Application, showing all articles published by the Wall Street Journal in the last 6 months, sorted by recent first, with the detail screen, also registratition/login using firebase auth service, and workmanager for simple notification with english title and description for learning new words.
 # Features
 
 - [MVVM Design Pattern](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93viewmodel) -Model-View-ViewModel (MVVM) is a structural design pattern that separates objects into three distinct groups: Models hold application data. They're usually structs or simple classes. Views display visual elements and controls on the screen
