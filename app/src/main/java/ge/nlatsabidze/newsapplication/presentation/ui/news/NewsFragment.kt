@@ -27,7 +27,7 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
         viewModel.collectNavigation(viewLifecycleOwner) { it.apply(findNavController(), this@NewsFragment) }
     }
 
-    override fun onItemClick(item: ArticleUi) { viewModel.navigateToDetails(item) }
+    override fun onItemClick(item: ArticleUi) { viewModel.saveArticleAndNavigateToDetails(item) }
 
     override fun onLongItemClick(url: ArticleUi) { viewModel.openNews(url) }
 }

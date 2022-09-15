@@ -6,13 +6,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.FlowCollector
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ge.nlatsabidze.newsapplication.core.launchMain
-import ge.nlatsabidze.newsapplication.core.Dispatchers
-import ge.nlatsabidze.newsapplication.data.model.Article
-import ge.nlatsabidze.newsapplication.core.Communication
+import ge.nlatsabidze.newsapplication.core.*
 import ge.nlatsabidze.newsapplication.data.model.ArticleUi
 import ge.nlatsabidze.newsapplication.domain.interactor.InteractorNews
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
+import ge.nlatsabidze.newsapplication.presentation.ui.details.SharedArticle
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
@@ -20,6 +18,7 @@ class NewsViewModel @Inject constructor(
     private val channelCommunication: Communication<Navigation>,
     private val interactorNews: InteractorNews,
     dispatcher: Dispatchers,
+    private val sharedArticle: SharedArticle
 ) : ViewModel() {
 
     init {
@@ -30,8 +29,9 @@ class NewsViewModel @Inject constructor(
         }
     }
 
-    fun navigateToDetails(item: ArticleUi) = launchMain {
-        channelCommunication.map(Navigation.NavigateToDetails(item))
+    fun saveArticleAndNavigateToDetails(item: ArticleUi) = launchMain {
+        channelCommunication.map(Navigation.NavigateToDetails())
+        sharedArticle.save(item)
     }
 
     fun openNews(url: ArticleUi) = launchMain {
@@ -52,3 +52,4 @@ class NewsViewModel @Inject constructor(
         communicationNews.collect(viewLifecycleOwner, collector)
     }
 }
+

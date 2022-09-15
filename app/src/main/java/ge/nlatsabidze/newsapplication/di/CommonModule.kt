@@ -12,7 +12,6 @@ import dagger.hilt.components.SingletonComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import ge.nlatsabidze.newsapplication.domain.model.NewsDomain
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
-import ge.nlatsabidze.newsapplication.presentation.ui.details.Details
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
 
 @Module
@@ -49,11 +48,6 @@ object CommonModule {
     @Named("stringMapper")
     fun provideDateFormat(): Mapper<String, String> = AbstractDateFormat.DateFormatter()
 
-    @Provides
-    fun provideDetails(
-        @Named("firstItem") imageLoader: LoadImage,
-        @Named("stringMapper") mapper: Mapper<String, String>
-    ): Details = Details.Base(imageLoader, mapper)
 
     @Provides
     fun providesResultMapper(): ResultMapper<NewsUi, NewsDomain> = ResultMapper.ToNewsUi()

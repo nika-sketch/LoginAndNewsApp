@@ -18,8 +18,11 @@ import ge.nlatsabidze.newsapplication.domain.interactor.SignInInteractor
 import ge.nlatsabidze.newsapplication.domain.firebaseAuthService.SignInRepository
 import ge.nlatsabidze.newsapplication.domain.interactor.RegisterInteractor
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Text
+import ge.nlatsabidze.newsapplication.presentation.ui.details.ArticleDetailsUi
+import ge.nlatsabidze.newsapplication.presentation.ui.details.SharedArticle
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.FirebaseEvent
 import javax.inject.Named
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -30,7 +33,7 @@ object FirebaseModule {
 
     @Provides
     fun provideSingInRepository(
-        @Named("logIn")registerAuthentication: FirebaseAuthentication
+        @Named("logIn") registerAuthentication: FirebaseAuthentication
     ): SignInRepository =
         SignInRepositoryImpl(registerAuthentication)
 
@@ -59,6 +62,15 @@ object FirebaseModule {
         Communication.BaseLoading(Visibility.Gone())
 
     @Provides
+    fun provideDetailsCommunication(): Communication<ArticleDetailsUi> =
+        Communication.BaseDetails(ArticleDetailsUi.Empty)
+
+    @Provides
+    @Singleton
+    fun provideDetailsRepository(communication: Communication<ArticleDetailsUi>): SharedArticle =
+        SharedArticle.Base(communication)
+
+    @Provides
     fun provideText(): Text = Text.Base()
 
     @Provides
@@ -66,9 +78,11 @@ object FirebaseModule {
 
     @Provides
     @Named("register")
-    fun provideRegisterAuthentication(auth: Auth): FirebaseAuthentication = FirebaseAuthentication.Register(auth)
+    fun provideRegisterAuthentication(auth: Auth): FirebaseAuthentication =
+        FirebaseAuthentication.Register(auth)
 
     @Provides
     @Named("logIn")
-    fun provideSignInAuthentication(auth: Auth): FirebaseAuthentication = FirebaseAuthentication.Login(auth)
+    fun provideSignInAuthentication(auth: Auth): FirebaseAuthentication =
+        FirebaseAuthentication.Login(auth)
 }

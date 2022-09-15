@@ -12,8 +12,8 @@ class NewsItemAdapter(
     private val itemCLickListener: OnItemClick<ArticleUi>
 ) : BaseRecyclerViewAdapter<ArticleUi>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ArticleUi> {
-        return if (viewType == 1) FirstNewsItemViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<ArticleUi> =
+        if (viewType == 1) FirstNewsItemViewHolder(
             FirstNewsItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -27,7 +27,6 @@ class NewsItemAdapter(
                 false
             ), itemCLickListener
         )
-    }
 
     override fun getItemViewType(position: Int): Int = if (position == 0) 1 else 2
 }
