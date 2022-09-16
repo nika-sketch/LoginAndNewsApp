@@ -2,6 +2,7 @@ package ge.nlatsabidze.newsapplication.core
 
 import coil.load
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import coil.transform.Transformation
 import ge.nlatsabidze.newsapplication.R
 import coil.transform.RoundedCornersTransformation
@@ -19,6 +20,9 @@ interface LoadImage {
 
         override fun load(imageView: ImageView, url: String?) {
             imageView.load(url) {
+                listener(onError = { _, _ ->
+                    imageView.handleImageError()
+                })
                 placeholder(placeHolder)
                 crossfade(allowCrossFade)
                 crossfade(crossFadeDuration)

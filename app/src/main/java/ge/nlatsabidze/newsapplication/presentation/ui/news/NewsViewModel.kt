@@ -16,14 +16,14 @@ import ge.nlatsabidze.newsapplication.presentation.ui.details.SharedArticle
 class NewsViewModel @Inject constructor(
     private val communicationNews: Communication<NewsUi>,
     private val channelCommunication: Communication<Navigation>,
-    private val interactorNews: InteractorNews,
+    private val newsInteractor: InteractorNews,
     dispatcher: Dispatchers,
     private val sharedArticle: SharedArticle
 ) : ViewModel() {
 
     init {
         dispatcher.launchBackground(viewModelScope) {
-            interactorNews.execute().collect {
+            newsInteractor.execute().collect {
                 communicationNews.map(it.handle())
             }
         }

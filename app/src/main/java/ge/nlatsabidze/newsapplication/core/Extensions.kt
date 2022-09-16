@@ -1,12 +1,13 @@
 package ge.nlatsabidze.newsapplication.core
 
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
+import android.widget.ImageView
 import kotlinx.coroutines.launch
+import androidx.lifecycle.ViewModel
+import ge.nlatsabidze.newsapplication.R
+import androidx.lifecycle.viewModelScope
+import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 
 fun View.visible() {
     visibility = View.VISIBLE
@@ -16,6 +17,15 @@ fun View.onTap(block: () -> Unit) {
     this.setOnClickListener {
         block.invoke()
     }
+}
+
+fun ImageView.handleImageError() {
+    this.setImageDrawable(
+        ContextCompat.getDrawable(
+            this.context,
+            R.drawable.ic_github
+        )
+    )
 }
 
 fun View.onLongTap(block: () -> Unit) {
