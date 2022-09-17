@@ -26,6 +26,7 @@ interface FirebaseEvent {
     class Failure(private val message: String) : FirebaseEvent {
         override fun apply(view: View, navController: NavController, fragment: Fragment) {
             view.showSnack(message)
+            view.isClickable = true
         }
     }
 

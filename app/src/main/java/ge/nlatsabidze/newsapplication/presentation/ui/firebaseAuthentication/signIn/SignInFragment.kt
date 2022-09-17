@@ -20,10 +20,13 @@ class SignInFragment : BaseFragment<SignInFragmentBinding>(SignInFragmentBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = with(binding) {
         super.onViewCreated(view, savedInstanceState)
 
-        button.onTap { viewModel.signIn(text.text(email), text.text(password)) }
+        button.onTap {
+            button.isClickable = false
+            viewModel.signIn(text.text(email), text.text(password))
+        }
         tvSignUp.onTap { viewModel.navigateToRegister() }
 
-        viewModel.collectFirebaseAuth(viewLifecycleOwner) { it.apply(signInGlobal, findNavController(), this@SignInFragment) }
+        viewModel.collectFirebaseAuth(viewLifecycleOwner) { it.apply(button, findNavController(), this@SignInFragment) }
         viewModel.collectVisibility(viewLifecycleOwner) { it.apply(progressBar) }
     }
 }

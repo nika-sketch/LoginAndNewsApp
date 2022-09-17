@@ -6,7 +6,7 @@ interface GenerateContent {
 
     fun wordDescription(notificationBuilder: NotificationCompat.Builder): NotificationCompat.Builder
 
-    class Words(
+    data class Words(
         private val word: String,
         private val description: String
     ) : GenerateContent {
