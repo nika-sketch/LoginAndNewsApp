@@ -19,6 +19,11 @@ fun View.onTap(block: () -> Unit) {
     }
 }
 
+fun View.isEnabledAndClickable(boolean: Boolean) {
+    this.isClickable = boolean
+    this.isEnabled = boolean
+}
+
 fun ImageView.handleImageError() {
     this.setImageDrawable(
         ContextCompat.getDrawable(

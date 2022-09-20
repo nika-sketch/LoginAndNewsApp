@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ge.nlatsabidze.newsapplication.core.onTap
 import androidx.navigation.fragment.findNavController
+import ge.nlatsabidze.newsapplication.core.isEnabledAndClickable
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Text
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseFragment
 import ge.nlatsabidze.newsapplication.databinding.SignInFragmentBinding
@@ -21,7 +22,7 @@ class SignInFragment : BaseFragment<SignInFragmentBinding>(SignInFragmentBinding
         super.onViewCreated(view, savedInstanceState)
 
         button.onTap {
-            button.isClickable = false
+            button.isEnabledAndClickable(false)
             viewModel.signIn(text.text(email), text.text(password))
         }
         tvSignUp.onTap { viewModel.navigateToRegister() }

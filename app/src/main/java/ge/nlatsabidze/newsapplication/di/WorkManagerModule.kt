@@ -63,6 +63,13 @@ object WorkManagerModule {
     fun provideNotificationCompatPriority(): Int = 2
 
     @Provides
-    fun provideNotificationBuilderCompat(notificationCompatPriority: Int): BuildNotification = BuildNotification.Base(notificationCompatPriority)
+    fun provideNotificationSound(): ProvideRingtoneManager = ProvideRingtoneManager.TypeRingtone()
+
+    @Provides
+    fun provideNotificationBuilderCompat(
+        notificationCompatPriority: Int,
+        provideRingToneManager: ProvideRingtoneManager
+    ): BuildNotification =
+        BuildNotification.Base(notificationCompatPriority, provideRingToneManager)
 
 }

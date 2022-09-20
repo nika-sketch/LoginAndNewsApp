@@ -15,7 +15,7 @@ data class ArticleUi(
     private val title: String,
     private val url: String,
     private val urlToImage: String,
-    private var loadImage: LoadImage = LoadImage.GithubImageBase(),
+    private val loadImage: LoadImage = LoadImage.GithubImageBase(),
     private val dateFormat: Mapper<String, String> = AbstractDateFormat.DateFormatter()
 ) {
 

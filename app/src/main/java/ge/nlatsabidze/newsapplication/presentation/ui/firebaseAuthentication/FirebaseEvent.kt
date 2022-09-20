@@ -5,6 +5,7 @@ import android.view.View
 import javax.inject.Inject
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
+import ge.nlatsabidze.newsapplication.core.isEnabledAndClickable
 import ge.nlatsabidze.newsapplication.core.showSnack
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
 
@@ -26,7 +27,7 @@ interface FirebaseEvent {
     class Failure(private val message: String) : FirebaseEvent {
         override fun apply(view: View, navController: NavController, fragment: Fragment) {
             view.showSnack(message)
-            view.isClickable = true
+            view.isEnabledAndClickable(true)
         }
     }
 

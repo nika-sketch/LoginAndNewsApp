@@ -15,7 +15,7 @@ import org.junit.Test
 class InteractorNewsTest : TestCase() {
 
     private class FakeServiceRepository : NewsServiceRepository {
-        override suspend fun fetchNews(): NewsResult = NewsResult.LoadingResult
+        override suspend fun fetchNews(): NewsResult = NewsResult.SuccessResult(mutableListOf())
     }
 
     private val fakeCoroutineDispatcher = Dispatchers.IO
@@ -23,13 +23,13 @@ class InteractorNewsTest : TestCase() {
     @Test
     fun testNewsInteractor() {
 
-        val fakeNewsServiceRepository = FakeServiceRepository()
+        val fakeNewsServiceRepository: NewsServiceRepository = FakeServiceRepository()
         val newsInteractor = InteractorNews.Base(fakeNewsServiceRepository, fakeCoroutineDispatcher)
         val actual = newsInteractor.execute()
 
         runBlocking {
             testFlow().collect {
-                assertEquals(it, fakeNewsServiceRepository.fetchNews())
+                assertFalse(it == fakeNewsServiceRepository.fetchNews())
             }
         }
     }

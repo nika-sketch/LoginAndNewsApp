@@ -52,4 +52,3 @@ class NewsViewModel @Inject constructor(
         communicationNews.collect(viewLifecycleOwner, collector)
     }
 }
-
