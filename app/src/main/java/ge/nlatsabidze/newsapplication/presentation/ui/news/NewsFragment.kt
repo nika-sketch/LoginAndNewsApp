@@ -23,8 +23,8 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(NewsFragmentBinding::infl
         binding.rvNews.adapter = newsAdapter
         binding.rvNews.layoutManager = LinearLayoutManager(requireContext())
 
-        viewModel.collectNews(viewLifecycleOwner) { it.apply(binding, newsAdapter) }
-        viewModel.collectNavigation(viewLifecycleOwner) { it.apply(findNavController(), this@NewsFragment) }
+        viewModel.collectState(viewLifecycleOwner) { it.apply(binding, newsAdapter) }
+        viewModel.collectEvent(viewLifecycleOwner) { it.apply(findNavController(), this@NewsFragment) }
     }
 
     override fun onItemClick(item: ArticleUi) { viewModel.saveArticleAndNavigateToDetails(item) }

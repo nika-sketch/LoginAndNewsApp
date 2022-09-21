@@ -27,7 +27,7 @@ class SignInFragment : BaseFragment<SignInFragmentBinding>(SignInFragmentBinding
         }
         tvSignUp.onTap { viewModel.navigateToRegister() }
 
-        viewModel.collectFirebaseAuth(viewLifecycleOwner) { it.apply(button, findNavController(), this@SignInFragment) }
-        viewModel.collectVisibility(viewLifecycleOwner) { it.apply(progressBar) }
+        viewModel.collectEvent(viewLifecycleOwner) { it.apply(button, findNavController(), this@SignInFragment) }
+        viewModel.collectState(viewLifecycleOwner) { it.apply(progressBar) }
     }
 }

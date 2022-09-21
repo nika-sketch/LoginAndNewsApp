@@ -19,10 +19,14 @@ class NewsViewModel @Inject constructor(
     private val newsInteractor: InteractorNews,
     dispatcher: Dispatchers,
     private val sharedArticle: SharedArticle
-) : ViewModel() {
+) : AbstractCommunicationViewModel<NewsUi, Navigation>(
+    communicationNews,
+    channelCommunication,
+    dispatcher
+) {
 
     init {
-        dispatcher.launchBackground(viewModelScope) {
+        handle {
             newsInteractor.execute().collect {
                 communicationNews.map(it.handle())
             }
@@ -38,17 +42,4 @@ class NewsViewModel @Inject constructor(
         channelCommunication.map(Navigation.NewsUrl(url))
     }
 
-    fun collectNavigation(
-        viewLifecycleOwner: LifecycleOwner,
-        collector: FlowCollector<Navigation>
-    ) = launchMain {
-        channelCommunication.collect(viewLifecycleOwner, collector)
-    }
-
-    fun collectNews(
-        viewLifecycleOwner: LifecycleOwner,
-        collector: FlowCollector<NewsUi>
-    ) = launchMain {
-        communicationNews.collect(viewLifecycleOwner, collector)
-    }
 }

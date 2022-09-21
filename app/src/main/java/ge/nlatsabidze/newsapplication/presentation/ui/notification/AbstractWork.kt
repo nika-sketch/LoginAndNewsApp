@@ -17,12 +17,12 @@ abstract class AbstractWork(
         handleNotification.createNotification(applicationContext)
         return Result.success()
     }
+
+    @HiltWorker
+    class WorkService @AssistedInject constructor(
+        @Assisted context: Context,
+        @Assisted workerParameters: WorkerParameters,
+        handleNotification: HandleNotification
+    ) : AbstractWork(context, workerParameters, handleNotification)
+
 }
-
-@HiltWorker
-class WorkService @AssistedInject constructor(
-    @Assisted context: Context,
-    @Assisted workerParameters: WorkerParameters,
-    handleNotification: HandleNotification
-) : AbstractWork(context, workerParameters, handleNotification)
-

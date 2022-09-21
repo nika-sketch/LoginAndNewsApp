@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit
 import dagger.hilt.components.SingletonComponent
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.FirebaseEvent
 import ge.nlatsabidze.newsapplication.presentation.ui.notification.*
+import javax.inject.Named
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -22,7 +23,7 @@ object WorkManagerModule {
 
     @Provides
     fun provideWorkRequest(constraints: Constraints): PeriodicWorkRequest =
-        PeriodicWorkRequestBuilder<WorkService>(16, TimeUnit.MINUTES)
+        PeriodicWorkRequestBuilder<AbstractWork.WorkService>(16, TimeUnit.MINUTES)
             .setConstraints(constraints)
             .build()
 
@@ -63,13 +64,33 @@ object WorkManagerModule {
     fun provideNotificationCompatPriority(): Int = 2
 
     @Provides
-    fun provideNotificationSound(): ProvideRingtoneManager = ProvideRingtoneManager.TypeRingtone()
+    fun provideNotificationSound(): ProvideRingtoneManager =
+        ProvideRingtoneManager.TypeNotification()
+
+    @Provides
+    @Named("notificationVibration")
+    fun provideNotificationVibration(): ProvideNotificationImageAndVibration =
+        ProvideNotificationImageAndVibration.NotificationVibration()
+
+    @Provides
+    @Named("notificationImage")
+    fun provideNotificationImage(): ProvideNotificationImageAndVibration =
+        ProvideNotificationImageAndVibration.NotificationImage()
 
     @Provides
     fun provideNotificationBuilderCompat(
         notificationCompatPriority: Int,
-        provideRingToneManager: ProvideRingtoneManager
+        provideRingToneManager: ProvideRingtoneManager,
+        @Named("notificationVibration")
+        notificationVibration: ProvideNotificationImageAndVibration,
+        @Named("notificationImage")
+        notificationImage: ProvideNotificationImageAndVibration
     ): BuildNotification =
-        BuildNotification.Base(notificationCompatPriority, provideRingToneManager)
+        BuildNotification.Base(
+            notificationCompatPriority,
+            provideRingToneManager,
+            notificationVibration,
+            notificationImage
+        )
 
 }

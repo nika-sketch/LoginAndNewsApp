@@ -20,7 +20,7 @@ class RegisterFragment : BaseFragment<RegisterFragmentBinding>(RegisterFragmentB
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = with(binding) {
         super.onViewCreated(view, savedInstanceState)
         btnRegister.onTap { viewModel.register(text.text(etName), text.text(email), text.text(password)) }
-        viewModel.collectFirebaseAuth(viewLifecycleOwner) { it.apply(registerGlobal, findNavController(), this@RegisterFragment) }
-        viewModel.collectVisibility(viewLifecycleOwner) { it.apply(progressBar) }
+        viewModel.collectEvent(viewLifecycleOwner) { it.apply(registerGlobal, findNavController(), this@RegisterFragment) }
+        viewModel.collectState(viewLifecycleOwner) { it.apply(progressBar) }
     }
 }

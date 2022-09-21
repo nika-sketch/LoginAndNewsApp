@@ -8,7 +8,7 @@ import ge.nlatsabidze.newsapplication.core.Communication
 import ge.nlatsabidze.newsapplication.core.launchMain
 import ge.nlatsabidze.newsapplication.domain.interactor.SignInInteractor
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.FirebaseEvent
-import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.FirebaseBaseViewModel
+import ge.nlatsabidze.newsapplication.presentation.ui.news.AbstractCommunicationViewModel
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
@@ -17,7 +17,11 @@ class SignInViewModel @Inject constructor(
     private val loadingCommunication: Communication<Visibility>,
     private val signInInteractor: SignInInteractor,
     private val firebaseEvent: FirebaseEvent
-) : FirebaseBaseViewModel(signInCommunication, loadingCommunication, dispatcher) {
+) : AbstractCommunicationViewModel<Visibility, FirebaseEvent>(
+    loadingCommunication,
+    signInCommunication,
+    dispatcher
+) {
 
     init {
         launchMain { signInCommunication.map(firebaseEvent) }

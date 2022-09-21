@@ -1,9 +1,8 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.notification
 
 import javax.inject.Inject
+import javax.inject.Named
 import android.content.Context
-import android.app.Notification
-import ge.nlatsabidze.newsapplication.R
 import androidx.core.app.NotificationCompat
 
 interface BuildNotification {
@@ -13,6 +12,8 @@ interface BuildNotification {
     class Base @Inject constructor(
         private val notificationCompatPriority: Int,
         private val ringtoneManager: ProvideRingtoneManager,
+        @Named("notificationVibration") private val notificationVibration: ProvideNotificationImageAndVibration,
+        @Named("notificationImage") private val notificationImage: ProvideNotificationImageAndVibration
     ) : BuildNotification {
 
         companion object {
@@ -21,10 +22,10 @@ interface BuildNotification {
 
         override fun apply(context: Context): NotificationCompat.Builder =
             NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_github)
+                .setSmallIcon(notificationImage.provideVibrationAndIcon())
                 .setPriority(notificationCompatPriority)
                 .setAutoCancel(true)
                 .setSound(ringtoneManager.ringToneNotification())
-                .setDefaults(Notification.DEFAULT_VIBRATE)
+                .setDefaults(notificationVibration.provideVibrationAndIcon())
     }
 }
