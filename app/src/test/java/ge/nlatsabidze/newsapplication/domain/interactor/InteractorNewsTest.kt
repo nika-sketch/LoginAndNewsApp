@@ -21,17 +21,16 @@ class InteractorNewsTest : TestCase() {
     private val fakeCoroutineDispatcher = Dispatchers.IO
 
     @Test
-    fun testNewsInteractor() {
+    fun testNewsInteractor() = runBlocking {
 
         val fakeNewsServiceRepository: NewsServiceRepository = FakeServiceRepository()
-        val newsInteractor = InteractorNews.Base(fakeNewsServiceRepository, fakeCoroutineDispatcher)
+        val newsInteractor = NewsInteractor.Base(fakeNewsServiceRepository, fakeCoroutineDispatcher)
         val actual = newsInteractor.execute()
 
-        runBlocking {
-            testFlow().collect {
-                assertFalse(it == fakeNewsServiceRepository.fetchNews())
-            }
+        testFlow().collect {
+            assertFalse(it == fakeNewsServiceRepository.fetchNews())
         }
+
     }
 
     private fun testFlow(): Flow<NewsResult> = flow {

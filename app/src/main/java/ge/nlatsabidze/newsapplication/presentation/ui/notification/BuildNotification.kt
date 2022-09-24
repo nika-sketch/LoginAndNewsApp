@@ -9,11 +9,11 @@ interface BuildNotification {
 
     fun apply(context: Context): NotificationCompat.Builder
 
-    class Base @Inject constructor(
+    abstract class Abstract(
         private val notificationCompatPriority: Int,
         private val ringtoneManager: ProvideRingtoneManager,
-        @Named("notificationVibration") private val notificationVibration: ProvideNotificationImageAndVibration,
-        @Named("notificationImage") private val notificationImage: ProvideNotificationImageAndVibration
+        private val notificationVibration: ProvideNotificationImageAndVibration,
+        private val notificationImage: ProvideNotificationImageAndVibration
     ) : BuildNotification {
 
         companion object {
@@ -28,4 +28,16 @@ interface BuildNotification {
                 .setSound(ringtoneManager.ringToneNotification())
                 .setDefaults(notificationVibration.provideVibrationAndIcon())
     }
+
+    class Base @Inject constructor(
+        notificationCompatPriority: Int,
+        ringtoneManager: ProvideRingtoneManager,
+        @Named("notificationVibration") private val notificationVibration: ProvideNotificationImageAndVibration,
+        @Named("notificationImage") private val notificationImage: ProvideNotificationImageAndVibration
+    ) : Abstract(
+        notificationCompatPriority,
+        ringtoneManager,
+        notificationVibration,
+        notificationImage
+    )
 }

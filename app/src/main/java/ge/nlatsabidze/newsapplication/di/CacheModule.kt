@@ -19,7 +19,7 @@ import ge.nlatsabidze.newsapplication.data.remote.NewsService
 import ge.nlatsabidze.newsapplication.data.repository.NewsServiceRepositoryImpl
 import ge.nlatsabidze.newsapplication.domain.cache.ArticleDao
 import ge.nlatsabidze.newsapplication.domain.cache.ArticleRepository
-import ge.nlatsabidze.newsapplication.domain.interactor.InteractorNews
+import ge.nlatsabidze.newsapplication.domain.interactor.NewsInteractor
 import ge.nlatsabidze.newsapplication.domain.model.NewsDomain
 import ge.nlatsabidze.newsapplication.domain.repository.NewsServiceRepository
 import kotlinx.coroutines.CoroutineDispatcher
@@ -57,7 +57,7 @@ object CacheModule {
     fun provideInteractorNews(
         repository: NewsServiceRepository,
         backgroundCoroutine: CoroutineDispatcher
-    ): InteractorNews = InteractorNews.Base(repository, backgroundCoroutine)
+    ): NewsInteractor = NewsInteractor.Base(repository, backgroundCoroutine)
 
     @Provides
     fun provideHandleArticlesModule(articleRepository: ArticleRepository): HandleArticles =

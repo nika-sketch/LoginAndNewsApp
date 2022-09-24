@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.FlowCollector
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ge.nlatsabidze.newsapplication.core.*
 import ge.nlatsabidze.newsapplication.data.model.ArticleUi
-import ge.nlatsabidze.newsapplication.domain.interactor.InteractorNews
+import ge.nlatsabidze.newsapplication.domain.interactor.NewsInteractor
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
 import ge.nlatsabidze.newsapplication.presentation.ui.details.SharedArticle
 
@@ -16,7 +16,7 @@ import ge.nlatsabidze.newsapplication.presentation.ui.details.SharedArticle
 class NewsViewModel @Inject constructor(
     private val communicationNews: Communication<NewsUi>,
     private val channelCommunication: Communication<Navigation>,
-    private val newsInteractor: InteractorNews,
+    private val newsInteractor: NewsInteractor,
     dispatcher: Dispatchers,
     private val sharedArticle: SharedArticle
 ) : AbstractCommunicationViewModel<NewsUi, Navigation>(

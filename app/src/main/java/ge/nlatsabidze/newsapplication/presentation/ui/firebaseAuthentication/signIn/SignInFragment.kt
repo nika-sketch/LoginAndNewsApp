@@ -27,7 +27,7 @@ class SignInFragment : BaseFragment<SignInFragmentBinding>(SignInFragmentBinding
         }
         tvSignUp.onTap { viewModel.navigateToRegister() }
 
-        viewModel.collectEvent(viewLifecycleOwner) { it.apply(button, findNavController(), this@SignInFragment) }
+        viewModel.collectEvent(viewLifecycleOwner) { it.apply(button, this@SignInFragment) }
         viewModel.collectState(viewLifecycleOwner) { it.apply(progressBar) }
     }
 }

@@ -1,11 +1,9 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.core
 
-import android.net.Uri
 import android.content.Intent
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import androidx.navigation.NavDirections
-import ge.nlatsabidze.newsapplication.data.model.Article
+import androidx.navigation.fragment.findNavController
 import ge.nlatsabidze.newsapplication.data.model.ArticleUi
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsFragmentDirections
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.signIn.SignInFragmentDirections
@@ -13,13 +11,13 @@ import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.reg
 
 interface Navigation {
 
-    fun apply(navController: NavController, fragment: Fragment)
+    fun apply(fragment: Fragment)
 
     abstract class AbstractDirection(
         private val navDirections: NavDirections
     ) : Navigation {
-        override fun apply(navController: NavController, fragment: Fragment) {
-            navController.navigate(navDirections)
+        override fun apply(fragment: Fragment) {
+            fragment.findNavController().navigate(navDirections)
         }
     }
 
@@ -44,7 +42,7 @@ interface Navigation {
         private val intent: String = Intent.ACTION_VIEW
     ) : Navigation {
 
-        override fun apply(navController: NavController, fragment: Fragment) {
+        override fun apply(fragment: Fragment) {
             val intent = Intent(intent, article.parseUri())
             fragment.startActivity(intent)
         }

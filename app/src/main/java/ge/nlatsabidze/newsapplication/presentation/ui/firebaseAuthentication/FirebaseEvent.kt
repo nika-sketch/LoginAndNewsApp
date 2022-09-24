@@ -11,11 +11,11 @@ import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
 
 interface FirebaseEvent {
 
-    fun apply(view: View, navController: NavController, fragment: Fragment)
+    fun apply(view: View, fragment: Fragment)
 
     abstract class Abstract(private val navigation: Navigation) : FirebaseEvent {
-        override fun apply(view: View, navController: NavController, fragment: Fragment) {
-            navigation.apply(navController, fragment)
+        override fun apply(view: View, fragment: Fragment) {
+            navigation.apply(fragment)
         }
     }
 
@@ -25,7 +25,7 @@ interface FirebaseEvent {
         Abstract(Navigation.NavigateFromSignInToRegisterScreen())
 
     class Failure(private val message: String) : FirebaseEvent {
-        override fun apply(view: View, navController: NavController, fragment: Fragment) {
+        override fun apply(view: View, fragment: Fragment) {
             view.showSnack(message)
             view.isEnabledAndClickable(true)
         }
@@ -36,9 +36,9 @@ interface FirebaseEvent {
         private val existingPeriodicWorkPolicy: ExistingPeriodicWorkPolicy,
         private val workName: String
     ) : FirebaseEvent {
-        override fun apply(view: View, navController: NavController, fragment: Fragment) {
+        override fun apply(view: View, fragment: Fragment) {
             WorkManager.getInstance(view.context)
-                .enqueue(workRequest)
+                .enqueueUniquePeriodicWork(workName, existingPeriodicWorkPolicy, workRequest)
         }
     }
 }
