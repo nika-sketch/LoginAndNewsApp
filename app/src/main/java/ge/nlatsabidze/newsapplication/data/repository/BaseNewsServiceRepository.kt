@@ -4,7 +4,7 @@ import javax.inject.Inject
 import ge.nlatsabidze.newsapplication.data.cache.HandleService
 import ge.nlatsabidze.newsapplication.domain.repository.NewsServiceRepository
 
-class NewsServiceRepositoryImpl @Inject constructor(
+class BaseNewsServiceRepository @Inject constructor(
     private val handleService: HandleService
 ) : NewsServiceRepository {
 

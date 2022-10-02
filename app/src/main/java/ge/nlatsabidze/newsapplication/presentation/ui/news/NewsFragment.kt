@@ -16,21 +16,15 @@ class NewsFragment : BaseFragment<NewsFragmentBinding>(
     NewsFragmentBinding::inflate
 ), OnItemClick<ArticleUi> {
 
-    private val viewModel: NewsViewModel by viewModels()
-    private lateinit var newsAdapter: NewsItemAdapter
+    private val viewModel by viewModels<NewsViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = with(binding) {
-        newsAdapter = NewsItemAdapter(this@NewsFragment)
+        val newsAdapter = NewsItemAdapter(this@NewsFragment)
         val newsHolder = NewsUiHolder.Base(binding, newsAdapter)
         viewModel.collectState(viewLifecycleOwner) { it.apply(newsHolder) }
         viewModel.collectEvent(viewLifecycleOwner) { it.apply(this@NewsFragment) }
     }
 
-    override fun onItemClick(item: ArticleUi) {
-        viewModel.saveArticleAndNavigateToDetails(item)
-    }
-
-    override fun onLongItemClick(url: ArticleUi) {
-        viewModel.openNews(url)
-    }
+    override fun onItemClick(item: ArticleUi) { viewModel.saveArticleAndNavigateToDetails(item) }
+    override fun onLongItemClick(url: ArticleUi) { viewModel.openNews(url) }
 }

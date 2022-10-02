@@ -11,6 +11,15 @@ abstract class BaseRecyclerViewAdapter<T : Any> :
 
     abstract class BaseViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
         abstract fun bind(item: T)
+
+        protected fun onLongClick(block: () -> Unit) = itemView.setOnLongClickListener {
+            block.invoke()
+            true
+        }
+
+        protected fun onClick(block: () -> Unit) = itemView.setOnClickListener {
+            block.invoke()
+        }
     }
 }
 

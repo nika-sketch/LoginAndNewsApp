@@ -6,7 +6,7 @@ import ge.nlatsabidze.newsapplication.domain.firebaseAuthService.SignInRepositor
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.UserAuthResult
 import javax.inject.Named
 
-class SignInRepositoryImpl @Inject constructor(
+class BaseSignInRepository @Inject constructor(
     @Named("logIn") private val firebaseAuthentication: FirebaseAuthentication
 ) : SignInRepository {
 

@@ -6,7 +6,7 @@ import javax.inject.Named
 import ge.nlatsabidze.newsapplication.domain.firebaseAuthService.RegisterRepository
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.UserAuthResult
 
-class RegisterRepositoryImpl @Inject constructor(
+class BaseRegisterRepository @Inject constructor(
     @Named("register") private val firebaseAuthentication: FirebaseAuthentication
 ) : RegisterRepository {
 

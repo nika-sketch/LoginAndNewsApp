@@ -9,10 +9,8 @@ import androidx.annotation.RequiresApi
 import android.net.ConnectivityManager
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.distinctUntilChanged
 
-@OptIn(ExperimentalCoroutinesApi::class)
 @RequiresApi(Build.VERSION_CODES.N)
 interface ObserveConnectivity {
 

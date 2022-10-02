@@ -14,9 +14,7 @@ class DetailsFragment : BaseFragment<DetailsFragmentBinding>(DetailsFragmentBind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.collectDetailArticle(viewLifecycleOwner) {
-            it.apply(binding)
-        }
+        val details = viewModel.read()
+        details.bindDetails(binding)
     }
-
 }

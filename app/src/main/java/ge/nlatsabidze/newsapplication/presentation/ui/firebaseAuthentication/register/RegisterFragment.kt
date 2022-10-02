@@ -3,9 +3,7 @@ package ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.re
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import ge.nlatsabidze.newsapplication.core.onTap
 import ge.nlatsabidze.newsapplication.databinding.RegisterFragmentBinding
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseFragment
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Text
@@ -19,7 +17,7 @@ class RegisterFragment : BaseFragment<RegisterFragmentBinding>(RegisterFragmentB
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = with(binding) {
         super.onViewCreated(view, savedInstanceState)
-        btnRegister.onTap { viewModel.register(text.text(etName), text.text(email), text.text(password)) }
+        btnRegister.setOnClickListener { viewModel.register(text.text(etName), text.text(email), text.text(password)) }
         viewModel.collectEvent(viewLifecycleOwner) { it.apply(registerGlobal,this@RegisterFragment) }
         viewModel.collectState(viewLifecycleOwner) { it.apply(progressBar) }
     }

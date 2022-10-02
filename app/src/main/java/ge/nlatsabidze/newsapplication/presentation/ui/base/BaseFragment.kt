@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.flowWithLifecycle
+import ge.nlatsabidze.newsapplication.R
 import kotlinx.coroutines.flow.collectLatest
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
@@ -38,11 +39,11 @@ abstract class BaseFragment<VB : ViewBinding>(private val inflate: Inflate<VB>) 
             ).collectLatest(onCollect)
         }
 
-    protected fun showAlert() {
+    protected fun showAlert(title: String, message: String) {
         AlertDialog.Builder(requireContext())
-            .setTitle("title")
-            .setMessage("something went wrong")
-            .setPositiveButton("ok") { dialog, _ -> dialog.dismiss() }
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton(resources.getString(R.string.ok)) { dialog, _ -> dialog.dismiss() }
             .show()
     }
 

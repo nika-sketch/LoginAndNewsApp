@@ -16,7 +16,7 @@ import ge.nlatsabidze.newsapplication.data.cache.HandleArticles
 import ge.nlatsabidze.newsapplication.data.cache.HandleService
 import ge.nlatsabidze.newsapplication.data.model.NewsResponse
 import ge.nlatsabidze.newsapplication.data.remote.NewsService
-import ge.nlatsabidze.newsapplication.data.repository.NewsServiceRepositoryImpl
+import ge.nlatsabidze.newsapplication.data.repository.BaseNewsServiceRepository
 import ge.nlatsabidze.newsapplication.domain.cache.ArticleDao
 import ge.nlatsabidze.newsapplication.domain.cache.ArticleRepository
 import ge.nlatsabidze.newsapplication.domain.interactor.NewsInteractor
@@ -51,7 +51,7 @@ object CacheModule {
     @Provides
     fun provideRepo(
         handleService: HandleService
-    ): NewsServiceRepository = NewsServiceRepositoryImpl(handleService)
+    ): NewsServiceRepository = BaseNewsServiceRepository(handleService)
 
     @Provides
     fun provideInteractorNews(

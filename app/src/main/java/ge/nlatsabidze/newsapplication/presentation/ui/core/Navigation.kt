@@ -21,6 +21,12 @@ interface Navigation {
         }
     }
 
+    class PopBackStack : Navigation {
+        override fun apply(fragment: Fragment) {
+            fragment.findNavController().popBackStack()
+        }
+    }
+
     class NavigateToDetails(
         navDirections: NavDirections = NewsFragmentDirections.actionNewsFragmentToDetailsFragment()
     ) : AbstractDirection(navDirections)

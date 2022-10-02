@@ -7,7 +7,7 @@ import ge.nlatsabidze.newsapplication.domain.interactor.RegisterInteractor
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.UserAuthResult
 import javax.inject.Inject
 
-class RegisterInteractorImpl @Inject constructor(
+class BaseRegisterInteractor @Inject constructor(
     private val registerRepository: RegisterRepository,
     private val provideResources: ProvideResources
 ) : RegisterInteractor {

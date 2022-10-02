@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import ge.nlatsabidze.newsapplication.presentation.ui.news.NewsUi
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
-import ge.nlatsabidze.newsapplication.presentation.ui.details.ArticleDetailsUi
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.FirebaseEvent
 
 interface Communication<T> {
@@ -42,8 +41,6 @@ interface Communication<T> {
 
     class BaseNews(uiBinding: NewsUi) : StateAbstract<NewsUi>(uiBinding)
     class BaseLoading(visibility: Visibility) : StateAbstract<Visibility>(visibility)
-    class BaseDetails(detailsArticleState: ArticleDetailsUi) :
-        StateAbstract<ArticleDetailsUi>(detailsArticleState)
 
     abstract class ChannelAbstract<T> : Communication<T> {
 

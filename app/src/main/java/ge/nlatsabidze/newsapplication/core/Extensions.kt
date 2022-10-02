@@ -13,12 +13,6 @@ fun View.visible() {
     visibility = View.VISIBLE
 }
 
-fun View.onTap(block: () -> Unit) {
-    this.setOnClickListener {
-        block.invoke()
-    }
-}
-
 fun View.isEnabledAndClickable(boolean: Boolean) {
     this.isClickable = boolean
     this.isEnabled = boolean
@@ -31,13 +25,6 @@ fun ImageView.handleImageError() {
             R.drawable.ic_github
         )
     )
-}
-
-fun View.onLongTap(block: () -> Unit) {
-    this.setOnLongClickListener {
-        block.invoke()
-        true
-    }
 }
 
 fun View.showSnack(message: String, length: Int = Snackbar.LENGTH_SHORT) {

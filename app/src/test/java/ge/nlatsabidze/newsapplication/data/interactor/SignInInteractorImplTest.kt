@@ -15,7 +15,7 @@ class SignInInteractorImplTest : TestCase() {
         val fakeProvideResources = FakeProvideResources()
 
         val signInInteractor: SignInInteractor =
-            SignInInteractorImpl(fakeSignInRepository, fakeProvideResources)
+            BaseSignInInteractor(fakeSignInRepository, fakeProvideResources)
 
         val actual = signInInteractor.signIn("nika@gmail.com", "123123")
         assertEquals(UserAuthResult.SuccessLoginAuth(), actual)

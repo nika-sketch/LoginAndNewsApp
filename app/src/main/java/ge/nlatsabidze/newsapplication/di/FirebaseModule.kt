@@ -9,17 +9,16 @@ import ge.nlatsabidze.newsapplication.core.Communication
 import ge.nlatsabidze.newsapplication.core.ProvideResources
 import ge.nlatsabidze.newsapplication.core.Visibility
 import ge.nlatsabidze.newsapplication.data.firebaseAuthService.*
-import ge.nlatsabidze.newsapplication.data.interactor.RegisterInteractorImpl
-import ge.nlatsabidze.newsapplication.data.interactor.SignInInteractorImpl
-import ge.nlatsabidze.newsapplication.data.repository.RegisterRepositoryImpl
-import ge.nlatsabidze.newsapplication.data.repository.SignInRepositoryImpl
+import ge.nlatsabidze.newsapplication.data.interactor.BaseRegisterInteractor
+import ge.nlatsabidze.newsapplication.data.interactor.BaseSignInInteractor
+import ge.nlatsabidze.newsapplication.data.repository.BaseRegisterRepository
+import ge.nlatsabidze.newsapplication.data.repository.BaseSignInRepository
 import ge.nlatsabidze.newsapplication.domain.firebaseAuthService.RegisterRepository
 import ge.nlatsabidze.newsapplication.domain.interactor.SignInInteractor
 import ge.nlatsabidze.newsapplication.domain.firebaseAuthService.SignInRepository
 import ge.nlatsabidze.newsapplication.domain.interactor.RegisterInteractor
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Text
-import ge.nlatsabidze.newsapplication.presentation.ui.details.ArticleDetailsUi
-import ge.nlatsabidze.newsapplication.presentation.ui.details.SharedArticle
+import ge.nlatsabidze.newsapplication.presentation.ui.details.*
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.FirebaseEvent
 import javax.inject.Named
 import javax.inject.Singleton
@@ -35,24 +34,24 @@ object FirebaseModule {
     fun provideSingInRepository(
         @Named("logIn") registerAuthentication: FirebaseAuthentication
     ): SignInRepository =
-        SignInRepositoryImpl(registerAuthentication)
+        BaseSignInRepository(registerAuthentication)
 
     @Provides
     fun provideRegisterRepository(
         @Named("register") registerAuthentication: FirebaseAuthentication
-    ): RegisterRepository = RegisterRepositoryImpl(registerAuthentication)
+    ): RegisterRepository = BaseRegisterRepository(registerAuthentication)
 
     @Provides
     fun provideSignInInteractor(
         signInRepository: SignInRepository,
         provideResources: ProvideResources
-    ): SignInInteractor = SignInInteractorImpl(signInRepository, provideResources)
+    ): SignInInteractor = BaseSignInInteractor(signInRepository, provideResources)
 
     @Provides
     fun provideRegisterInteractor(
         registerRepository: RegisterRepository,
         provideResources: ProvideResources
-    ): RegisterInteractor = RegisterInteractorImpl(registerRepository, provideResources)
+    ): RegisterInteractor = BaseRegisterInteractor(registerRepository, provideResources)
 
     @Provides
     fun provideSignInChannel(): Communication<FirebaseEvent> = Communication.FirebaseAuthEvent()
@@ -62,13 +61,8 @@ object FirebaseModule {
         Communication.BaseLoading(Visibility.Gone())
 
     @Provides
-    fun provideDetailsCommunication(): Communication<ArticleDetailsUi> =
-        Communication.BaseDetails(ArticleDetailsUi.Empty)
-
-    @Provides
     @Singleton
-    fun provideDetailsRepository(communication: Communication<ArticleDetailsUi>): SharedArticle =
-        SharedArticle.Base(communication)
+    fun provideDetails(): ArticleDetails.Mutable = ArticleDetails.Base()
 
     @Provides
     fun provideText(): Text = Text.Base()

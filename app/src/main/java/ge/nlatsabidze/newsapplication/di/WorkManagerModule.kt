@@ -1,5 +1,6 @@
 package ge.nlatsabidze.newsapplication.di
 
+import android.app.NotificationManager
 import dagger.Module
 import androidx.work.*
 import dagger.Provides
@@ -61,7 +62,7 @@ object WorkManagerModule {
     ): RandomWordsDescription = RandomWordsDescription.Base(GenerateRandomNumber, shuffleList)
 
     @Provides
-    fun provideNotificationCompatPriority(): Int = 2
+    fun provideNotificationCompatPriority(): Int = NotificationManager.IMPORTANCE_HIGH
 
     @Provides
     fun provideNotificationSound(): ProvideRingtoneManager =

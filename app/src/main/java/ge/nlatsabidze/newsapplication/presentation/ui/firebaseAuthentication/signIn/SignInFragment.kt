@@ -5,8 +5,6 @@ import android.view.View
 import javax.inject.Inject
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import ge.nlatsabidze.newsapplication.core.onTap
-import androidx.navigation.fragment.findNavController
 import ge.nlatsabidze.newsapplication.core.isEnabledAndClickable
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Text
 import ge.nlatsabidze.newsapplication.presentation.ui.base.BaseFragment
@@ -21,11 +19,11 @@ class SignInFragment : BaseFragment<SignInFragmentBinding>(SignInFragmentBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?): Unit = with(binding) {
         super.onViewCreated(view, savedInstanceState)
 
-        button.onTap {
+        button.setOnClickListener {
             button.isEnabledAndClickable(false)
             viewModel.signIn(text.text(email), text.text(password))
         }
-        tvSignUp.onTap { viewModel.navigateToRegister() }
+        tvSignUp.setOnClickListener { viewModel.navigateToRegister() }
 
         viewModel.collectEvent(viewLifecycleOwner) { it.apply(button, this@SignInFragment) }
         viewModel.collectState(viewLifecycleOwner) { it.apply(progressBar) }

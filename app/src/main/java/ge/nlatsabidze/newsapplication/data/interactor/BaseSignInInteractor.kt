@@ -6,7 +6,7 @@ import ge.nlatsabidze.newsapplication.domain.interactor.SignInInteractor
 import ge.nlatsabidze.newsapplication.domain.firebaseAuthService.SignInRepository
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.UserAuthResult
 
-class SignInInteractorImpl(
+class BaseSignInInteractor(
     private val repository: SignInRepository,
     private val provideResources: ProvideResources
 ) : SignInInteractor {
