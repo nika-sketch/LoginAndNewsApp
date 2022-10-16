@@ -1,14 +1,18 @@
 package ge.nlatsabidze.newsapplication.di
 
 import android.app.NotificationManager
+import android.content.Context
 import dagger.Module
 import androidx.work.*
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Singleton
 import java.util.concurrent.TimeUnit
 import dagger.hilt.components.SingletonComponent
 import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.FirebaseEvent
+import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.StartPeriodicWorkRequest
+import ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication.WorkManagerWrapperContext
 import ge.nlatsabidze.newsapplication.presentation.ui.notification.*
 import javax.inject.Named
 
@@ -36,11 +40,22 @@ object WorkManagerModule {
     fun provideWorkName(): String = "Work"
 
     @Provides
-    fun provideNotificationEvent(
+    fun provideWorkManagerWrapper(@ApplicationContext context: Context): WorkManagerWrapperContext =
+        WorkManagerWrapperContext.Base(context)
+
+    @Provides
+    fun provideWorker(
+        workManagerWrapperContext: WorkManagerWrapperContext,
         workRequest: PeriodicWorkRequest,
         workPolicy: ExistingPeriodicWorkPolicy,
         workName: String
-    ): FirebaseEvent = FirebaseEvent.Notification(workRequest, workPolicy, workName)
+    ): StartPeriodicWorkRequest =
+        StartPeriodicWorkRequest.Base(workManagerWrapperContext, workRequest, workPolicy, workName)
+
+    @Provides
+    fun provideNotificationEvent(
+        provideWorker: StartPeriodicWorkRequest
+    ): FirebaseEvent = FirebaseEvent.Notification(provideWorker)
 
     @Provides
     @Singleton

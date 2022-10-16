@@ -14,13 +14,13 @@ sealed class Result<T> {
         }
     }
 
-    data class Success<T>(val data: T) : Result<T>() {
+    data class Success<T>(private val data: T) : Result<T>() {
         override fun <R> map(mapper: ResultMapper<R, T>): R {
             return mapper.mapSuccess(data)
         }
     }
 
-    data class Error<T>(val message: String) : Result<T>() {
+    data class Error<T>(private val message: String) : Result<T>() {
         override fun <R> map(mapper: ResultMapper<R, T>): R {
             return mapper.mapError(message)
         }
@@ -38,7 +38,6 @@ interface ResultMapper<T, D> {
         ResultMapper<NewsUi, NewsDomain> {
         override fun mapProgress(): NewsUi = NewsUi.Loading()
         override fun mapError(message: String): NewsUi = NewsUi.Error(message)
-        override fun mapSuccess(data: NewsDomain): NewsUi =
-            NewsUi.Success(mapper.map(data.articles))
+        override fun mapSuccess(data: NewsDomain): NewsUi = NewsUi.Loading()
     }
 }

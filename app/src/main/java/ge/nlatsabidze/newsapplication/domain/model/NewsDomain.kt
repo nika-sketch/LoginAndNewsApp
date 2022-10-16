@@ -1,11 +1,11 @@
 package ge.nlatsabidze.newsapplication.domain.model
 
-import android.os.Parcelable
-import androidx.room.Embedded
 import ge.nlatsabidze.newsapplication.data.model.Article
-import kotlinx.parcelize.Parcelize
+import ge.nlatsabidze.newsapplication.data.repository.NewsResult
+import ge.nlatsabidze.newsapplication.domain.cache.ArticleRepository
 
-@Parcelize
-data class NewsDomain(
-    @Embedded val articles: MutableList<Article>,
-) : Parcelable
+data class NewsDomain(private val articles: MutableList<Article>) {
+
+    suspend fun insertArticle(articleRepository: ArticleRepository) = articleRepository.insertArticle(articles)
+    fun successResult(): NewsResult = NewsResult.SuccessResult(articles)
+}

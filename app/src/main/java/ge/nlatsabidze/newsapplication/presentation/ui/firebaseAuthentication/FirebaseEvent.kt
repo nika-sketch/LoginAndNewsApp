@@ -1,10 +1,8 @@
 package ge.nlatsabidze.newsapplication.presentation.ui.firebaseAuthentication
 
-import androidx.work.*
 import android.view.View
 import javax.inject.Inject
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
 import ge.nlatsabidze.newsapplication.core.isEnabledAndClickable
 import ge.nlatsabidze.newsapplication.core.showSnack
 import ge.nlatsabidze.newsapplication.presentation.ui.core.Navigation
@@ -32,13 +30,8 @@ interface FirebaseEvent {
     }
 
     class Notification @Inject constructor(
-        private val workRequest: PeriodicWorkRequest,
-        private val existingPeriodicWorkPolicy: ExistingPeriodicWorkPolicy,
-        private val workName: String
+        private val provideWorker: StartPeriodicWorkRequest
     ) : FirebaseEvent {
-        override fun apply(view: View, fragment: Fragment) {
-            WorkManager.getInstance(view.context)
-                .enqueueUniquePeriodicWork(workName, existingPeriodicWorkPolicy, workRequest)
-        }
+        override fun apply(view: View, fragment: Fragment) = provideWorker.startWork()
     }
 }

@@ -11,6 +11,7 @@ import ge.nlatsabidze.newsapplication.core.Visibility
 import ge.nlatsabidze.newsapplication.data.firebaseAuthService.*
 import ge.nlatsabidze.newsapplication.data.interactor.BaseRegisterInteractor
 import ge.nlatsabidze.newsapplication.data.interactor.BaseSignInInteractor
+import ge.nlatsabidze.newsapplication.data.model.ArticleUi
 import ge.nlatsabidze.newsapplication.data.repository.BaseRegisterRepository
 import ge.nlatsabidze.newsapplication.data.repository.BaseSignInRepository
 import ge.nlatsabidze.newsapplication.domain.firebaseAuthService.RegisterRepository
@@ -62,7 +63,7 @@ object FirebaseModule {
 
     @Provides
     @Singleton
-    fun provideDetails(): ArticleDetails.Mutable = ArticleDetails.Base()
+    fun provideDetails(): ArticleDetails.Mutable<ArticleUi> = ArticleDetails.Base()
 
     @Provides
     fun provideText(): Text = Text.Base()

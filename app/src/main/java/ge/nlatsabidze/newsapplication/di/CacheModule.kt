@@ -9,20 +9,15 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ge.nlatsabidze.newsapplication.core.Error
 import ge.nlatsabidze.newsapplication.core.HandleException
-import ge.nlatsabidze.newsapplication.core.Mapper
-import ge.nlatsabidze.newsapplication.data.cache.ArticleDataBase
-import ge.nlatsabidze.newsapplication.data.cache.ArticleRepositoryImpl
-import ge.nlatsabidze.newsapplication.data.cache.HandleArticles
-import ge.nlatsabidze.newsapplication.data.cache.HandleService
-import ge.nlatsabidze.newsapplication.data.model.NewsResponse
+import ge.nlatsabidze.newsapplication.data.cache.*
 import ge.nlatsabidze.newsapplication.data.remote.NewsService
 import ge.nlatsabidze.newsapplication.data.repository.BaseNewsServiceRepository
 import ge.nlatsabidze.newsapplication.domain.cache.ArticleDao
 import ge.nlatsabidze.newsapplication.domain.cache.ArticleRepository
 import ge.nlatsabidze.newsapplication.domain.interactor.NewsInteractor
-import ge.nlatsabidze.newsapplication.domain.model.NewsDomain
 import ge.nlatsabidze.newsapplication.domain.repository.NewsServiceRepository
 import kotlinx.coroutines.CoroutineDispatcher
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -42,7 +37,6 @@ object CacheModule {
     @Singleton
     @Provides
     fun provideUserDao(db: ArticleDataBase): ArticleDao = db.articleDao()
-
 
     @Provides
     @Singleton
@@ -65,19 +59,23 @@ object CacheModule {
 
     @Provides
     fun provideService(
-        newsService: NewsService,
-        mapper: Mapper<NewsResponse, NewsDomain>,
         error: Error,
         handleException: HandleException,
-        ArticleRepository: ArticleRepository,
-        handleArticles: HandleArticles
+        handleArticles: HandleArticles,
+        @Named("success") handleSuccess: HandleService
     ): HandleService =
         HandleService.Base(
-            newsService,
-            mapper,
             error,
-            ArticleRepository,
             handleException,
-            handleArticles
+            handleArticles,
+            handleSuccess
         )
+
+    @Provides
+    @Named("success")
+    fun provideSuccessResult(
+        newsService: NewsService,
+        articleRepository: ArticleRepository,
+    ): HandleService = SuccessResult(newsService, articleRepository)
+
 }

@@ -4,17 +4,17 @@ import ge.nlatsabidze.newsapplication.data.model.ArticleUi
 
 interface ArticleDetails {
 
-    interface Save {
-        fun save(data: ArticleUi)
+    interface Save<T> {
+        fun save(data: T)
     }
 
-    interface Read {
-        fun read(): ArticleUi
+    interface Read<T> {
+        fun read(): T
     }
 
-    interface Mutable: Read, Save
+    interface Mutable<T>: Read<T>, Save<T>
 
-    class Base : Mutable {
+    class Base : Mutable<ArticleUi> {
 
         private lateinit var articleUi: ArticleUi
 

@@ -8,16 +8,10 @@ import android.content.Context
 import ge.nlatsabidze.newsapplication.core.*
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import ge.nlatsabidze.newsapplication.domain.model.NewsDomain
-import ge.nlatsabidze.newsapplication.data.model.NewsResponse
-import ge.nlatsabidze.newsapplication.data.repository.NewsResponseMapper
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-
-    @Provides
-    fun provideRepoMapper(): Mapper<NewsResponse, NewsDomain> = NewsResponseMapper()
 
     @Provides
     fun provideResponseHandler(

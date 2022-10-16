@@ -14,7 +14,7 @@ class NewsViewModel @Inject constructor(
     private val channelCommunication: Communication<Navigation>,
     private val newsInteractor: NewsInteractor,
     dispatcher: Dispatchers,
-    private val sharedDetails: ArticleDetails.Mutable
+    private val sharedDetails: ArticleDetails.Mutable<ArticleUi>
 ) : AbstractCommunicationViewModel<NewsUi, Navigation>(
     communicationNews,
     channelCommunication,
