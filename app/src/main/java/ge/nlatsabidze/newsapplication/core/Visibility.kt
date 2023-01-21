@@ -11,6 +11,5 @@ interface Visibility {
     }
 
     class Visible : Abstract(View.VISIBLE)
-    class Invisible : Abstract(View.INVISIBLE)
     class Gone : Abstract(View.GONE)
 }
